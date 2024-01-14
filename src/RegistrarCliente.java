@@ -484,20 +484,20 @@ public class RegistrarCliente extends javax.swing.JFrame {
         }
 
         // String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
-        Cliente micliente = new Cliente(null, null, txtcedulaClie.getText().trim(), null, null, null, null, null,null);
-
-        ObjectSet res = base.get(micliente);
-        Cliente micliente1 = (Cliente) res.next();
-        micliente1.setNombre(txtnombreCli.getText().trim());
-        micliente1.setApellido(txtapellidoCli.getText().trim());
-        micliente1.setEmail(txtemailCli.getText().trim());
-        micliente1.setTelefono(txttelefonoCli.getText().trim());
-        micliente1.setGenero(sexo.trim());
-        micliente1.setDiscapacidad(discapacidad1.trim());
-        micliente1.setFecha_nac(Datefechaclie.getDate());
-        micliente1.setContraseña(txtcontraseña.getText().trim());
-
-        base.set(micliente1);
+//      //  Cliente micliente = new Cliente(null, null, txtcedulaClie.getText().trim(), null, null, null, null, null,null);
+//
+//        ObjectSet res = base.get(micliente);
+//        Cliente micliente1 = (Cliente) res.next();
+//        micliente1.setNombre(txtnombreCli.getText().trim());
+//        micliente1.setApellido(txtapellidoCli.getText().trim());
+//        micliente1.setEmail(txtemailCli.getText().trim());
+//        micliente1.setTelefono(txttelefonoCli.getText().trim());
+//        micliente1.setGenero(sexo.trim());
+//        micliente1.setDiscapacidad(discapacidad1.trim());
+//        micliente1.setFecha_nac(Datefechaclie.getDate());
+//        micliente1.setContraseña(txtcontraseña.getText().trim());
+//
+//        base.set(micliente1);
 
         JOptionPane.showMessageDialog(this, "Modificacion exitosa");
 

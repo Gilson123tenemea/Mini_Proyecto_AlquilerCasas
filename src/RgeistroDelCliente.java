@@ -49,57 +49,45 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
     }
 
     public void CrearCliente(ObjectContainer base) {
-
         try {
-
             if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-
                 return;
             }
 
-            if (rbmasculinoCli.isSelected()) {
-
-                sexo = "Masculino";
-
-            } else if (rbfemeninoCli.isSelected()) {
-                sexo = "Femenino";
-            }
-
-            if (rbtSi.isSelected()) {
-
-                discapacidad1 = "Si";
-
-            } else if (rbtNo.isSelected()) {
-                discapacidad1 = "No";
-            }
-
-            Date Seleccion = Datefechaclie.getDate();
-
-            //String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
-            ObjectSet<Cliente> resul = base.queryByExample(new Cliente(null, null,txtcedulaClie.getText(), null, null, null, null, null, null));
-
+            // Verificar si ya existe un Cliente con la misma cédula
+            ObjectSet<Cliente> resul = base.queryByExample(new Cliente(null, null, null, txtcedulaClie.getText(), null, null, null, null, null, null));
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un Cliente con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
-
                 return;
-
             }
 
-            Cliente cliente1 = new Cliente(discapacidad1, txtcontraseña.getText(), txtcedulaClie.getText(), txtnombreCli.getText(), txtapellidoCli.getText(), txtemailCli.getText(), txttelefonoCli.getText(), sexo, Seleccion);
+            // Obtener el último código
+            resul = base.queryByExample(new Cliente(null, null, null, null, null, null, null, null, null, null));
+            int ultimoCodigo = resul.size() + 1;
 
+            // Formatear el código con ceros a la izquierda
+            String cod = String.format("%03d", ultimoCodigo);
+            lblcod.setText(cod);
+
+            // Obtener la información de género y discapacidad
+            String sexo = rbmasculinoCli.isSelected() ? "Masculino" : "Femenino";
+            String discapacidad1 = rbtSi.isSelected() ? "Si" : "No";
+
+            Date seleccion = Datefechaclie.getDate();
+
+            // Crear un nuevo Cliente y almacenarlo en la base de datos
+            Cliente cliente1 = new Cliente(cod, discapacidad1, txtcontraseña.getText(), txtcedulaClie.getText(), txtnombreCli.getText(), txtapellidoCli.getText(), txtemailCli.getText(), txttelefonoCli.getText(), sexo, seleccion);
             base.store(cliente1);
 
             JOptionPane.showMessageDialog(null, "Cuenta Creada");
 
         } finally {
-
             base.close();
         }
 
         txtcedulaClie.setText(" ".trim());
         txtnombreCli.setText(" ".trim());
-        txtcodigoCli.setText(" ".trim());
         txtapellidoCli.setText(" ".trim());
         txtemailCli.setText(" ".trim());
         txttelefonoCli.setText(" ".trim());
@@ -215,12 +203,12 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         jLabel11 = new javax.swing.JLabel();
         Datefechaclie = new com.toedter.calendar.JDateChooser();
-        txtcodigoCli = new javax.swing.JTextField();
         jLabel13 = new javax.swing.JLabel();
         btnGuardar = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jLabel14 = new javax.swing.JLabel();
         txtcontraseña = new javax.swing.JPasswordField();
+        lblcod = new javax.swing.JLabel();
 
         jLabel12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
 
@@ -380,7 +368,6 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
         jLabel11.setText("Fecha de Nacimiento:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, -1, -1));
         jPanel1.add(Datefechaclie, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 260, 150, -1));
-        jPanel1.add(txtcodigoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 220, 180, -1));
 
         jLabel13.setBackground(new java.awt.Color(0, 0, 0));
         jLabel13.setFont(new java.awt.Font("Engravers MT", 1, 18)); // NOI18N
@@ -426,6 +413,7 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 300, 150, -1));
+        jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 210, 50, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -457,7 +445,6 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
 //            JOptionPane.showMessageDialog(null, "Por favor primero cree una cuenta , siga los pasos correspondientes.", "Mensaje", JOptionPane.INFORMATION_MESSAGE);
 //            return; // No ejecutar más código si no hay cédula
 //        }
-
         ObjectContainer baseD = Db4o.openFile(INICIO.direccion);
         CrearCliente(baseD);
         baseD.close();
@@ -606,13 +593,13 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
+    private javax.swing.JLabel lblcod;
     private javax.swing.JRadioButton rbfemeninoCli;
     private javax.swing.JRadioButton rbmasculinoCli;
     private javax.swing.JRadioButton rbtNo;
     private javax.swing.JRadioButton rbtSi;
     private javax.swing.JTextField txtapellidoCli;
     private javax.swing.JTextField txtcedulaClie;
-    private javax.swing.JTextField txtcodigoCli;
     private javax.swing.JPasswordField txtcontraseña;
     private javax.swing.JTextField txtemailCli;
     private javax.swing.JTextField txtnombreCli;

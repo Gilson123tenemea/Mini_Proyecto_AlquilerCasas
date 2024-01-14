@@ -66,8 +66,6 @@ public class Clientes extends javax.swing.JPanel {
         jLabel9 = new javax.swing.JLabel();
         rbtSi = new javax.swing.JRadioButton();
         rbtNo = new javax.swing.JRadioButton();
-        jLabel10 = new javax.swing.JLabel();
-        txtcodigoCli = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         rbmasculinoCli = new javax.swing.JRadioButton();
         rbfemeninoCli = new javax.swing.JRadioButton();
@@ -109,11 +107,11 @@ public class Clientes extends javax.swing.JPanel {
 
         genero.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         genero.setText("Genero:");
-        jPanel1.add(genero, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 280, -1, -1));
+        jPanel1.add(genero, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("Discapacidad");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 340, -1, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
 
         rbtSi.setText("Si");
         rbtSi.addActionListener(new java.awt.event.ActionListener() {
@@ -121,7 +119,7 @@ public class Clientes extends javax.swing.JPanel {
                 rbtSiActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 340, -1, -1));
+        jPanel1.add(rbtSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
 
         rbtNo.setText("No");
         rbtNo.addActionListener(new java.awt.event.ActionListener() {
@@ -129,12 +127,7 @@ public class Clientes extends javax.swing.JPanel {
                 rbtNoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, -1, -1));
-
-        jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
-        jLabel10.setText("Codigo _ Cliente:");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 180, 130, 20));
-        jPanel1.add(txtcodigoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 180, 150, -1));
+        jPanel1.add(rbtNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Telefono:");
@@ -146,7 +139,7 @@ public class Clientes extends javax.swing.JPanel {
                 rbmasculinoCliActionPerformed(evt);
             }
         });
-        jPanel1.add(rbmasculinoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, -1, -1));
+        jPanel1.add(rbmasculinoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 250, -1, -1));
 
         rbfemeninoCli.setText("Femenino");
         rbfemeninoCli.addActionListener(new java.awt.event.ActionListener() {
@@ -154,35 +147,37 @@ public class Clientes extends javax.swing.JPanel {
                 rbfemeninoCliActionPerformed(evt);
             }
         });
-        jPanel1.add(rbfemeninoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 280, -1, -1));
+        jPanel1.add(rbfemeninoCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 250, -1, -1));
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Contraseña:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 90, 20));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 90, 20));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setText("Fecha de Nacimiento:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 220, -1, -1));
-        jPanel1.add(Datefechaclie, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 220, 150, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, -1, -1));
+        jPanel1.add(Datefechaclie, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 160, -1));
 
         txtcontraseña.setText("jPasswordField1");
-        jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 260, 160, -1));
+        jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 160, -1));
 
+        btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar (2).png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 390, -1, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
 
+        btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
         btnModificar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 390, -1, -1));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, -1, 30));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Apellido:");
@@ -200,6 +195,7 @@ public class Clientes extends javax.swing.JPanel {
         jLabel12.setText("REGISTRAR CLIENTE");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 20, -1, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         jButton1.setText("ELIMINAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -216,13 +212,13 @@ public class Clientes extends javax.swing.JPanel {
         });
         jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
-        jButton3.setText("Cargar Info");
+        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 90, -1, -1));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 80, -1, -1));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -239,7 +235,7 @@ public class Clientes extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 810, 210));
         jPanel1.add(lblDiscapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 90, 10));
-        jPanel1.add(lblGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(204, 310, 110, 10));
+        jPanel1.add(lblGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 110, 10));
 
         txttelefonoCli.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -252,21 +248,23 @@ public class Clientes extends javax.swing.JPanel {
         jPanel1.add(txtnombreCli, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 180, -1));
         jPanel1.add(txtcedulaClie, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 90, 180, -1));
 
+        btnCargart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cargando.png"))); // NOI18N
         btnCargart.setText("CARGAR TABLA");
         btnCargart.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCargartActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCargart, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 390, -1, -1));
+        jPanel1.add(btnCargart, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, -1, -1));
 
+        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
         jButton4.setText("LIMPIAR CAMPOS");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 390, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -323,7 +321,7 @@ public class Clientes extends javax.swing.JPanel {
                 discapacidad1 = "No";
             }
 //String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
-            Cliente micliente = new Cliente(null, null, txtcedulaClie.getText().trim(), null, null, null, null,null, null);
+            Cliente micliente = new Cliente(null, null, null, null, null, null, null, null, null, null);
 
             ObjectSet res = base.get(micliente);
             Cliente micliente1 = (Cliente) res.next();
@@ -407,46 +405,45 @@ public class Clientes extends javax.swing.JPanel {
     }
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
 
-        String cedulaBuscar = JOptionPane.showInputDialog("Ingrese la cédula a buscar, por favor");
+        String cedulaBuscar = JOptionPane.showInputDialog("Ingrese el Codigo del Cliente a buscar, por favor");
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         boolean encontrado = false;
+
         cargarTabla(base);
 
         Query query = base.query();
         query.constrain(Cliente.class);
-        query.descend("cedula").constrain(cedulaBuscar);  // Utiliza cedulaBuscar en lugar de txtcedulaClie.getText().trim()
+        query.descend("codigo_cli").constrain(cedulaBuscar);
 
         ObjectSet<Cliente> result = query.execute();
 
         String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "EMAIL", "TELEFONO", "SEXO", "DISCAPACIDAD", "FECHA DE NACIMIENTO", "CONTRASEÑA"};
 
-        Object[][] data = new Object[result.size()][10];
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
 
-        int i = 0;
         for (Cliente cliente : result) {
-            data[i][0] = cliente.getCodigo_cli();
-            data[i][1] = cliente.getCedula();
-            data[i][2] = cliente.getNombre();
-            data[i][3] = cliente.getApellido();
-            data[i][4] = cliente.getEmail();
-            data[i][5] = cliente.getTelefono();
-            data[i][6] = cliente.getGenero();
-            data[i][8] = cliente.getFecha_nac();
-            data[i][9] = cliente.getContraseña();
-
-            i++;
+            Object[] rowData = {
+                cliente.getCodigo_cli(),
+                cliente.getCedula(),
+                cliente.getNombre(),
+                cliente.getApellido(),
+                cliente.getEmail(),
+                cliente.getTelefono(),
+                cliente.getGenero(),
+                cliente.getDiscapacidad(),
+                cliente.getFecha_nac(),
+                cliente.getContraseña()
+            };
+            model.addRow(rowData);
         }
 
         if (result.size() > 0) {
             encontrado = true;
+            jTable1.setModel(model);
         } else {
-            JOptionPane.showMessageDialog(null, "No se encontró la cédula");
-            cargarTabla(base);
+            JOptionPane.showMessageDialog(null, "No se encontró el Codigo del Cliente");
         }
 
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
-        cargarTabla(base);
         base.close();
         // TODO add your handling code here:
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -663,7 +660,6 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
@@ -684,7 +680,6 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JRadioButton rbtSi;
     private javax.swing.JTextField txtapellidoCli;
     private javax.swing.JTextField txtcedulaClie;
-    private javax.swing.JTextField txtcodigoCli;
     private javax.swing.JPasswordField txtcontraseña;
     private javax.swing.JTextField txtemailCli;
     private javax.swing.JTextField txtnombreCli;
