@@ -13,7 +13,7 @@ import java.util.Date;
  */
 public class Cliente extends Persona {
 
-    private static int codigo_cli;
+    private String codigo_cli;
     private String discapacidad;
     private String contraseña;
 
@@ -21,17 +21,18 @@ public class Cliente extends Persona {
         super();
     }
 
-    public Cliente(String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac) {
+    public Cliente(String codigo_cli, String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac) {
         super(cedula, nombre, apellido, email, telefono, genero, fecha_nac);
+        this.codigo_cli = codigo_cli;
         this.discapacidad = discapacidad;
         this.contraseña = contraseña;
     }
 
-    public int getCodigo_cli() {
+    public String getCodigo_cli() {
         return codigo_cli;
     }
 
-    public void setCodigo_cli(int codigo_cli) {
+    public void setCodigo_cli(String codigo_cli) {
         this.codigo_cli = codigo_cli;
     }
 
@@ -49,11 +50,6 @@ public class Cliente extends Persona {
 
     public void setContraseña(String contraseña) {
         this.contraseña = contraseña;
-    }
-
-    @Override
-    public String toString() {
-        return "Cliente{" + "codigo_cli=" + codigo_cli + ", discapacidad=" + discapacidad + ", contrase\u00f1a=" + contraseña + '}';
     }
 
 }
