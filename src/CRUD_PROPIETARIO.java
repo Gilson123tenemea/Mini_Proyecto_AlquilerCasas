@@ -102,8 +102,8 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             }
             
             Date Seleccion = Datefechapro.getDate();
-            
-             ObjectSet<Propietario> Pro = Base.queryByExample(new Propietario(txtcedulaPro.getText(), null, null, null, null, null,null, null, null));
+            //String codigo_propie, String ocupacion, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
+             ObjectSet<Propietario> Pro = Base.queryByExample(new Propietario( null, null,txtcedulaPro.getText(), null, null, null,null, null, null));
             
             if (!Pro.isEmpty()) {
                JOptionPane.showMessageDialog(this, "Ya existe un Propietario con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -111,7 +111,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 return; 
             }  
             
-            Propietario propi = new Propietario(txtcedulaPro.getText(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo,txtOcupacion.getText(), txtcodigoPro.getText() ,Seleccion);
+            Propietario propi = new Propietario(txtcodigoPro.getText(),txtOcupacion.getText(),txtcedulaPro.getText(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo, Seleccion);
 
             Base.store(propi);
 
@@ -743,7 +743,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         
         ObjectSet<Propietario> result = query.execute();
         
-         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Edad", "Genero", "Codigo", "F.Nacimiento"};
+         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "F.Nacimiento"};
          
          Object[][] data = new Object[result.size()][9];
 
@@ -865,7 +865,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         sexo = "Femenino";
     }
 
-    Propietario mipro = new Propietario(txtcedulaPro.getText().trim(), null, null, null, null, null, null, null, null);
+    Propietario mipro = new Propietario( null, null,txtcedulaPro.getText().trim(), null, null, null, null, null, null);
 
     try {
         ObjectSet res = base.get(mipro);
