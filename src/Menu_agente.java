@@ -13,7 +13,12 @@ public class Menu_agente extends javax.swing.JFrame {
     CRUD_ACTIVIDADES acti = new CRUD_ACTIVIDADES();
     INFO_AGENTE info= new INFO_AGENTE();
     Promocion_crud promo = new Promocion_crud();
-    
+    CRUD_UBICACION ubi = new CRUD_UBICACION ();
+    CRUD_TIPO_ACTIVIDAD act = new CRUD_TIPO_ACTIVIDAD ();
+    CRUD_Servicio_Adicional ser = new CRUD_Servicio_Adicional ();
+    Comentario_cliente comenta = new Comentario_cliente  ();
+    Contrato_agente contra = new Contrato_agente ();
+    Factura fac = new Factura ();
     CardLayout vista;
 
     public Menu_agente() {
@@ -47,6 +52,9 @@ public class Menu_agente extends javax.swing.JFrame {
         BtnSalir = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
+        jButton10 = new javax.swing.JButton();
+        jButton11 = new javax.swing.JButton();
+        jButton12 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -67,7 +75,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 140, 40));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 370, 140, 30));
 
         jButton2.setBackground(new java.awt.Color(51, 102, 255));
         jButton2.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -79,7 +87,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 140, 40));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 140, 30));
 
         jButton3.setBackground(new java.awt.Color(51, 102, 255));
         jButton3.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -91,7 +99,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 340, 140, 40));
+        jPanel1.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 230, 140, 30));
 
         jButton5.setBackground(new java.awt.Color(51, 102, 255));
         jButton5.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -103,7 +111,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 140, 40));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 140, 30));
 
         jButton6.setBackground(new java.awt.Color(51, 102, 255));
         jButton6.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -115,14 +123,19 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, 140, 40));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 140, 30));
 
         jButton7.setBackground(new java.awt.Color(51, 102, 255));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Contrato");
         jButton7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 570, 140, 40));
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 140, 30));
 
         jButton8.setBackground(new java.awt.Color(51, 102, 255));
         jButton8.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -134,7 +147,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 400, 140, 40));
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 140, 30));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -182,23 +195,59 @@ public class Menu_agente extends javax.swing.JFrame {
                 BtnSalirActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 710, 140, 40));
+        jPanel1.add(BtnSalir, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 740, 140, 30));
 
-        jButton4.setBackground(new java.awt.Color(0, 102, 255));
+        jButton4.setBackground(new java.awt.Color(51, 102, 255));
+        jButton4.setForeground(new java.awt.Color(255, 255, 255));
         jButton4.setText("Actividades");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 450, 140, 40));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 540, 140, 30));
 
         jButton9.setBackground(new java.awt.Color(51, 102, 255));
         jButton9.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
         jButton9.setForeground(new java.awt.Color(255, 255, 255));
         jButton9.setText("Factura");
         jButton9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 140, 40));
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, 140, 30));
+
+        jButton10.setBackground(new java.awt.Color(51, 102, 255));
+        jButton10.setForeground(new java.awt.Color(255, 255, 255));
+        jButton10.setText("UBICACION");
+        jButton10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton10ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 140, 30));
+
+        jButton11.setBackground(new java.awt.Color(51, 102, 255));
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setText("SERVICIO ADICIONAL");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 460, 140, 30));
+
+        jButton12.setBackground(new java.awt.Color(51, 102, 255));
+        jButton12.setForeground(new java.awt.Color(255, 255, 255));
+        jButton12.setText("TIPO ACTIVIDAD");
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 140, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -252,12 +301,12 @@ public class Menu_agente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       /*
-        Contenidos.add(comen, "crud");
+       
+        Contenidos.add(comenta, "crud");
         vista.show(Contenidos, "crud");
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
-        */
+        
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -276,6 +325,44 @@ public class Menu_agente extends javax.swing.JFrame {
         this.repaint();
 
     }//GEN-LAST:event_jButton5ActionPerformed
+
+    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
+        Contenidos.add(ubi, "crud");
+        vista.show(Contenidos, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton10ActionPerformed
+
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+   
+        Contenidos.add(act, "crud");
+        vista.show(Contenidos, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();  
+    }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        
+       Contenidos.add(ser, "crud");
+        vista.show(Contenidos, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();          
+                
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        Contenidos.add(contra, "crud");
+        vista.show(Contenidos, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint(); 
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        Contenidos.add(fac, "crud");
+        vista.show(Contenidos, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint(); 
+    }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -323,6 +410,9 @@ public class Menu_agente extends javax.swing.JFrame {
     private javax.swing.JButton BtnSalir;
     private javax.swing.JPanel Contenidos;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
+    private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;

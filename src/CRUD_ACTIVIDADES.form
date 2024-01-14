@@ -215,7 +215,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="530" y="180" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="540" y="180" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -431,14 +431,14 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/imagenes/busqueda.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="CARGAR CODIGO"/>
+                <Property name="text" type="java.lang.String" value="CARGAR"/>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
               </Events>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="660" y="250" width="-1" height="-1"/>
+                  <AbsoluteConstraints x="410" y="100" width="-1" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -460,13 +460,7 @@
             <Component class="javax.swing.JComboBox" name="cbxNombreCasa">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="CAS-001"/>
-                    <StringItem index="1" value="CAS-002"/>
-                    <StringItem index="2" value="CAS-003"/>
-                    <StringItem index="3" value="CAS-004"/>
-                    <StringItem index="4" value="CAS-005"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
                 <Property name="toolTipText" type="java.lang.String" value=""/>
               </Properties>
@@ -502,22 +496,8 @@
             <Component class="javax.swing.JComboBox" name="cboxTipoActi">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="15">
-                    <StringItem index="0" value="Descanso y Relajacion"/>
-                    <StringItem index="1" value="Asados y Comidas"/>
-                    <StringItem index="2" value="Senderismos y Actividades"/>
-                    <StringItem index="3" value="Observacion de la Naturaleza"/>
-                    <StringItem index="4" value="Pesca"/>
-                    <StringItem index="5" value="Juegos de mesa"/>
-                    <StringItem index="6" value="Excursiones Locales"/>
-                    <StringItem index="7" value="Actividades acuaticas"/>
-                    <StringItem index="8" value="Fotograficas"/>
-                    <StringItem index="9" value="Yoja y meditacion"/>
-                    <StringItem index="10" value="Jardineria y cuidado "/>
-                    <StringItem index="11" value="Lectura y Escritura"/>
-                    <StringItem index="12" value="Tareas creativas"/>
-                    <StringItem index="13" value="Natacion"/>
-                    <StringItem index="14" value=" "/>
+                  <StringArray count="1">
+                    <StringItem index="0" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -588,13 +568,7 @@
             <Component class="javax.swing.JComboBox" name="cboxCodigoClie">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="0150698017"/>
-                    <StringItem index="1" value="0415325525"/>
-                    <StringItem index="2" value="0255289625"/>
-                    <StringItem index="3" value="0565668555"/>
-                    <StringItem index="4" value="0892523252"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
               <AuxValues>
@@ -603,6 +577,40 @@
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                   <AbsoluteConstraints x="630" y="170" width="110" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton7">
+              <Properties>
+                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
+                </Property>
+                <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+                  <Image iconType="3" name="/imagenes/VER.jpg"/>
+                </Property>
+                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
+                  <Border info="null"/>
+                </Property>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton7ActionPerformed"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="340" y="110" width="-1" height="-1"/>
+                </Constraint>
+              </Constraints>
+            </Component>
+            <Component class="javax.swing.JButton" name="jButton8">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="CARGAR"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton8ActionPerformed"/>
+              </Events>
+              <Constraints>
+                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+                  <AbsoluteConstraints x="420" y="160" width="90" height="-1"/>
                 </Constraint>
               </Constraints>
             </Component>

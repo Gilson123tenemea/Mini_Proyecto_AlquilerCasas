@@ -1,6 +1,8 @@
 
 import clases.Actividades;
 import clases.CasaVacacional;
+import clases.TIPO_ACTIVIDADES;
+import clases.Tipo_Actividad;
 import clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -71,8 +73,8 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }
     
     
-     public void cargarCasas() {
-        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+     public void cargarCasas(ObjectContainer Base) {
+
         cbxNombreCasa.removeAllItems();
         Query query = Base.query();
         query.constrain(CasaVacacional.class);
@@ -88,7 +90,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
              }
              
          }
-        
+         Base.close();   
      }
     public void Modificar(ObjectContainer base) {
         if (txtIDacti.getText().trim().isEmpty() ||  cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null){
@@ -117,7 +119,23 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             base.close();
         }
     }
-    
+     public void cargarTipoActividades(ObjectContainer Base) {
+         cboxTipoActi.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Tipo_Actividad.class);
+        
+         ObjectSet<Tipo_Actividad> activi = query.execute();
+          if (activi.isEmpty()) {
+               JOptionPane.showMessageDialog(this, "NO EXISTEN LOS TIPOS DE ACTIVIDADES", "Error", JOptionPane.ERROR_MESSAGE);
+          }else {
+              while (activi.hasNext()) {
+                Tipo_Actividad pro = activi.next();
+                cboxTipoActi.addItem(pro.getNombre());
+            } 
+          }
+        
+       Base.close();
+     }
     
     
     
@@ -156,6 +174,8 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         spnCostos = new javax.swing.JSpinner();
         cboxHora = new javax.swing.JComboBox<>();
         cboxCodigoClie = new javax.swing.JComboBox<>();
+        jButton7 = new javax.swing.JButton();
+        jButton8 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -228,7 +248,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
         jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Código Cliente:");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 180, -1, -1));
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, -1, -1));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Casas Vacacionales:");
@@ -303,13 +323,13 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
-        jButton5.setText("CARGAR CODIGO");
+        jButton5.setText("CARGAR");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 250, -1, -1));
+        jPanel6.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -319,7 +339,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         });
         jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
 
-        cbxNombreCasa.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "CAS-001", "CAS-002", "CAS-003", "CAS-004", "CAS-005" }));
         cbxNombreCasa.setToolTipText("");
         jPanel6.add(cbxNombreCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 140, -1));
 
@@ -328,7 +347,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
         jPanel6.add(txtIDacti, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 140, -1));
 
-        cboxTipoActi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Descanso y Relajacion", "Asados y Comidas", "Senderismos y Actividades", "Observacion de la Naturaleza", "Pesca", "Juegos de mesa", "Excursiones Locales", "Actividades acuaticas", "Fotograficas", "Yoja y meditacion", "Jardineria y cuidado ", "Lectura y Escritura", "Tareas creativas", "Natacion", " " }));
+        cboxTipoActi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jPanel6.add(cboxTipoActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 200, -1));
 
         spnCostos.setModel(new javax.swing.SpinnerNumberModel(10.0d, 5.0d, 100.0d, 5.0d));
@@ -342,8 +361,25 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         });
         jPanel6.add(cboxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, -1, -1));
 
-        cboxCodigoClie.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0150698017", "0415325525", "0255289625", "0565668555", "0892523252" }));
         jPanel6.add(cboxCodigoClie, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 110, -1));
+
+        jButton7.setBackground(new java.awt.Color(255, 255, 255));
+        jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
+        jButton7.setBorder(null);
+        jButton7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton7ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
+
+        jButton8.setText("CARGAR");
+        jButton8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton8ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 90, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -396,7 +432,9 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        cargarCasas();
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+        cargarCasas(Base);
+        Base.close();
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
@@ -515,9 +553,43 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
    
     }//GEN-LAST:event_jButton6ActionPerformed
 
+    private void mostrarDatosCasaSeleccionado() {
+        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+        String codigoSelec = cbxNombreCasa.getSelectedItem().toString();
+        Query query = bases.query();
+        query.constrain(CasaVacacional.class);
+        query.descend("cod_casa").constrain(codigoSelec);
+        ObjectSet<CasaVacacional> result = query.execute();
+        
+        if (!result.isEmpty()) {
+            CasaVacacional casa = result.next();
+            String mensaje = "Nombre: " + casa.getNombre_casa()+ "\n"
+                    + "Tipo: " + casa.getTipo_casa()+ "\n"
+                    + "Pisos: " + casa.getNum_pisos()+ "\n"
+                    + "Capacidad: "+ casa.getCapacidad_max()+ "\n"
+                    + "Habitaciones: "+ casa.getNum_habitaciones()+ "\n"
+                    + "Baños: "+ casa.getNum_baños();
+            JOptionPane.showMessageDialog(this, mensaje, "Datos de Casas Vacacionales", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "No se encontró una casa con el codigo seleccionado.", "Ubicacion no encontrada", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
+        mostrarDatosCasaSeleccionado();
+    }//GEN-LAST:event_jButton7ActionPerformed
+
+    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+        cargarTipoActividades(Base);
+        Base.close();
+    }//GEN-LAST:event_jButton8ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -533,6 +605,8 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
+    private javax.swing.JButton jButton7;
+    private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
