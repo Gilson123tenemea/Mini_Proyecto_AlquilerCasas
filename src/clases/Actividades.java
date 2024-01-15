@@ -13,7 +13,6 @@ import java.util.Date;
  */
 public class Actividades {
     private String id_actividades;
-    private String cod_cliente;
     private String cod_casa;
     private String tipo_actividad;
     private String costo_adicional;
@@ -23,9 +22,8 @@ public class Actividades {
     public Actividades() {
     }
 
-    public Actividades(String id_actividades, String cod_cliente, String cod_casa, String tipo_actividad, String costo_adicional, Date fecha, String hora) {
+    public Actividades(String id_actividades, String cod_casa, String tipo_actividad, String costo_adicional, Date fecha, String hora) {
         this.id_actividades = id_actividades;
-        this.cod_cliente = cod_cliente;
         this.cod_casa = cod_casa;
         this.tipo_actividad = tipo_actividad;
         this.costo_adicional = costo_adicional;
@@ -39,15 +37,6 @@ public class Actividades {
 
     public void setId_actividades(String id_actividades) {
         this.id_actividades = id_actividades;
-    }
-    
-
-    public String getCod_cliente() {
-        return cod_cliente;
-    }
-
-    public void setCod_cliente(String cod_cliente) {
-        this.cod_cliente = cod_cliente;
     }
 
     public String getCod_casa() {
@@ -92,9 +81,7 @@ public class Actividades {
 
     @Override
     public String toString() {
-        return "Actividades{" + "id_actividades=" + id_actividades + ", cod_cliente=" + cod_cliente + ", cod_casa=" + cod_casa + ", tipo_actividad=" + tipo_actividad + ", costo_adicional=" + costo_adicional + ", fecha=" + fecha + ", hora=" + hora + '}';
+        return "Actividades{" + "id_actividades=" + id_actividades + ", cod_casa=" + cod_casa + ", tipo_actividad=" + tipo_actividad + ", costo_adicional=" + costo_adicional + ", fecha=" + fecha + ", hora=" + hora + '}';
     }
-
-    
 
 }

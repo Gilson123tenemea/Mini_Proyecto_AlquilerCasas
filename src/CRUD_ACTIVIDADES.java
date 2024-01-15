@@ -3,12 +3,10 @@ import clases.Actividades;
 import clases.CasaVacacional;
 import clases.TIPO_ACTIVIDADES;
 import clases.Tipo_Actividad;
-import clases.Validaciones;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
-import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -19,32 +17,47 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         initComponents();
     }
 
-    private void crearActividades(ObjectContainer Base) {
-        if (txtIDacti.getText().trim().isEmpty() ||  cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null){
-            
+    private void crearActividades(ObjectContainer base) {
+        if (cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null) {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-        
+
         try {
-             ObjectSet<Actividades> resul = Base.queryByExample(new Actividades (txtIDacti.getText().trim(), null, null, null,null,null,null ));
-             if (!resul.isEmpty()) {
+            Query query = base.query();
+            query.constrain(Actividades.class);
+            query.descend("id_actividades").orderDescending();
+            ObjectSet<Actividades> result = query.execute();
+
+            int ultimoCodigo = 1;
+            if (!result.isEmpty()) {
+                Actividades ultimoPersonal = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getId_actividades().substring(4)) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda y agregar "ACT-"
+            String nuevoCodigo = String.format("ACT-%03d", ultimoCodigo);
+            lblIdActividades.setText(nuevoCodigo);
+
+            // Verificar si ya existe una actividad con el mismo código
+            result = base.queryByExample(new Actividades(nuevoCodigo, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe una actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-             
-            Actividades acti = new Actividades (txtIDacti.getText().trim(), cboxCodigoClie.getSelectedItem().toString(), cbxNombreCasa.getSelectedItem().toString(), cboxTipoActi.getSelectedItem().toString(),spnCostos.getValue().toString() ,Date.getDate() , cboxHora.getSelectedItem().toString());
-            Base.store(acti);
+
+            Actividades acti = new Actividades(nuevoCodigo, cbxNombreCasa.getSelectedItem().toString(), cboxTipoActi.getSelectedItem().toString(), spnCostos.getValue().toString(), Date.getDate(), cboxHora.getSelectedItem().toString());
+            base.store(acti); // Guardar antes de cerrar la conexión
             JOptionPane.showMessageDialog(this, "Actividad creada exitosamente");
             limpiar();
-            cargarTabla(Base);
- 
+            cargarTabla(base);
+
         } finally {
-            Base.close();
+            base.close(); // Cerrar la conexión después de realizar las operaciones en la base de datos
         }
-        
     }
-    
+
     public void cargarTabla(ObjectContainer base) {
         DefaultTableModel model = (DefaultTableModel) TableActi.getModel(); 
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
@@ -55,7 +68,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             Actividades acti = result.next();
              Object[] row = {
                  acti.getId_actividades(),
-                 acti.getCod_cliente(),
                  acti.getCod_casa(),
                  acti.getTipo_actividad(),
                  acti.getCosto_adicional(),
@@ -69,7 +81,9 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }
     
     public void limpiar() {
-        txtIDacti.setText("");  
+        cbxNombreCasa.setSelectedItem("");  
+        cboxTipoActi.setSelectedItem("");
+        lblIdActividades.setText("");
     }
     
     
@@ -93,32 +107,36 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
          Base.close();   
      }
     public void Modificar(ObjectContainer base) {
-        if (txtIDacti.getText().trim().isEmpty() ||  cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null){
-            
+
+        if (cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null) {
+
             JOptionPane.showMessageDialog(null, "Por favor llene los datos que desee modificar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
-          try {
-              Actividades acti = new Actividades (txtIDacti.getText().trim(), null, null, null,null,null,null); 
-              ObjectSet res = base.get(acti);
-              Actividades actividad = (Actividades) res.next();
-              
-              actividad.setCod_cliente(cboxCodigoClie.getSelectedItem().toString());
-              actividad.setCod_casa(cbxNombreCasa.getSelectedItem().toString());
-              actividad.setTipo_actividad(cboxTipoActi.getSelectedItem().toString());
-              actividad.setCosto_adicional(spnCostos.getValue().toString());
-              actividad.setFecha(Date.getDate());
-              actividad.setHora(cboxHora.getSelectedItem().toString());
-              
-              base.set(actividad);
-              
-              JOptionPane.showMessageDialog(this, "Modificación exitosa");
-              limpiar();
-  
-          }finally {
+        try {
+            Actividades acti = new Actividades(null, null, null, null, null, null);
+            ObjectSet res = base.get(acti);
+            Actividades actividad = (Actividades) res.next();
+
+            actividad.setCod_casa(cbxNombreCasa.getSelectedItem().toString());
+            actividad.setTipo_actividad(cboxTipoActi.getSelectedItem().toString());
+            actividad.setCosto_adicional(spnCostos.getValue().toString());
+            actividad.setFecha(Date.getDate());
+            actividad.setHora(cboxHora.getSelectedItem().toString());
+
+            base.set(actividad);
+
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            limpiar();
+
+        } finally {
             base.close();
+
         }
+
     }
+
+    
      public void cargarTipoActividades(ObjectContainer Base) {
          cboxTipoActi.removeAllItems();
         Query query = Base.query();
@@ -136,10 +154,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         
        Base.close();
      }
-    
-    
-    
- 
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -152,7 +167,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel5 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
@@ -169,13 +183,12 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jButton6 = new javax.swing.JButton();
         cbxNombreCasa = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
-        txtIDacti = new javax.swing.JTextField();
         cboxTipoActi = new javax.swing.JComboBox<>();
         spnCostos = new javax.swing.JSpinner();
         cboxHora = new javax.swing.JComboBox<>();
-        cboxCodigoClie = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        lblIdActividades = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -246,10 +259,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
         jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(633, 6, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel3.setText("Código Cliente:");
-        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 180, -1, -1));
-
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Casas Vacacionales:");
         jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
@@ -273,13 +282,13 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
         TableActi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
             },
             new String [] {
-                "Id Actividades", "Codigo Cliente", "Codigo Casa", "Tipo de Actividad", "Costo Adicional", "Fecha", "Hora"
+                "Id Actividades", "Codigo Casa", "Tipo de Actividad", "Costo Adicional", "Fecha", "Hora"
             }
         ));
         jScrollPane1.setViewportView(TableActi);
@@ -320,7 +329,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 350, -1, -1));
+        jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 350, -1, -1));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton5.setText("CARGAR");
@@ -332,12 +341,13 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel6.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        jButton6.setText("BUSCAR");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 60, -1, -1));
+        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 350, -1, -1));
 
         cbxNombreCasa.setToolTipText("");
         jPanel6.add(cbxNombreCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 140, -1));
@@ -345,7 +355,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel10.setText("Id Actividades:");
         jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
-        jPanel6.add(txtIDacti, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 60, 140, -1));
 
         cboxTipoActi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
         jPanel6.add(cboxTipoActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 200, -1));
@@ -360,8 +369,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             }
         });
         jPanel6.add(cboxHora, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, -1, -1));
-
-        jPanel6.add(cboxCodigoClie, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 170, 110, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
@@ -380,6 +387,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             }
         });
         jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 90, -1));
+        jPanel6.add(lblIdActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 120, 30));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -438,44 +446,98 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-       
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la Actividad a eliminar");
-        boolean encontrado = false;
-        
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        Query query = base.query();
-        query.constrain(Actividades.class);
-        query.descend("id_actividades").constrain(codigoEliminar);
-        
-        ObjectSet<Actividades> result = query.execute();
-        cargarTabla(base);
-        
-        if (result.size() > 0) {
-            
-            encontrado = true;
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Actividad", "Confirmacion", JOptionPane.YES_NO_OPTION);
-            
-             if (resul == JOptionPane.YES_OPTION) {
-                 
-                 for (Actividades activ : result) { 
-                    base.delete(activ);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
-                    cargarTabla(base);     
-                 }
-                 
-                 
-             }else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
-            }
-   
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
-            cargarTabla(base);
-        }
-        base.close();
-   
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+        eliminarActividad(Base);
+        Base.close();
     }//GEN-LAST:event_jButton3ActionPerformed
 
+    private void eliminarActividad(ObjectContainer base) {
+    String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la Actividad a eliminar");
+
+    if (codigoEliminar != null && !codigoEliminar.isEmpty()) {
+        boolean encontrado = false;
+
+        Query query = base.query();
+        query.constrain(Actividades.class);
+
+        ObjectSet<Actividades> result = query.execute();
+
+        while (result.hasNext()) {
+            Actividades actividad = result.next();
+
+            if (actividad.getId_actividades().equals(codigoEliminar)) {
+                encontrado = true;
+
+                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos de la Actividad?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    base.delete(actividad);
+                    JOptionPane.showMessageDialog(null, "Datos de la Actividad eliminados correctamente");
+                    cargarTabla(base);
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos de la Actividad no eliminados");
+                }
+                break; // No es necesario seguir buscando después de encontrar la actividad
+            }
+        }
+
+        if (!encontrado) {
+            JOptionPane.showMessageDialog(null, "No se encontró la actividad con el código proporcionado");
+            cargarTabla(base);
+        }
+    }
+    base.close();
+}
+    
+    
+    private void buscarActividad(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            ObjectSet<Actividades> result = base.queryByExample(new Actividades(codigoBusqueda, null, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                Actividades actividadEncontrada = result.next();
+                cargarDatosActividad(actividadEncontrada);
+                limpiarTabla();
+                cargarTabla(base, actividadEncontrada);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        base.close();
+    }
+
+    private void cargarDatosActividad(Actividades actividad) {
+        lblIdActividades.setText(actividad.getId_actividades());
+        cbxNombreCasa.setSelectedItem(actividad.getCod_casa());
+        cboxTipoActi.setSelectedItem(actividad.getTipo_actividad());
+        spnCostos.setValue(Double.parseDouble(actividad.getCosto_adicional()));
+        Date.setDate(actividad.getFecha());
+        cboxHora.setSelectedItem(actividad.getHora());
+    }
+
+    private void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) TableActi.getModel();
+        model.setRowCount(0);
+    }
+
+    private void cargarTabla(ObjectContainer base, Actividades actividadFiltrada) {
+        DefaultTableModel model = (DefaultTableModel) TableActi.getModel();
+
+        Object[] row = {
+            actividadFiltrada.getId_actividades(),
+            actividadFiltrada.getCod_casa(),
+            actividadFiltrada.getTipo_actividad(),
+            actividadFiltrada.getCosto_adicional(),
+            actividadFiltrada.getFecha(),
+            actividadFiltrada.getHora()
+        };
+        model.addRow(row);
+
+        base.close();
+    }
+   
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
@@ -497,64 +559,12 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-        
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        
-        String descripcion = " ", casas = " ", tipo = " ",costos = " ", hora = " ";
-        Date fecha = null;
-        
-        Query query = base.query();
-        query.constrain(Actividades.class);
-        query.descend("id_actividades").constrain(txtIDacti.getText().trim());
-        
-        ObjectSet<Actividades> result = query.execute();
-        String[] columnNames = {"ID ACTIVIDADES","CODIGO CLIENTE","CODIGO CASA","TIPO ACTIVIDAD","COSTO ADICIONAL","FECHA","HORA"};
-        Object[][] data = new Object[result.size()][7];
-        
-        int i = 0;
-        for (Actividades acti : result) {
-            data[i][0] = acti.getId_actividades();
-            data[i][1] = acti.getCod_cliente();
-            data[i][2] = acti.getCod_casa();
-            data[i][3] = acti.getTipo_actividad();
-            data[i][4] = acti.getCosto_adicional();
-            data[i][5] = acti.getFecha();
-            data[i][6] = acti.getHora();
-            
-            i++;
-            
-        }
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        TableActi.setModel(model);
-        
-        TableActi.repaint();
-        if (!result.isEmpty()) {
-            
-            for (Actividades acti : result) {
-                descripcion = acti.getCod_cliente();
-                casas = acti.getCod_casa();
-                tipo = acti.getTipo_actividad();
-                costos= acti.getCosto_adicional();
-                hora = acti.getHora();
-            }
-            
-            cboxCodigoClie.setSelectedItem(descripcion.trim());
-            cbxNombreCasa.setSelectedItem(casas.trim());
-            cboxTipoActi.setSelectedItem(tipo.trim());
-            spnCostos.setValue(costos);
-            cboxHora.setSelectedItem(hora);
-            
-        }else {
-
-            JOptionPane.showMessageDialog(null, "No se encontró ningúna Casa Vacional con la cedula ingresada");
-
-        }
-
-   
+       ObjectContainer base = Db4o.openFile(INICIO.direccion);
+       buscarActividad(base);        
+       base.close();
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    private void mostrarDatosCasaSeleccionado() {
-        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+    private void mostrarDatosCasaSeleccionado(ObjectContainer bases) {
         String codigoSelec = cbxNombreCasa.getSelectedItem().toString();
         Query query = bases.query();
         query.constrain(CasaVacacional.class);
@@ -574,15 +584,20 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         }else {
             JOptionPane.showMessageDialog(this, "No se encontró una casa con el codigo seleccionado.", "Ubicacion no encontrada", JOptionPane.ERROR_MESSAGE);
         }
+        bases.close();
     }
     
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+         Modificar(Base);
+         Base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        mostrarDatosCasaSeleccionado();
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosCasaSeleccionado(base);
+        base.close();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -595,7 +610,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Date;
     private javax.swing.JTable TableActi;
-    private javax.swing.JComboBox<String> cboxCodigoClie;
     private javax.swing.JComboBox<String> cboxHora;
     private javax.swing.JComboBox<String> cboxTipoActi;
     private javax.swing.JComboBox<String> cbxNombreCasa;
@@ -610,7 +624,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
@@ -623,7 +636,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblIdActividades;
     private javax.swing.JSpinner spnCostos;
-    private javax.swing.JTextField txtIDacti;
     // End of variables declaration//GEN-END:variables
 }
