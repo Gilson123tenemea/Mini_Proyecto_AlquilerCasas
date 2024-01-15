@@ -12,7 +12,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Lenovo
@@ -52,6 +51,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         btnreporte = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jButton12 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -137,8 +137,8 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         jLabel4.setText("Descripcion Actividad:");
         add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 190, -1, -1));
         add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 140, 180, -1));
-        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 180, -1));
-        add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 180, 20));
+        add(jTextField2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 190, 260, 80));
+        add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 110, 180, 20));
 
         btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         btnguardar.setText("GUARDAR");
@@ -198,6 +198,16 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         jScrollPane3.setViewportView(jTable2);
 
         add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 610, 150));
+
+        jButton12.setBackground(new java.awt.Color(255, 255, 255));
+        jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        jButton12.setBorder(null);
+        jButton12.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton12ActionPerformed(evt);
+            }
+        });
+        add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -210,9 +220,9 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+       ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        //        ActualizarDatos(base);
+        ActualizarDatos(base);
         base.close();
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -252,10 +262,36 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_btneliminarActionPerformed
 
+    public void ActualizarDatos(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+         if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Tipo_Actividad micasa = new Tipo_Actividad( lblcodigo.getText().toString(), null, null);
+
+            ObjectSet res = base.get(micasa);
+            Tipo_Actividad micasita = (Tipo_Actividad) res.next();
+            micasita.setNombre(jTextField1.getText().trim());
+            micasita.setDescripcion(jTextField2.getText().trim());
+
+            base.set(micasita);
+
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            limpiar();
+
+        } finally {
+            base.close();
+        }
+    }
+    
+    
     public void crearCasa(ObjectContainer base) {
         // Verificar si todos los campos están llenos
-        if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()
-                ) {
+        if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -267,25 +303,23 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             query.descend("cod_tipoactividad").orderDescending();
             ObjectSet<Tipo_Actividad> result = query.execute();
 
-            int ultimoCodigo = 1; // Por defecto, si no hay registros previos
+            int ultimoCodigo = 1;
             if (!result.isEmpty()) {
                 Tipo_Actividad ultimoPersonal = result.next();
-                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_tipoactividad()) + 1;
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_tipoactividad().substring(4)) + 1;
             }
 
             // Formatear el código con ceros a la izquierda
-            String nuevoCodigo = String.format("%03d", ultimoCodigo);
+            String nuevoCodigo = String.format("TPA-%03d", ultimoCodigo);
             lblcodigo.setText(nuevoCodigo);
 
             // Verificar si ya existe una casa con el mismo código
             result = base.queryByExample(new Tipo_Actividad(nuevoCodigo, null, null));
 
-        if (!result.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-          
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             // Crear objeto CasaVacacional y almacenar en la base de datos
             Tipo_Actividad casa1 = new Tipo_Actividad(nuevoCodigo, jTextField1.getText().trim(), jTextField2.getText().trim());
@@ -298,16 +332,14 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             base.close();
         }
     }
-    
+
     public void limpiar() {
         jTextField1.setText("");
         jTextField2.setText("");
-        
-        
+
         //  txtcodigoPropi.setText(" ");
     }
-    
-    
+
     public void cargarTabla(ObjectContainer base) {
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -321,19 +353,57 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             Object[] row = {
                 personal1.getCod_tipoactividad(),
                 personal1.getNombre(),
-                personal1.getDescripcion(),
-               
-                
-
-            };
+                personal1.getDescripcion(),};
             model.addRow(row);
         }
 
     }
-    
-    
-    
-    
+
+    private void buscarActividad(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
+
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            ObjectSet<Tipo_Actividad> result = base.queryByExample(new Tipo_Actividad(codigoBusqueda, null, null));
+
+            if (!result.isEmpty()) {
+                Tipo_Actividad actividadEncontrada = result.next();
+                cargarDatosActividad(actividadEncontrada);
+                limpiarTabla();
+                cargarTabla(base, actividadEncontrada);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        base.close();
+    }
+
+    private void cargarTabla(ObjectContainer base, Tipo_Actividad actividadFiltrada) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+        Object[] row = {
+            actividadFiltrada.getCod_tipoactividad(),
+            actividadFiltrada.getNombre(),
+            actividadFiltrada.getDescripcion(),};
+        model.addRow(row);
+
+        base.close();
+    }
+
+    private void cargarDatosActividad(Tipo_Actividad actividad) {
+        lblcodigo.setText(actividad.getCod_tipoactividad());
+        jTextField1.setText(actividad.getNombre());
+        jTextField2.setText(actividad.getDescripcion());
+       
+
+     
+    }
+
+    private void limpiarTabla() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+    }
+
+
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
@@ -342,12 +412,19 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         base.close();      // TODO add your handling code here:
     }//GEN-LAST:event_btnreporteActionPerformed
 
+    private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        buscarActividad(base);
+        base.close();
+    }//GEN-LAST:event_jButton12ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btneliminar;
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnreporte;
+    private javax.swing.JButton jButton12;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

@@ -49,7 +49,6 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
-        txtcodigo = new javax.swing.JTextField();
         txtnombreservicio = new javax.swing.JTextField();
         costoadicionaldouble = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -65,6 +64,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         jComboBox1 = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
+        txtcodigo = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -244,10 +244,10 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel6Layout.createSequentialGroup()
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(txtcodigo)
                                             .addComponent(txtnombreservicio)
                                             .addComponent(costoadicionaldouble, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
-                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(txtcodigo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(18, 18, 18)
                                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(jButton6)
@@ -287,10 +287,10 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                                     .addComponent(jButton6)
                                     .addComponent(jLabel2)))
                             .addGroup(jPanel6Layout.createSequentialGroup()
-                                .addGap(21, 21, 21)
+                                .addGap(25, 25, 25)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                     .addComponent(jLabel3)
-                                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(txtcodigo, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(18, 18, 18)
                                 .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jButton8)
@@ -312,7 +312,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                         .addGroup(jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel7)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 139, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 17, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel6Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jButton5)
@@ -326,7 +326,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                             .addComponent(jButton2)
                             .addComponent(jButton3)
                             .addComponent(jButton4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 22, Short.MAX_VALUE)))
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 235, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -497,7 +497,10 @@ public class CRUD_Servicio extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        mostrarDatosClientesSeleccionado();
+       
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosClientesSeleccionado(base);
+        base.close();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
@@ -543,21 +546,36 @@ public class CRUD_Servicio extends javax.swing.JPanel {
      
      public void crearServicio(ObjectContainer Base) {
         // Verificar si todos los campos están llenos
-        if (txtcodigo.getText().trim().isEmpty() || jComboBox1.getSelectedItem().toString().isEmpty()
+        if ( jComboBox1.getSelectedItem().toString().isEmpty()
                 || txtnombreservicio.getText().trim().isEmpty() ||costoadicionaldouble.getText().trim().isEmpty() || descripciontxt.getText().trim().isEmpty()) {
 
-            JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Por favor llene los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         
         }
 
         try {
             
+            Query query = Base.query();
+            query.constrain(Servicio.class);
+            query.descend("codigo_servicio").orderDescending();
+            ObjectSet<Servicio> result = query.execute();
+
+            int ultimoCodigo = 1;
+            if (!result.isEmpty()) {
+                Servicio ultimoPersonal = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCodigo_servicio().substring(4)) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda y agregar "ACT-"
+            String nuevoCodigo = String.format("SER-%03d", ultimoCodigo);
+            txtcodigo.setText(nuevoCodigo);
+            
 
             // Verificar si ya existe una casa con el mismo código
-            ObjectSet<Servicio> resul = Base.queryByExample(new Servicio(txtcodigo.getText().trim(), null, null, null, null));
+            result = Base.queryByExample(new Servicio(nuevoCodigo, null, null, null, null));
 
-            if (!resul.isEmpty()) {
+            if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un servicio con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
@@ -625,8 +643,8 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         Base.close();
     }
     
-     private void mostrarDatosClientesSeleccionado() {
-        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+     private void mostrarDatosClientesSeleccionado(ObjectContainer bases) {
+        
         String cedulaSeleccionada = jComboBox1.getSelectedItem().toString();
         Query query = bases.query();
         query.constrain(Cliente.class);
@@ -645,6 +663,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         }else{
           JOptionPane.showMessageDialog(this, "No se encontró un cliente con la cédula seleccionada.", "Propietario no encontrado", JOptionPane.ERROR_MESSAGE);  
         }
+        bases.close();
      }
     
 
@@ -676,7 +695,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JTextField txtcodigo;
+    private javax.swing.JLabel txtcodigo;
     private javax.swing.JTextField txtnombreservicio;
     // End of variables declaration//GEN-END:variables
 }
