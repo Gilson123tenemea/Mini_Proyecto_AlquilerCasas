@@ -55,6 +55,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         btnreporte = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
+        jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -159,7 +160,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btnguardarActionPerformed(evt);
             }
         });
-        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 150, 50));
+        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 120, 50));
 
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
@@ -168,7 +169,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btnmodificarActionPerformed(evt);
             }
         });
-        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 150, 50));
+        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 300, 130, 50));
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
@@ -177,7 +178,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btneliminarActionPerformed(evt);
             }
         });
-        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, 150, 50));
+        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 300, 120, 50));
 
         btnreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         btnreporte.setText("REPORTE");
@@ -186,7 +187,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btnreporteActionPerformed(evt);
             }
         });
-        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 150, 50));
+        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 300, 130, 50));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -210,6 +211,15 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         jScrollPane3.setViewportView(jTable2);
 
         add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 610, 230));
+
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
+        jButton1.setText("BUSCAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 300, 120, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -223,8 +233,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-
-//        ActualizarDatos(base);
+        ActualizarDatos(base);
         base.close();
     }//GEN-LAST:event_btnmodificarActionPerformed
 
@@ -236,7 +245,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
         Query query = base.query();
         query.constrain(Ubicacion.class);
-        query.descend("cod_casa").constrain(codigoEliminar);
+        query.descend("cod_ubicacion").constrain(codigoEliminar);
 
         ObjectSet<Ubicacion> result = query.execute();
         cargarTabla(base);
@@ -248,7 +257,6 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
             if (resul == JOptionPane.YES_OPTION) {
                 for (Ubicacion vacacionalDB : result) {
-                    // Eliminar la Casa Vacacional de la base de datos db4o
                     base.delete(vacacionalDB);
                     JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
                     cargarTabla(base);
@@ -260,13 +268,12 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "No se encontró el código");
             cargarTabla(base);
         }
-
+        limpiar();
         base.close();
 
     }//GEN-LAST:event_btneliminarActionPerformed
 
     public void crearCasa(ObjectContainer base) {
-        // Verificar si todos los campos están llenos
         if (txtbarrio.getText().trim().isEmpty() || txtcalleprincipal.getText().trim().isEmpty()
                 || provinciacombo.getSelectedItem() == null || ciudadcombo.getSelectedItem() == null) {
 
@@ -282,29 +289,24 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
             int ultimoCodigo = 1; // Por defecto, si no hay registros previos
             if (!result.isEmpty()) {
-                Ubicacion ultimoPersonal = result.next();
-                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_ubicacion()) + 1;
+                Ubicacion ultimaUbicacion = result.next();
+                ultimoCodigo = Integer.parseInt(ultimaUbicacion.getCod_ubicacion().substring(4)) + 1;
             }
 
-            // Formatear el código con ceros a la izquierda
-            String nuevoCodigo = String.format("%03d", ultimoCodigo);
+            String nuevoCodigo = String.format("UBI-%03d", ultimoCodigo);
             lblcodigo.setText(nuevoCodigo);
 
-            // Verificar si ya existe una casa con el mismo código
             result = base.queryByExample(new Ubicacion(nuevoCodigo, null, null, null, null));
 
-        if (!result.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe una ubicación con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
-          
+            Ubicacion nuevaUbicacion = new Ubicacion(nuevoCodigo, provinciacombo.getSelectedItem().toString(), ciudadcombo.getSelectedItem().toString(), txtbarrio.getText().trim(), txtcalleprincipal.getText().trim());
+            base.store(nuevaUbicacion);
 
-            // Crear objeto CasaVacacional y almacenar en la base de datos
-            Ubicacion casa1 = new Ubicacion(nuevoCodigo, provinciacombo.getSelectedItem().toString(), ciudadcombo.getSelectedItem().toString(), txtbarrio.getText().trim(), txtcalleprincipal.getText().trim());
-            base.store(casa1);
-
-            JOptionPane.showMessageDialog(this, "Casa creada exitosamente");
+            JOptionPane.showMessageDialog(this, "Ubicación creada exitosamente");
             limpiar();
             cargarTabla(base);
         } finally {
@@ -317,8 +319,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         ciudadcombo.setSelectedItem(0);
         txtbarrio.setText("");
         txtcalleprincipal.setText("");
-        
-        //  txtcodigoPropi.setText(" ");
+        lblcodigo.setText(" ");
     }
     
     
@@ -345,7 +346,88 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         }
 
     }
+    private void buscarUbicacion(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la ubicación a buscar:", "Buscar Ubicación", JOptionPane.QUESTION_MESSAGE);
 
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            ObjectSet<Ubicacion> result = base.queryByExample(new Ubicacion(codigoBusqueda, null, null, null, null));
+
+            if (!result.isEmpty()) {
+                Ubicacion ubicacionEncontrada = result.next();
+
+                lblcodigo.setText(ubicacionEncontrada.getCod_ubicacion());
+                provinciacombo.setSelectedItem(ubicacionEncontrada.getProvincia());
+                ciudadcombo.setSelectedItem(ubicacionEncontrada.getCiudad());
+                txtbarrio.setText(ubicacionEncontrada.getBarriocalle());
+                txtcalleprincipal.setText(ubicacionEncontrada.getPrincipal());
+                 cargarDatosUbicacion(ubicacionEncontrada);
+                limpiarTablaUbicacion();
+                cargarTablaUbicacion(base);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna ubicación con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        base.close();
+    }
+
+    private void cargarDatosUbicacion(Ubicacion ubicacion) {
+        lblcodigo.setText(ubicacion.getCod_ubicacion());
+        provinciacombo.setSelectedItem(ubicacion.getProvincia());
+        ciudadcombo.setSelectedItem(ubicacion.getCiudad());
+        txtbarrio.setText(ubicacion.getBarriocalle());
+        txtcalleprincipal.setText(ubicacion.getPrincipal());
+    }
+
+    private void limpiarTablaUbicacion() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+    }
+
+    public void cargarTablaUbicacion(ObjectContainer base) {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+
+        ObjectSet<Ubicacion> result = base.queryByExample(new Ubicacion());
+
+        while (result.hasNext()) {
+            Ubicacion ubicacion = result.next();
+
+            Object[] row = {
+                ubicacion.getCod_ubicacion(),
+                ubicacion.getProvincia(),
+                ubicacion.getCiudad(),
+                ubicacion.getBarriocalle(),
+                ubicacion.getPrincipal()
+            };
+            model.addRow(row);
+        }
+        base.close();
+    }
+    
+    public void ActualizarDatos(ObjectContainer base) {
+        if (provinciacombo.getSelectedItem() == null || ciudadcombo.getSelectedItem() == null || txtbarrio.getText().trim().isEmpty() || txtcalleprincipal.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        try {
+            Ubicacion miubi = new Ubicacion(lblcodigo.getText().trim(), null, null, null, null);
+            ObjectSet res = base.get(miubi);
+            Ubicacion miubicaci = (Ubicacion) res.next();
+            miubicaci.setProvincia(provinciacombo.getSelectedItem().toString());
+            miubicaci.setCiudad(ciudadcombo.getSelectedItem().toString());
+            miubicaci.setBarriocalle(txtbarrio.getText().trim());
+            miubicaci.setPrincipal(txtcalleprincipal.getText().trim());
+
+            base.set(miubicaci);
+
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+            limpiar();
+
+        } finally {
+            base.close();
+        }
+
+    }
 
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
@@ -356,6 +438,13 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnreporteActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        buscarUbicacion(base);
+        base.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btneliminar;
@@ -363,6 +452,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnreporte;
     private javax.swing.JComboBox<String> ciudadcombo;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

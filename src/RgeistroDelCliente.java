@@ -66,8 +66,8 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
             resul = base.queryByExample(new Cliente(null, null, null, null, null, null, null, null, null, null));
             int ultimoCodigo = resul.size() + 1;
 
-            // Formatear el código con ceros a la izquierda
-            String cod = String.format("%03d", ultimoCodigo);
+            // Formatear el código incremental
+            String cod = String.format("CLI-%03d", ultimoCodigo);
             lblcod.setText(cod);
 
             // Obtener la información de género y discapacidad
@@ -361,6 +361,7 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
         jPanel1.add(txtcedulaClie, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 180, -1));
 
         jLabel10.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
+        jLabel10.setForeground(new java.awt.Color(255, 255, 255));
         jLabel10.setText("Codigo _ Cliente");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 220, 100, 20));
 
@@ -413,6 +414,8 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 300, 150, -1));
+
+        lblcod.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 210, 50, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

@@ -87,51 +87,61 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
     
     public void crearPropietario(ObjectContainer Base) {
         try {
-            
-           if (!validarCampos()) {
+            if (!validarCampos()) {
                 JOptionPane.showMessageDialog(this, "Por favor, complete todos los campos.", "Error", JOptionPane.ERROR_MESSAGE);
-
                 return;
             }
-           if (rbmasculinoPro.isSelected()) {
 
+            if (rbmasculinoPro.isSelected()) {
                 sexo = "Masculino";
-
             } else if (rbfemeninoPro.isSelected()) {
                 sexo = "Femenino";
             }
-            
-            Date Seleccion = Datefechapro.getDate();
-            //String codigo_propie, String ocupacion, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
-             ObjectSet<Propietario> Pro = Base.queryByExample(new Propietario( null, null,txtcedulaPro.getText(), null, null, null,null, null, null));
-            
-            if (!Pro.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "Ya existe un Propietario con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
 
-                return; 
-            }  
-            
-            Propietario propi = new Propietario(txtcodigoPro.getText(),txtOcupacion.getText(),txtcedulaPro.getText(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo, Seleccion);
+            Date seleccion = Datefechapro.getDate();
 
-            Base.store(propi);
+            Query query = Base.query();
+            query.constrain(Propietario.class);
+            query.descend("codigo_propie").orderDescending();
+            ObjectSet<Propietario> result = query.execute();
 
-            JOptionPane.showMessageDialog(null, "Cuenta Creada");
+            int ultimoCodigo = 1; 
+            if (!result.isEmpty()) {
+                Propietario ultimoPropietario = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPropietario.getCodigo_propie().substring(4)) + 1;
+            }
+
+            String nuevoCodigo = String.format("PRO-%03d", ultimoCodigo);
+            txtcodigoPro.setText(nuevoCodigo);
+
+            result = Base.queryByExample(new Propietario(nuevoCodigo, null, null, null, null, null, null, null, null));
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un Propietario con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Propietario propietario = new Propietario(nuevoCodigo, txtOcupacion.getText(), txtcedulaPro.getText(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo, seleccion);
+            Base.store(propietario);
+
+            JOptionPane.showMessageDialog(null, "Propietario Creado");
             cargarTabla(Base);
-  
-        } finally {
 
+        } finally {
             Base.close();
         }
-        
-        txtcedulaPro.setText(" ".trim());
-        txtnombrePro.setText(" ".trim());
-        txtapellidoPro.setText(" ".trim());
-        txtemailPro.setText(" ".trim());
-        txttelefonoPro.setText(" ".trim()); 
+        limpiarCamposPropietario();
+    }
+
+    private void limpiarCamposPropietario() {
+        txtcedulaPro.setText("");
+        txtnombrePro.setText("");
+        txtapellidoPro.setText("");
+        txtemailPro.setText("");
+        txttelefonoPro.setText("");
         rbfemeninoPro.setSelected(false);
-        rbmasculinoPro.setSelected(false);  
-        txtcodigoPro.setText(" ".trim());
-        txtOcupacion.setText(" ".trim());
+        rbmasculinoPro.setSelected(false);
+        txtcodigoPro.setText("");
+        txtOcupacion.setText("");
         Datefechapro.setDate(null);
     }
     
@@ -225,7 +235,6 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         txtcedulaPro = new javax.swing.JTextField();
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
-        txtcodigoPro = new javax.swing.JTextField();
         Datefechapro = new com.toedter.calendar.JDateChooser();
         BtnGuardar = new javax.swing.JButton();
         BtnModi = new javax.swing.JButton();
@@ -236,6 +245,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jTablePropietario = new javax.swing.JTable();
         jLabel15 = new javax.swing.JLabel();
         txtOcupacion = new javax.swing.JTextField();
+        txtcodigoPro = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -625,8 +635,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, -1, -1));
 
         jLabel17.setText("Codigo _ Propietario");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 150, -1, -1));
-        jPanel1.add(txtcodigoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 150, -1));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
         jPanel1.add(Datefechapro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 150, -1));
 
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
@@ -693,6 +702,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jLabel15.setText("Ocupacion:");
         jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, -1, -1));
         jPanel1.add(txtOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 150, -1));
+        jPanel1.add(txtcodigoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 70, 30));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -743,7 +753,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         
         ObjectSet<Propietario> result = query.execute();
         
-         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "F.Nacimiento"};
+         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "FGénero"};
          
          Object[][] data = new Object[result.size()][9];
 
@@ -1003,7 +1013,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
     private javax.swing.JTextField txtOcupacion;
     private javax.swing.JTextField txtapellidoPro;
     private javax.swing.JTextField txtcedulaPro;
-    private javax.swing.JTextField txtcodigoPro;
+    private javax.swing.JLabel txtcodigoPro;
     private javax.swing.JTextField txtemailPro;
     private javax.swing.JTextField txtnombrePro;
     private javax.swing.JTextField txttelefonoPro;
