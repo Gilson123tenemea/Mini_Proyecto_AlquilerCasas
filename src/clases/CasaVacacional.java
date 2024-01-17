@@ -17,19 +17,15 @@ public class CasaVacacional  {
     private int num_pisos;
     private int capacidad_max;
     private int num_habitaciones;
-    private int num_baños;
-    
+    private int num_baños; 
     private String codigo_propie;
-    
     private double precio;
     private boolean disponibilidad;
     private String cod_ubicacion;
+    private String cod_promocion;
+    private String cod_servicio;
 
-    public CasaVacacional() {
-        super();
-    }
-
-    public CasaVacacional(String cod_casa, String Nombre_casa, String Tipo_casa, int num_pisos, int capacidad_max, int num_habitaciones, int num_baños, String codigo_propie, double precio, boolean disponibilidad, String cod_ubicacion) {
+    public CasaVacacional(String cod_casa, String Nombre_casa, String Tipo_casa, int num_pisos, int capacidad_max, int num_habitaciones, int num_baños, String codigo_propie, double precio, boolean disponibilidad, String cod_ubicacion, String cod_promocion, String cod_servicio) {
         this.cod_casa = cod_casa;
         this.Nombre_casa = Nombre_casa;
         this.Tipo_casa = Tipo_casa;
@@ -41,6 +37,8 @@ public class CasaVacacional  {
         this.precio = precio;
         this.disponibilidad = disponibilidad;
         this.cod_ubicacion = cod_ubicacion;
+        this.cod_promocion = cod_promocion;
+        this.cod_servicio = cod_servicio;
     }
 
     public String getCod_casa() {
@@ -131,12 +129,20 @@ public class CasaVacacional  {
         this.cod_ubicacion = cod_ubicacion;
     }
 
-    @Override
-    public String toString() {
-        return "CasaVacacional{" + "cod_casa=" + cod_casa + ", Nombre_casa=" + Nombre_casa + ", Tipo_casa=" + Tipo_casa + ", num_pisos=" + num_pisos + ", capacidad_max=" + capacidad_max + ", num_habitaciones=" + num_habitaciones + ", num_ba\u00f1os=" + num_baños + ", codigo_propie=" + codigo_propie + ", precio=" + precio + ", disponibilidad=" + disponibilidad + ", cod_ubicacion=" + cod_ubicacion + '}';
+    public String getCod_promocion() {
+        return cod_promocion;
     }
 
-    
-   
-  
+    public void setCod_promocion(String cod_promocion) {
+        this.cod_promocion = cod_promocion;
+    }
+
+    public String getCod_servicio() {
+        return cod_servicio;
+    }
+
+    public void setCod_servicio(String cod_servicio) {
+        this.cod_servicio = cod_servicio;
+    }
+ 
 }

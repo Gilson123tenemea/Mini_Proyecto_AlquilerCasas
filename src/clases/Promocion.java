@@ -14,7 +14,6 @@ import java.util.Date;
 public class Promocion {
 
     private String cod_promo;
-    private String cod_casa;
     private int Descuento;
     private Date fecha_inicio;
     private Date fecha_fin;
@@ -23,14 +22,15 @@ public class Promocion {
     public Promocion() {
     }
 
-    public Promocion(String cod_promo, String cod_casa, int Descuento, Date fecha_inicio, Date fecha_fin, String descripcion) {
+    public Promocion(String cod_promo, int Descuento, Date fecha_inicio, Date fecha_fin, String descripcion) {
         this.cod_promo = cod_promo;
-        this.cod_casa = cod_casa;
         this.Descuento = Descuento;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.descripcion = descripcion;
     }
+
+    
 
     public String getCod_promo() {
         return cod_promo;
@@ -40,13 +40,6 @@ public class Promocion {
         this.cod_promo = cod_promo;
     }
 
-    public String getCod_casa() {
-        return cod_casa;
-    }
-
-    public void setCod_casa(String cod_casa) {
-        this.cod_casa = cod_casa;
-    }
 
     public int getDescuento() {
         return Descuento;
@@ -80,9 +73,6 @@ public class Promocion {
         this.descripcion = descripcion;
     }
 
-    @Override
-    public String toString() {
-        return "Promocion{" + "cod_promo=" + cod_promo + ", cod_casa=" + cod_casa + ", Descuento=" + Descuento + ", fecha_inicio=" + fecha_inicio + ", fecha_fin=" + fecha_fin + ", descripcion=" + descripcion + '}';
-    }
+
 
 }

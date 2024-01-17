@@ -12,7 +12,6 @@ package clases;
 public class Servicio {
 
     private String codigo_servicio;
-    private String cod_cliente;
     private String nombre_ser;
     private String descripcionSer;
     private String CostoAdicional;
@@ -20,9 +19,8 @@ public class Servicio {
     public Servicio() {
     }
 
-    public Servicio(String codigo_servicio, String cod_cliente, String nombre_ser, String descripcionSer, String CostoAdicional) {
+    public Servicio(String codigo_servicio, String nombre_ser, String descripcionSer, String CostoAdicional) {
         this.codigo_servicio = codigo_servicio;
-        this.cod_cliente = cod_cliente;
         this.nombre_ser = nombre_ser;
         this.descripcionSer = descripcionSer;
         this.CostoAdicional = CostoAdicional;
@@ -34,14 +32,6 @@ public class Servicio {
 
     public void setCodigo_servicio(String codigo_servicio) {
         this.codigo_servicio = codigo_servicio;
-    }
-
-    public String getCod_cliente() {
-        return cod_cliente;
-    }
-
-    public void setCod_cliente(String cod_cliente) {
-        this.cod_cliente = cod_cliente;
     }
 
     public String getNombre_ser() {
@@ -68,9 +58,6 @@ public class Servicio {
         this.CostoAdicional = CostoAdicional;
     }
 
-    @Override
-    public String toString() {
-        return "Servicio{" + "codigo_servicio=" + codigo_servicio + ", cod_cliente=" + cod_cliente + ", nombre_ser=" + nombre_ser + ", descripcionSer=" + descripcionSer + ", CostoAdicional=" + CostoAdicional + '}';
-    }
+    
 
 }
