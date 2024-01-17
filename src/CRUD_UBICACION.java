@@ -1,4 +1,5 @@
 
+import clases.CasaVacacional;
 import clases.Ubicacion;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -238,39 +239,53 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
-        boolean encontrado = false;
-
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
 
-        Query query = base.query();
-        query.constrain(Ubicacion.class);
-        query.descend("cod_ubicacion").constrain(codigoEliminar);
+        try  {
+            // Verificar si la ubicación tiene una Casa Vacacional asociada
+            Query queryCasa = base.query();
+            queryCasa.constrain(CasaVacacional.class);
+            queryCasa.descend("cod_ubicacion").constrain(codigoEliminar);
 
-        ObjectSet<Ubicacion> result = query.execute();
-        cargarTabla(base);
+            ObjectSet<CasaVacacional> resultCasa = queryCasa.execute();
 
-        if (result.size() > 0) {
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Ubicacion vacacionalDB : result) {
-                    base.delete(vacacionalDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
-                    cargarTabla(base);
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
+            if (resultCasa.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar la ubicación porque tiene una Casa Vacacional asociada", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
-            cargarTabla(base);
-        }
-        limpiar();
-        base.close();
 
+            // Buscar y eliminar la ubicación
+            Query queryUbicacion = base.query();
+            queryUbicacion.constrain(Ubicacion.class);
+            queryUbicacion.descend("cod_ubicacion").constrain(codigoEliminar);
+
+            ObjectSet<Ubicacion> resultUbicacion = queryUbicacion.execute();
+
+            if (resultUbicacion.size() > 0) {
+                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos de la Ubicación?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Ubicacion ubicacion : resultUbicacion) {
+                        base.delete(ubicacion);
+                        JOptionPane.showMessageDialog(null, "Se han borrado los datos de la Ubicación");
+                        cargarTabla(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos de la Ubicación no eliminados");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el código");
+            }
+
+            limpiar();
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar la excepción de manera adecuada
+        } finally {
+            cargarTabla(base);
+            base.close();
+        }
+        
     }//GEN-LAST:event_btneliminarActionPerformed
 
     public void crearCasa(ObjectContainer base) {

@@ -1,4 +1,5 @@
 
+import clases.Actividades;
 import clases.Tipo_Actividad;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -227,39 +228,54 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del tipo de actividad a eliminar");
         boolean encontrado = false;
 
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        try {
+            // Verificar si el tipo de actividad está asociado a actividades
+            Actividades actividadAsociada = new Actividades(null, null, codigoEliminar, null, null, null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
 
-        Query query = base.query();
-        query.constrain(Tipo_Actividad.class);
-        query.descend("cod_casa").constrain(codigoEliminar);
-
-        ObjectSet<Tipo_Actividad> result = query.execute();
-        cargarTabla(base);
-
-        if (result.size() > 0) {
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Tipo_Actividad vacacionalDB : result) {
-                    // Eliminar la Casa Vacacional de la base de datos db4o
-                    base.delete(vacacionalDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
-                    cargarTabla(base);
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este tipo de actividad porque está asociado a Actividades", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
+
+            // Buscar y mostrar datos del Tipo_Actividad
+            Query queryTipoActividad = base.query();
+            queryTipoActividad.constrain(Tipo_Actividad.class);
+            queryTipoActividad.descend("cod_tipoactividad").constrain(codigoEliminar);
+
+            ObjectSet<Tipo_Actividad> resultTipoActividad = queryTipoActividad.execute();
             cargarTabla(base);
+
+            if (resultTipoActividad.size() > 0) {
+                encontrado = true;
+
+                // Preguntar al usuario si desea eliminar el Tipo_Actividad
+                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos del Tipo de Actividad?", "Confirmación", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    // Eliminar el Tipo_Actividad de la base de datos db4o
+                    for (Tipo_Actividad tipoActividadDB : resultTipoActividad) {
+                        base.delete(tipoActividadDB);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Tipo de Actividad");
+                        cargarTabla(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Tipo de Actividad no eliminados");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el código");
+                cargarTabla(base);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
         }
 
-        base.close();
     }//GEN-LAST:event_btneliminarActionPerformed
 
     public void ActualizarDatos(ObjectContainer base) {

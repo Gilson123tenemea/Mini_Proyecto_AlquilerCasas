@@ -1,4 +1,5 @@
 
+import clases.CasaVacacional;
 import clases.Propietario;
 import clases.Validaciones;
 import com.db4o.Db4o;
@@ -173,6 +174,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         };
         model.addRow(row);
     }
+    base.close();
    
      }
   
@@ -744,53 +746,70 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnModiActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
-
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        String codigopro = txtcodigoPro.getText().trim();
 
-        Query query = base.query();
-        query.constrain(Propietario.class);
-        query.descend("cedula").constrain(txtcedulaPro.getText().trim());
-        
-        ObjectSet<Propietario> result = query.execute();
-        
-         String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "FGénero"};
-         
-         Object[][] data = new Object[result.size()][9];
+        try {
+            // Verificar si el propietario tiene una Casa Vacacional asociada
+            CasaVacacional casaAsociada = new CasaVacacional(null, null, null, 0, 0, 0, 0, codigopro, 0.0, false, null,null,null);
+            ObjectSet resultCasa = base.get(casaAsociada);
 
-        int i = 0;
-        for (Propietario propie : result) {
-            data[i][0] = propie.getCedula();
-            data[i][1] = propie.getNombre();
-            data[i][2] = propie.getApellido();
-            data[i][3] = propie.getEmail();
-            data[i][4] = propie.getTelefono();
-            data[i][5] = propie.getOcupacion();
-            data[i][6] = propie.getGenero();
-            data[i][7] = propie.getCodigo_propie();
-            data[i][8] = propie.getFecha_nac();
-
-            i++;
-        }
-        
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTablePropietario.setModel(model);
-        
-        int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Propietario", "Confirmacion", JOptionPane.YES_NO_OPTION);
-        
-         if (resul == JOptionPane.YES_OPTION) {
-            for (Propietario PORBD : result) {
-
-                base.delete(PORBD);
-                JOptionPane.showMessageDialog(null, "Se estan borrando los datos del Propietario");
-
+            if (resultCasa.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar el Propietario porque tiene una Casa en Alquiler", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else if (resul == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Datos del Propietario no eliminados");
-        }
-         
-        vaciarTabla();
 
-        base.close();   
+            // Buscar y mostrar datos del Propietario
+            Query queryPropietario = base.query();
+            queryPropietario.constrain(Propietario.class);
+            queryPropietario.descend("codigo_propie").constrain(codigopro);
+
+            ObjectSet<Propietario> resultPropietario = queryPropietario.execute();
+
+            if (resultPropietario.size() > 0) {
+                String[] columnNames = {"Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "FGénero"};
+                Object[][] data = new Object[resultPropietario.size()][9];
+
+                int i = 0;
+                for (Propietario propie : resultPropietario) {
+                    data[i][0] = propie.getCedula();
+                    data[i][1] = propie.getNombre();
+                    data[i][2] = propie.getApellido();
+                    data[i][3] = propie.getEmail();
+                    data[i][4] = propie.getTelefono();
+                    data[i][5] = propie.getOcupacion();
+                    data[i][6] = propie.getGenero();
+                    data[i][7] = propie.getCodigo_propie();
+                    data[i][8] = propie.getFecha_nac();
+                    i++;
+                }
+
+                DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                jTablePropietario.setModel(model);
+
+                // Preguntar al usuario si desea eliminar al Propietario
+                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos del Propietario?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    // Eliminar al Propietario
+                    for (Propietario PORBD : resultPropietario) {
+                        base.delete(PORBD);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Propietario");
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Propietario no eliminados");
+                }
+
+                // Limpiar la tabla después de la eliminación
+                vaciarTabla();
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el Propietario con la cédula ingresada", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar la excepción de manera adecuada
+        } finally {
+            base.close();
+        }
     }//GEN-LAST:event_BtnEliminarActionPerformed
 
     public void vaciarTabla() {

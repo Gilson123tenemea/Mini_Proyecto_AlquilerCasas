@@ -8,7 +8,6 @@ public class Menu_agente extends javax.swing.JFrame {
     CRUD_PROPIETARIO propi = new CRUD_PROPIETARIO();
 
     CRUD_Servicio servi = new CRUD_Servicio();
-    //CRUD_Comentario comen = new CRUD_Comentario();
     Clientes clien = new Clientes();
     CRUD_ACTIVIDADES acti = new CRUD_ACTIVIDADES();
     INFO_AGENTE info= new INFO_AGENTE();
@@ -16,8 +15,8 @@ public class Menu_agente extends javax.swing.JFrame {
     CRUD_UBICACION ubi = new CRUD_UBICACION ();
     CRUD_TIPO_ACTIVIDAD act = new CRUD_TIPO_ACTIVIDAD ();
     CRUD_Servicio_Adicional ser = new CRUD_Servicio_Adicional ();
-    Comentario_cliente comenta = new Comentario_cliente  ();
     Contrato_agente contra = new Contrato_agente ();
+    ComentarioAgente agente = new ComentarioAgente();
     Factura fac = new Factura ();
     CardLayout vista;
 
@@ -302,7 +301,7 @@ public class Menu_agente extends javax.swing.JFrame {
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
        
-        Contenidos.add(comenta, "crud");
+        Contenidos.add(agente, "crud");
         vista.show(Contenidos, "crud");
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();

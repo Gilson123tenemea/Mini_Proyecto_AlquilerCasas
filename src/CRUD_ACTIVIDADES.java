@@ -148,7 +148,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
           }else {
               while (activi.hasNext()) {
                 Tipo_Actividad pro = activi.next();
-                cboxTipoActi.addItem(pro.getNombre());
+                cboxTipoActi.addItem(pro.getCod_tipoactividad());
             } 
           }
         
@@ -189,6 +189,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         lblIdActividades = new javax.swing.JLabel();
+        jButton9 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -259,23 +260,18 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
         jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(633, 6, -1, -1));
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Casas Vacacionales:");
         jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Tipo de Actividad:");
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 164, -1, -1));
 
-        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel7.setText("Costo Adicional:");
         jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 210, -1, -1));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setText("Fecha:");
         jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("Hora:");
         jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
         jPanel6.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 190, -1));
@@ -311,7 +307,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 340, -1, -1));
+        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 350, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         jButton3.setText("ELIMINAR");
@@ -357,7 +353,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
         cboxTipoActi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
-        jPanel6.add(cboxTipoActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 200, -1));
+        jPanel6.add(cboxTipoActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 140, -1));
 
         spnCostos.setModel(new javax.swing.SpinnerNumberModel(10.0d, 5.0d, 100.0d, 5.0d));
         jPanel6.add(spnCostos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 100, -1));
@@ -388,6 +384,16 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         });
         jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 90, -1));
         jPanel6.add(lblIdActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 120, 30));
+
+        jButton9.setBackground(new java.awt.Color(255, 255, 255));
+        jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
+        jButton9.setBorder(null);
+        jButton9.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton9ActionPerformed(evt);
+            }
+        });
+        jPanel6.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 170, 50, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -586,7 +592,25 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         }
         bases.close();
     }
-    
+     private void mostrarDatosTipoActiSeleccionado(ObjectContainer bases) {
+         String codigoSelec = cboxTipoActi.getSelectedItem().toString();
+          Query query = bases.query();
+          query.constrain(Tipo_Actividad.class);
+          query.descend("cod_tipoactividad").constrain(codigoSelec);
+         ObjectSet<Tipo_Actividad> result = query.execute();
+         if (!result.isEmpty()) {
+            Tipo_Actividad casa = result.next();
+            String mensaje = "Nombre: " + casa.getNombre()+ "\n"
+                    + "Descripcion: " + casa.getDescripcion();
+            JOptionPane.showMessageDialog(this, mensaje, "Datos de los Tipos de Actividades", JOptionPane.INFORMATION_MESSAGE);
+            
+        }else {
+            JOptionPane.showMessageDialog(this, "No se encontró un tipo de actividad con el codigo seleccionado.", "Ubicacion no encontrada", JOptionPane.ERROR_MESSAGE);
+        }
+        bases.close();
+         
+         
+     }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
@@ -606,6 +630,12 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         Base.close();
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosTipoActiSeleccionado(base);
+        base.close();
+    }//GEN-LAST:event_jButton9ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.toedter.calendar.JDateChooser Date;
@@ -621,6 +651,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
+    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

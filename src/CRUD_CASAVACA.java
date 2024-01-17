@@ -1,7 +1,9 @@
 
 import clases.CasaVacacional;
 import clases.Cliente;
+import clases.Promocion;
 import clases.Propietario;
+import clases.Servicio;
 import clases.Ubicacion;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -114,6 +116,14 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jButton10 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         txtcodigo = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        cbxPromocion = new javax.swing.JComboBox<>();
+        cboxServicio = new javax.swing.JComboBox<>();
+        jButton11 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
+        jButton14 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -437,11 +447,11 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
         jLabel16.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel16.setText("Precio de alquiler:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
 
         jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel17.setText("Propietario:");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, -1, 20));
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, 20));
 
         btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         btnguardar.setText("GUARDAR");
@@ -487,21 +497,21 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 jButton12ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 50, -1, -1));
+        jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, -1, -1));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Codigo de la casa", "Codigo del propietario", "Descripcion", "Codigo Ubicacion", "Capacidad", "Habitaciones", "Pisos", "Baños", "Tipo de casa", "Precio de alquiler", "Disponibilidad"
+                "Codigo de la casa", "Codigo del propietario", "Descripcion", "Codigo Ubicacion", "Capacidad", "Habitaciones", "Pisos", "Baños", "Tipo de casa", "Precio de alquiler", "Disponibilidad", "Promocion", "Servicio"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, true, false, false, false, false, true, true, true
+                false, false, false, true, false, false, false, false, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -529,8 +539,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 180, 70));
 
-        cbxpropietario.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "001", "001", " " }));
-        jPanel1.add(cbxpropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 160, 130, -1));
+        jPanel1.add(cbxpropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 130, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
@@ -547,20 +556,19 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 txtprecioActionPerformed(evt);
             }
         });
-        jPanel1.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 270, 140, -1));
+        jPanel1.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 140, -1));
 
         jLabel21.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel21.setText("Disponiblidad:");
-        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 310, -1, -1));
+        jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
         jCheckBox1.setText("Si");
-        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 310, 140, -1));
+        jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, -1));
 
         jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel22.setText("Ubicacion:");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "005", "006" }));
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, 130, -1));
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
@@ -579,7 +587,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 160, 90, -1));
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 90, -1));
 
         jButton10.setText("CARGAR ");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -587,7 +595,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 jButton10ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 220, 90, -1));
+        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 210, 90, -1));
 
         jPanel10.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -604,6 +612,43 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
         jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 670, -1, -1));
         jPanel1.add(txtcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 50, 170, 20));
+
+        jLabel15.setText("Promocion:");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 260, -1, -1));
+
+        jLabel18.setText("Servicio:");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
+
+        jPanel1.add(cbxPromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, 130, -1));
+
+        jPanel1.add(cboxServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 130, -1));
+
+        jButton11.setForeground(new java.awt.Color(255, 255, 255));
+        jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
+        jButton11.setBorder(null);
+        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, -1, -1));
+
+        jButton13.setBackground(new java.awt.Color(255, 255, 255));
+        jButton13.setForeground(new java.awt.Color(255, 255, 255));
+        jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
+        jButton13.setBorder(null);
+        jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, -1, -1));
+
+        jButton14.setText("CARGAR");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 260, 90, -1));
+
+        jButton15.setText("CARGAR");
+        jButton15.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton15ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 90, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -649,7 +694,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional(codigoBusqueda, null, null, 0, 0, 0, 0, null, 0.0, false, null));
+            ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional(codigoBusqueda, null, null, 0, 0, 0, 0, null, 0.0, false, null,null,null));
 
             if (!result.isEmpty()) {
                 CasaVacacional actividadEncontrada = result.next();
@@ -724,7 +769,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         } else {
             while (propi.hasNext()) {
                 Propietario pro = propi.next();
-                cbxpropietario.addItem(pro.getCedula());
+                cbxpropietario.addItem(pro.getCodigo_propie());
             }
         }
         Base.close();
@@ -747,7 +792,41 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
 
     }
+    
+    public void cargarPromocion(ObjectContainer Base) {
+        cbxPromocion.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Promocion.class);
 
+        ObjectSet<Promocion> pro = query.execute();
+
+        if (pro.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Promociones ingresadas", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (pro.hasNext()) {
+                Promocion ub = pro.next();
+                cbxPromocion.addItem(ub.getCod_promo());
+            }
+        }
+
+    }
+
+    public void cargaServicio(ObjectContainer Base) {
+    cboxServicio.removeAllItems();
+    Query query = Base.query();
+    query.constrain(Servicio.class);
+
+    ObjectSet<Servicio> servi = query.execute();
+
+    if (servi.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "No existen Servicios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
+    } else {
+        while (servi.hasNext()) {
+            Servicio ub = servi.next();
+            cboxServicio.addItem(ub.getCodigo_servicio());  // Corregido aquí
+        }
+    }
+}
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
@@ -877,6 +956,18 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtprecioActionPerformed
 
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+        cargarPromocion(bases);
+        bases.close();
+    }//GEN-LAST:event_jButton14ActionPerformed
+
+    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
+       ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+        cargaServicio(bases);
+        bases.close();
+    }//GEN-LAST:event_jButton15ActionPerformed
+
     public void vaciarTabla() {
         // Obtenemos el modelo de la tabla
         DefaultTableModel modelo = (DefaultTableModel) jTable2.getModel();
@@ -897,7 +988,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
 
         try {
-            CasaVacacional micasa = new CasaVacacional(txtcodigo.getText().trim(), null, null, 0, 0, 0, 0, null, 0.0, false, null);
+            CasaVacacional micasa = new CasaVacacional(txtcodigo.getText().trim(), null, null, 0, 0, 0, 0, null, 0.0, false, null,null,null);
 
             ObjectSet res = base.get(micasa);
             CasaVacacional micasita = (CasaVacacional) res.next();
@@ -916,7 +1007,9 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
             micasita.setCod_ubicacion(jComboBox3.getSelectedItem().toString());
             micasita.setTipo_casa(cbxtipo.getSelectedItem().toString());
-
+            micasita.setCod_promocion(cbxPromocion.getSelectedItem().toString());
+            micasita.setCod_servicio(cboxServicio.getSelectedItem().toString());
+            
             base.set(micasita);
 
             JOptionPane.showMessageDialog(this, "Modificación exitosa");
@@ -930,7 +1023,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     public void crearCasa(ObjectContainer Base) {
         // Verificar si todos los campos están llenos
         if (txadescripcion.getText().trim().isEmpty()
-                || cbxtipo.getSelectedItem() == null || cbxpropietario.getSelectedItem() == null || jComboBox3.getSelectedItem() == null) {
+                || cbxtipo.getSelectedItem() == null || cbxpropietario.getSelectedItem() == null || jComboBox3.getSelectedItem() == null ||cboxServicio.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -960,7 +1053,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
             int habitaciones = (int) spnrhabitaciones.getValue();
 
             // Verificar si ya existe una casa con el mismo código
-            ObjectSet<CasaVacacional> resul = Base.queryByExample(new CasaVacacional(nuevoCodigo, null, null, 0, 0, 0, 0, null, 0.0, false, null));
+            ObjectSet<CasaVacacional> resul = Base.queryByExample(new CasaVacacional(nuevoCodigo, null, null, 0, 0, 0, 0, null, 0.0, false, null,null,null));
 
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe una casa con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -973,8 +1066,8 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 // O, si prefieres BigDecimal:
                 // BigDecimal precio = new BigDecimal(txtprecio.getText().trim());
 
-                // Crear objeto CasaVacacional y almacenar en la base de datos
-                CasaVacacional casa1 = new CasaVacacional(nuevoCodigo, txadescripcion.getText().trim(), cbxtipo.getSelectedItem().toString(), pisos, capacidad, habitaciones, bano, cbxpropietario.getSelectedItem().toString(), precio, jCheckBox1.isSelected(), jComboBox3.getSelectedItem().toString());
+                // String cod_casa, String Nombre_casa, String Tipo_casa, int num_pisos, int capacidad_max, int num_habitaciones, int num_baños, String codigo_propie, double precio, boolean disponibilidad, String cod_ubicacion, String cod_promocion, String cod_servicio
+                CasaVacacional casa1 = new CasaVacacional(nuevoCodigo, txadescripcion.getText().trim(), cbxtipo.getSelectedItem().toString(), pisos, capacidad, habitaciones, bano, cbxpropietario.getSelectedItem().toString(), precio, jCheckBox1.isSelected(), jComboBox3.getSelectedItem().toString(), cbxPromocion.getSelectedItem().toString(), cboxServicio.getSelectedItem().toString());
                 Base.store(casa1);
 
                 JOptionPane.showMessageDialog(this, "Casa creada exitosamente");
@@ -997,37 +1090,38 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         spnrcapacidad.setValue(0);
         spnrhabitaciones.setValue(0);
         spnrpisos.setValue(0);
-
+        cboxServicio.setSelectedItem("");
+        cbxPromocion.setSelectedItem("");
         //  txtcodigoPropi.setText(" ");
     }
 
     public void cargarTabla(ObjectContainer base) {
-
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
-        ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional());
+        ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional(null, null, null, 0, 0, 0, 0, null, 0.0, false, null, null, null));
 
         while (result.hasNext()) {
             CasaVacacional casa = result.next();
 
             Object[] row = {
                 casa.getCod_casa(),
-                casa.getCodigo_propie(),
                 casa.getNombre_casa(),
-                casa.getCod_ubicacion(),
+                casa.getTipo_casa(),
+                casa.getNum_pisos(),
                 casa.getCapacidad_max(),
                 casa.getNum_habitaciones(),
                 casa.getNum_baños(),
-                casa.getNum_pisos(),
-                casa.getTipo_casa(),
+                casa.getCodigo_propie(),
                 casa.getPrecio(),
-                casa.isDisponibilidad()
-
+                casa.isDisponibilidad(),
+                casa.getCod_ubicacion(),
+                casa.getCod_promocion(),
+                casa.getCod_servicio()
             };
             model.addRow(row);
         }
-
+        base.close();
     }
 
 
@@ -1036,11 +1130,17 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton btnmodificar;
     private javax.swing.JButton btnreporte;
+    private javax.swing.JComboBox<String> cboxServicio;
+    private javax.swing.JComboBox<String> cbxPromocion;
     private javax.swing.JComboBox<String> cbxpropietario;
     private javax.swing.JComboBox<String> cbxtipo;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
+    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
+    private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1057,8 +1157,10 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
