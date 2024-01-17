@@ -14,20 +14,14 @@ import java.util.Date;
 public class Servicio_Adicional {
 
     private String codigo_servicio_adi;
-    private Date fecha;
-    private String nombre;
-    private String costos;
+    private String Codigo_servi;
     private String codigo_cli;
 
-    public Servicio_Adicional(String codigo_servicio_adi, Date fecha, String nombre, String costos, String codigo_cli) {
+    public Servicio_Adicional(String codigo_servicio_adi, String Codigo_servi, String codigo_cli) {
         this.codigo_servicio_adi = codigo_servicio_adi;
-        this.fecha = fecha;
-        this.nombre = nombre;
-        this.costos = costos;
+        this.Codigo_servi = Codigo_servi;
         this.codigo_cli = codigo_cli;
     }
-
-    
 
     public String getCodigo_servicio_adi() {
         return codigo_servicio_adi;
@@ -36,31 +30,13 @@ public class Servicio_Adicional {
     public void setCodigo_servicio_adi(String codigo_servicio_adi) {
         this.codigo_servicio_adi = codigo_servicio_adi;
     }
-    
-    
 
-    public Date getFecha() {
-        return fecha;
+    public String getCodigo_servi() {
+        return Codigo_servi;
     }
 
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    public String getNombre() {
-        return nombre;
-    }
-
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getCostos() {
-        return costos;
-    }
-
-    public void setCostos(String costos) {
-        this.costos = costos;
+    public void setCodigo_servi(String Codigo_servi) {
+        this.Codigo_servi = Codigo_servi;
     }
 
     public String getCodigo_cli() {
@@ -70,5 +46,7 @@ public class Servicio_Adicional {
     public void setCodigo_cli(String codigo_cli) {
         this.codigo_cli = codigo_cli;
     }
+    
+    
 
 }
