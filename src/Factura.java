@@ -19,6 +19,9 @@ public class Factura extends javax.swing.JPanel {
         txtcedula.setText(INICIO.usuario);
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
+        txtcasa.setText(RESERVA_CLIENTE.casa);
+        String precio = String.valueOf(RESERVA_CLIENTE.precio);
+        txtprecio.setText(precio);
     }
 
     /**
@@ -44,7 +47,7 @@ public class Factura extends javax.swing.JPanel {
         txtcedula = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
         txtapellido = new javax.swing.JTextField();
-        jTextField5 = new javax.swing.JTextField();
+        txttotal = new javax.swing.JTextField();
         txtcasa = new javax.swing.JTextField();
         txtdescuento = new javax.swing.JTextField();
         txtservicio = new javax.swing.JTextField();
@@ -53,7 +56,6 @@ public class Factura extends javax.swing.JPanel {
         txtprecio = new javax.swing.JTextField();
         txtprecioservicio = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -107,14 +109,12 @@ public class Factura extends javax.swing.JPanel {
 
         txtapellido.setEditable(false);
 
-        jTextField5.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        jTextField5.setText("123.50");
+        txttotal.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txttotal.setText("123.50");
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setText("DESCUENTOS");
         jLabel11.setToolTipText("");
-
-        jButton1.setText("VER");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -135,7 +135,7 @@ public class Factura extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(51, 51, 51)
-                        .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txttotal, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(84, 84, 84)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 214, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -163,10 +163,7 @@ public class Factura extends javax.swing.JPanel {
                             .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(64, 64, 64)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtcasa, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtcasa, javax.swing.GroupLayout.PREFERRED_SIZE, 182, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(txtcedula, javax.swing.GroupLayout.PREFERRED_SIZE, 265, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 176, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,8 +193,7 @@ public class Factura extends javax.swing.JPanel {
                         .addGap(52, 52, 52))
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(txtcasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel8)
-                        .addComponent(jButton1)))
+                        .addComponent(jLabel8)))
                 .addGap(49, 49, 49)
                 .addComponent(jLabel6)
                 .addGap(10, 10, 10)
@@ -218,7 +214,7 @@ public class Factura extends javax.swing.JPanel {
                         .addGap(37, 37, 37))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(26, 26, 26)
-                        .addComponent(jTextField5)
+                        .addComponent(txttotal)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel10)
@@ -258,7 +254,6 @@ public class Factura extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -272,7 +267,6 @@ public class Factura extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField jTextField12;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcasa;
     private javax.swing.JTextField txtcedula;
@@ -282,5 +276,6 @@ public class Factura extends javax.swing.JPanel {
     private javax.swing.JTextField txtprecioservicio;
     private javax.swing.JTextField txtservicio;
     private javax.swing.JTextField txtservicioadi;
+    private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
 }

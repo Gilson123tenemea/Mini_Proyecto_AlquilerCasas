@@ -19,7 +19,7 @@ public class INICIO extends javax.swing.JFrame {
 
     String password = " ";
     
-    public static String nombre=" ",apellido= " ",usuario = " ";
+    public static String nombre=" ",apellido= " ",usuario = " ",codigo = " ";
 
     /**
      * Creates new form INICIO
@@ -33,10 +33,10 @@ public class INICIO extends javax.swing.JFrame {
         txtcontra.setText("Ingrese su contraseña");
     }
 
-   // public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\base_datos_orientada.yap";
+    public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\base_datos_orientada.yap";
     //public static String direccionBD = "C:\\Users\\PC01\\Documents\\GitHub\\AlquilerInterfaz.yap";
     //public static String direccionBD = "C:\\Users\\ADMIN_01\\Documents\\MINI PROYECTO BDOO\\AlquilerInterfaz.yap";
-     public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\basepaa.yap";
+     //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\basepaa.yap";
 
     //public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\MiniProyecto.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\MiniProyecto\\MiniProyecto.yap";
@@ -314,6 +314,7 @@ public class INICIO extends javax.swing.JFrame {
                 password = cliente1.getContraseña();
                 nombre=cliente1.getNombre();
                 apellido=cliente1.getApellido();
+                codigo=cliente1.getCodigo_cli();
 
             }
 

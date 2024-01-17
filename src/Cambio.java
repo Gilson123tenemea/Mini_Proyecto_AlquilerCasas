@@ -4,8 +4,8 @@ import java.awt.event.ActionListener;
 
 public class Cambio extends javax.swing.JPanel implements ActionListener {
 
-    Factura_Cliente fac = new Factura_Cliente();
-    CRUD_Comentario comen = new CRUD_Comentario();
+    Factura fac = new Factura();
+    Principal comen = new Principal();
 
     public Cambio() {
         initComponents();

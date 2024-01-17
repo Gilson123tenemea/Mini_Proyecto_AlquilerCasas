@@ -20,7 +20,7 @@ public class menu_cliente extends javax.swing.JFrame {
      */
     CardLayout vista;
 
-    Principal p = new Principal();
+    RESERVA_CLIENTE p = new RESERVA_CLIENTE();
     Terminos_condiciones terminos = new Terminos_condiciones();
     INFO_Cliente inf = new INFO_Cliente();
     Factura fac = new Factura();
@@ -196,7 +196,7 @@ public class menu_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
+      // TODO add your handling code here:
 
 
     }//GEN-LAST:event_jButton2ActionPerformed

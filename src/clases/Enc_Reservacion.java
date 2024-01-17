@@ -11,6 +11,8 @@ import java.util.Date;
  *
  * @author eliza
  */
+
+
 public class Enc_Reservacion {
 
     private String id_enc_reserva;
