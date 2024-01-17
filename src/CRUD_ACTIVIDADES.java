@@ -87,8 +87,8 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }
     
     
-     public void cargarCasas(ObjectContainer Base) {
-
+     public void cargarCasas() {
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cbxNombreCasa.removeAllItems();
         Query query = Base.query();
         query.constrain(CasaVacacional.class);
@@ -137,8 +137,9 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }
 
     
-     public void cargarTipoActividades(ObjectContainer Base) {
-         cboxTipoActi.removeAllItems();
+     public void cargarTipoActividades() {
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+        cboxTipoActi.removeAllItems();
         Query query = Base.query();
         query.constrain(Tipo_Actividad.class);
         
@@ -179,7 +180,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         cbxNombreCasa = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
@@ -187,7 +187,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         spnCostos = new javax.swing.JSpinner();
         cboxHora = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
         lblIdActividades = new javax.swing.JLabel();
         jButton9 = new javax.swing.JButton();
 
@@ -327,15 +326,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         });
         jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 350, -1, -1));
 
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
-        jButton5.setText("CARGAR");
-        jButton5.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton5ActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, -1, -1));
-
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton6.setText("BUSCAR");
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -346,6 +336,11 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 350, -1, -1));
 
         cbxNombreCasa.setToolTipText("");
+        cbxNombreCasa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxNombreCasaMouseClicked(evt);
+            }
+        });
         jPanel6.add(cbxNombreCasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 110, 140, -1));
 
         jLabel10.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
@@ -353,6 +348,11 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jPanel6.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 60, -1, -1));
 
         cboxTipoActi.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { " " }));
+        cboxTipoActi.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxTipoActiMouseClicked(evt);
+            }
+        });
         jPanel6.add(cboxTipoActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 140, -1));
 
         spnCostos.setModel(new javax.swing.SpinnerNumberModel(10.0d, 5.0d, 100.0d, 5.0d));
@@ -375,14 +375,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             }
         });
         jPanel6.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, -1, -1));
-
-        jButton8.setText("CARGAR");
-        jButton8.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton8ActionPerformed(evt);
-            }
-        });
-        jPanel6.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 160, 90, -1));
         jPanel6.add(lblIdActividades, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 60, 120, 30));
 
         jButton9.setBackground(new java.awt.Color(255, 255, 255));
@@ -444,12 +436,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 648, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
-
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
-        cargarCasas(Base);
-        Base.close();
-    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
@@ -571,46 +557,69 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void mostrarDatosCasaSeleccionado(ObjectContainer bases) {
-        String codigoSelec = cbxNombreCasa.getSelectedItem().toString();
-        Query query = bases.query();
-        query.constrain(CasaVacacional.class);
-        query.descend("cod_casa").constrain(codigoSelec);
-        ObjectSet<CasaVacacional> result = query.execute();
-        
-        if (!result.isEmpty()) {
-            CasaVacacional casa = result.next();
-            String mensaje = "Nombre: " + casa.getNombre_casa()+ "\n"
-                    + "Tipo: " + casa.getTipo_casa()+ "\n"
-                    + "Pisos: " + casa.getNum_pisos()+ "\n"
-                    + "Capacidad: "+ casa.getCapacidad_max()+ "\n"
-                    + "Habitaciones: "+ casa.getNum_habitaciones()+ "\n"
-                    + "Baños: "+ casa.getNum_baños();
-            JOptionPane.showMessageDialog(this, mensaje, "Datos de Casas Vacacionales", JOptionPane.INFORMATION_MESSAGE);
-            
-        }else {
-            JOptionPane.showMessageDialog(this, "No se encontró una casa con el codigo seleccionado.", "Ubicacion no encontrada", JOptionPane.ERROR_MESSAGE);
+        try {
+            Object selectedItem = cbxNombreCasa.getSelectedItem();
+
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(CasaVacacional.class);
+                query.descend("cod_casa").constrain(codigoSelec);
+                ObjectSet<CasaVacacional> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    CasaVacacional casa = result.next();
+                    String mensaje = "Nombre: " + casa.getNombre_casa() + "\n"
+                            + "Tipo: " + casa.getTipo_casa() + "\n"
+                            + "Pisos: " + casa.getNum_pisos() + "\n"
+                            + "Capacidad: " + casa.getCapacidad_max() + "\n"
+                            + "Habitaciones: " + casa.getNum_habitaciones() + "\n"
+                            + "Baños: " + casa.getNum_baños();
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos de Casas Vacacionales", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró una casa con el código seleccionado.", "Casa no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos de Casa Vacacional.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
         }
-        bases.close();
     }
-     private void mostrarDatosTipoActiSeleccionado(ObjectContainer bases) {
-         String codigoSelec = cboxTipoActi.getSelectedItem().toString();
-          Query query = bases.query();
-          query.constrain(Tipo_Actividad.class);
-          query.descend("cod_tipoactividad").constrain(codigoSelec);
-         ObjectSet<Tipo_Actividad> result = query.execute();
-         if (!result.isEmpty()) {
-            Tipo_Actividad casa = result.next();
-            String mensaje = "Nombre: " + casa.getNombre()+ "\n"
-                    + "Descripcion: " + casa.getDescripcion();
-            JOptionPane.showMessageDialog(this, mensaje, "Datos de los Tipos de Actividades", JOptionPane.INFORMATION_MESSAGE);
-            
-        }else {
-            JOptionPane.showMessageDialog(this, "No se encontró un tipo de actividad con el codigo seleccionado.", "Ubicacion no encontrada", JOptionPane.ERROR_MESSAGE);
+    private void mostrarDatosTipoActiSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = cboxTipoActi.getSelectedItem();
+
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Tipo_Actividad.class);
+                query.descend("cod_tipoactividad").constrain(codigoSelec);
+                ObjectSet<Tipo_Actividad> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Tipo_Actividad tipoActi = result.next();
+                    String mensaje = "Nombre: " + tipoActi.getNombre() + "\n"
+                            + "Descripcion: " + tipoActi.getDescripcion();
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos de los Tipos de Actividades", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un tipo de actividad con el código seleccionado.", "Tipo de actividad no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos de Tipo de Actividad.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
         }
-        bases.close();
-         
-         
-     }
+    }
     
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
@@ -624,17 +633,19 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton7ActionPerformed
 
-    private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
-        cargarTipoActividades(Base);
-        Base.close();
-    }//GEN-LAST:event_jButton8ActionPerformed
-
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         mostrarDatosTipoActiSeleccionado(base);
         base.close();
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void cbxNombreCasaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxNombreCasaMouseClicked
+        cargarCasas();
+    }//GEN-LAST:event_cbxNombreCasaMouseClicked
+
+    private void cboxTipoActiMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxTipoActiMouseClicked
+        cargarTipoActividades();
+    }//GEN-LAST:event_cboxTipoActiMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -647,10 +658,8 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

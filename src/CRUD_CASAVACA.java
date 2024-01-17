@@ -112,8 +112,6 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jLabel22 = new javax.swing.JLabel();
         jComboBox3 = new javax.swing.JComboBox<>();
         jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
         jPanel10 = new javax.swing.JPanel();
         txtcodigo = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
@@ -122,8 +120,6 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         cboxServicio = new javax.swing.JComboBox<>();
         jButton11 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
-        jButton14 = new javax.swing.JButton();
-        jButton15 = new javax.swing.JButton();
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -525,7 +521,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jPanel1.add(spnrhabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 100, -1));
         jPanel1.add(spnrbano, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 100, -1));
 
-        cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "De Bloque", "De Ladrillo", "De Piedra", "De Madera", " " }));
         cbxtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxtipoActionPerformed(evt);
@@ -539,6 +535,16 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
         jPanel1.add(jScrollPane5, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 180, 70));
 
+        cbxpropietario.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxpropietarioMouseClicked(evt);
+            }
+        });
+        cbxpropietario.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                cbxpropietarioKeyTyped(evt);
+            }
+        });
         jPanel1.add(cbxpropietario, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 170, 130, -1));
 
         jButton7.setBackground(new java.awt.Color(255, 255, 255));
@@ -569,6 +575,11 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jLabel22.setText("Ubicacion:");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
+        jComboBox3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jComboBox3MouseClicked(evt);
+            }
+        });
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, 130, -1));
 
         jButton8.setBackground(new java.awt.Color(255, 255, 255));
@@ -579,23 +590,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, -1, -1));
-
-        jButton9.setText("CARGAR");
-        jButton9.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton9ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 170, 90, -1));
-
-        jButton10.setText("CARGAR ");
-        jButton10.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton10ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton10, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 210, 90, -1));
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, -1, -1));
 
         jPanel10.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -619,36 +614,40 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jLabel18.setText("Servicio:");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 310, -1, -1));
 
+        cbxPromocion.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxPromocionMouseClicked(evt);
+            }
+        });
         jPanel1.add(cbxPromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 260, 130, -1));
 
+        cboxServicio.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxServicioMouseClicked(evt);
+            }
+        });
         jPanel1.add(cboxServicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 300, 130, -1));
 
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
         jButton11.setBorder(null);
-        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, -1, -1));
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 270, -1, -1));
 
         jButton13.setBackground(new java.awt.Color(255, 255, 255));
         jButton13.setForeground(new java.awt.Color(255, 255, 255));
         jButton13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
         jButton13.setBorder(null);
-        jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, -1, -1));
-
-        jButton14.setText("CARGAR");
-        jButton14.addActionListener(new java.awt.event.ActionListener() {
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton14ActionPerformed(evt);
+                jButton13ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton14, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 260, 90, -1));
-
-        jButton15.setText("CARGAR");
-        jButton15.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton15ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton15, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 300, 90, -1));
+        jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 310, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -756,8 +755,8 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         model.setRowCount(0);
     }
 
-    public void cargarPropietarios(ObjectContainer Base) {
-
+    public void cargarPropietarios() {
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cbxpropietario.removeAllItems();
         Query query = Base.query();
         query.constrain(Propietario.class);
@@ -775,7 +774,8 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         Base.close();
     }
 
-    public void cargarUbicacion(ObjectContainer Base) {
+    public void cargarUbicacion() {
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         jComboBox3.removeAllItems();
         Query query = Base.query();
         query.constrain(Ubicacion.class);
@@ -790,10 +790,12 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 jComboBox3.addItem(ub.getCod_ubicacion());
             }
         }
+        Base.close();
 
     }
     
-    public void cargarPromocion(ObjectContainer Base) {
+    public void cargarPromocion() {
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cbxPromocion.removeAllItems();
         Query query = Base.query();
         query.constrain(Promocion.class);
@@ -808,10 +810,12 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 cbxPromocion.addItem(ub.getCod_promo());
             }
         }
+        Base.close();
 
     }
 
-    public void cargaServicio(ObjectContainer Base) {
+    public void cargaServicio() {
+    ObjectContainer Base = Db4o.openFile(INICIO.direccion);
     cboxServicio.removeAllItems();
     Query query = Base.query();
     query.constrain(Servicio.class);
@@ -826,6 +830,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
             cboxServicio.addItem(ub.getCodigo_servicio());  // Corregido aquí
         }
     }
+    Base.close();
 }
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
@@ -875,76 +880,154 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-
         cargarTabla(base);
-
-        base.close();      // TODO add your handling code here:
-
-
+        base.close();     
     }//GEN-LAST:event_btnreporteActionPerformed
 
     private void mostrarDatosPropietarioSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = cbxpropietario.getSelectedItem();
 
-        String cedulaSeleccionada = cbxpropietario.getSelectedItem().toString();
-        Query query = bases.query();
-        query.constrain(Propietario.class);
-        query.descend("cedula").constrain(cedulaSeleccionada);
-        ObjectSet<Propietario> result = query.execute();
+            if (selectedItem != null) {
+                String cedulaSeleccionada = selectedItem.toString();
 
-        if (!result.isEmpty()) {
-            Propietario propietario = result.next();
-            String mensaje = "Cédula: " + propietario.getCedula() + "\n"
-                    + "Nombre: " + propietario.getNombre() + "\n"
-                    + "Apellido: " + propietario.getApellido();
+                Query query = bases.query();
+                query.constrain(Propietario.class);
+                query.descend("codigo_propie").constrain(cedulaSeleccionada);
+                ObjectSet<Propietario> result = query.execute();
 
-            JOptionPane.showMessageDialog(this, mensaje, "Datos del Propietario", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró un propietario con la cédula seleccionada.", "Propietario no encontrado", JOptionPane.ERROR_MESSAGE);
+                if (!result.isEmpty()) {
+                    Propietario propietario = result.next();
+                    String mensaje = "Cédula: " + propietario.getCedula() + "\n"
+                            + "Nombre: " + propietario.getNombre() + "\n"
+                            + "Apellido: " + propietario.getApellido();
+
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Propietario", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un propietario con la cédula seleccionada.", "Propietario no encontrado", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Propietario.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
         }
     }
 
     private void mostrarDatosUbicacionSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = jComboBox3.getSelectedItem();
 
-        
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
 
-        String codigoSelec = jComboBox3.getSelectedItem().toString();
-        Query query = bases.query();
-        query.constrain(Ubicacion.class);
-        query.descend("cod_ubicacion").constrain(codigoSelec);
-        ObjectSet<Ubicacion> result = query.execute();
+                Query query = bases.query();
+                query.constrain(Ubicacion.class);
+                query.descend("cod_ubicacion").constrain(codigoSelec);
+                ObjectSet<Ubicacion> result = query.execute();
 
-        if (!result.isEmpty()) {
-            Ubicacion ubica = result.next();
-            String mensaje = "Provincia: " + ubica.getProvincia() + "\n"
-                    + "Ciudad: " + ubica.getCiudad() + "\n"
-                    + "Barrio: " + ubica.getBarriocalle() + "\n"
-                    + "Calle Principal: " + ubica.getPrincipal();
+                if (!result.isEmpty()) {
+                    Ubicacion ubica = result.next();
+                    String mensaje = "Provincia: " + ubica.getProvincia() + "\n"
+                            + "Ciudad: " + ubica.getCiudad() + "\n"
+                            + "Barrio: " + ubica.getBarriocalle() + "\n"
+                            + "Calle Principal: " + ubica.getPrincipal();
 
-            JOptionPane.showMessageDialog(this, mensaje, "Datos de Ubicacion", JOptionPane.INFORMATION_MESSAGE);
-
-        } else {
-            JOptionPane.showMessageDialog(this, "No se encontró una ubicacion con el codigo seleccionado.", "Ubicacion no encontrada", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos de Ubicacion", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró una ubicación con el código seleccionado.", "Ubicación no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos de ubicación.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
         }
-        bases.close();
     }
+
+    private void mostrarDatosPromocionSeleccionado(ObjectContainer bases) {
+        try {
+            // Obtener el índice seleccionado en lugar de solo el elemento seleccionado
+            int selectedIndex = jComboBox3.getSelectedIndex();
+
+            if (selectedIndex != -1) {
+                // Obtener el código seleccionado directamente del modelo del JComboBox
+                String codigoSelec = jComboBox3.getItemAt(selectedIndex).toString();
+
+                Query query = bases.query();
+                query.constrain(Promocion.class);
+                query.descend("cod_promo").constrain(codigoSelec);
+                ObjectSet<Promocion> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Promocion promo = result.next();
+                    String mensaje = "Descuento: " + promo.getDescuento() + "\n"
+                            + "Descripcion: " + promo.getDescripcion() + "\n"
+                            + "Fecha Inicio: " + promo.getFecha_inicio() + "\n"
+                            + "Fecha Fin: " + promo.getFecha_fin();
+
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos de Promoción", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró una Promoción con el código seleccionado.", "Promoción no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos de Promoción.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+
+    }
+
+    private void mostrarDatosServicioSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = jComboBox3.getSelectedItem();
+
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Servicio.class);
+                query.descend("codigo_servicio").constrain(codigoSelec);
+                ObjectSet<Servicio> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Servicio servi = result.next();
+                    String mensaje = "Nombre: " + servi.getNombre_ser() + "\n"
+                            + "Descripcion: " + servi.getDescripcionSer() + "\n"
+                            + "Costo: " + servi.getCostoAdicional();
+
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos de Servicio", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un Servicio con el código seleccionado.", "Servicio no encontrado", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos de Servicio.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+
+    }
+    
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         ObjectContainer bases = Db4o.openFile(INICIO.direccion);
         mostrarDatosPropietarioSeleccionado(bases);
         bases.close();
     }//GEN-LAST:event_jButton7ActionPerformed
-
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
-        cargarPropietarios(bases);
-        bases.close();
-    }//GEN-LAST:event_jButton9ActionPerformed
-
-    private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
-        cargarUbicacion(bases);
-        bases.close();
-    }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
         ObjectContainer bases = Db4o.openFile(INICIO.direccion);
@@ -956,17 +1039,37 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtprecioActionPerformed
 
-    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
-        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
-        cargarPromocion(bases);
-        bases.close();
-    }//GEN-LAST:event_jButton14ActionPerformed
+    private void cbxpropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxpropietarioKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxpropietarioKeyTyped
 
-    private void jButton15ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton15ActionPerformed
-       ObjectContainer bases = Db4o.openFile(INICIO.direccion);
-        cargaServicio(bases);
+    private void cbxpropietarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxpropietarioMouseClicked
+        cargarPropietarios();
+    }//GEN-LAST:event_cbxpropietarioMouseClicked
+
+    private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
+       cargarUbicacion();
+    }//GEN-LAST:event_jComboBox3MouseClicked
+
+    private void cbxPromocionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxPromocionMouseClicked
+       cargarPromocion();
+    }//GEN-LAST:event_cbxPromocionMouseClicked
+
+    private void cboxServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxServicioMouseClicked
+       cargaServicio();
+    }//GEN-LAST:event_cboxServicioMouseClicked
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+        mostrarDatosPromocionSeleccionado(bases);
         bases.close();
-    }//GEN-LAST:event_jButton15ActionPerformed
+    }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        ObjectContainer bases = Db4o.openFile(INICIO.direccion);
+        mostrarDatosServicioSeleccionado(bases);
+        bases.close(); 
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     public void vaciarTabla() {
         // Obtenemos el modelo de la tabla
@@ -1135,12 +1238,9 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     private javax.swing.JComboBox<String> cbxpropietario;
     private javax.swing.JComboBox<String> cbxtipo;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
-    private javax.swing.JButton jButton14;
-    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -1148,7 +1248,6 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JLabel jLabel1;
