@@ -1,21 +1,25 @@
 
 import clases.CasaVacacional;
 import clases.Cliente;
+import clases.Comentario;
+import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import javax.swing.JOptionPane;
-
+import javax.swing.table.DefaultTableModel;
 
 public class CRUD_Comentario extends javax.swing.JPanel {
-private ObjectContainer BaseD;
+
+    private ObjectContainer BaseD;
+
     public CRUD_Comentario() {
         this.BaseD = BaseD;
         initComponents();
         //cargarCasas();
         //cargarCleinte();
     }
-    
+
     public void cargarCasas() {
         cod_casa.removeAllItems();
         Query query = BaseD.query();
@@ -59,51 +63,50 @@ private ObjectContainer BaseD;
         query.constrain(CasaVacacional.class);
         query.descend("cod_casa").constrain(casaSeleccionada);
         ObjectSet<CasaVacacional> result = query.execute();
-        
+
         if (!result.isEmpty()) {
             CasaVacacional casa = result.next();
-            String mensaje = "Codigo:: " + casa.getCod_casa()+ "\n"
+            String mensaje = "Codigo:: " + casa.getCod_casa() + "\n"
                     + "Descripcion: " + casa.getNombre_casa() + "\n"
                     + "Tipo de casa: " + casa.getTipo_casa() + "\n"
                     + "Numero de pisos: " + casa.getNum_pisos() + "\n"
                     + "Capacidad maxima: " + casa.getCapacidad_max() + "\n"
                     + "Numero de habitaciones: " + casa.getNum_habitaciones() + "\n"
                     + "Numero de baño: " + casa.getNum_baños()
-                    + "Cedula Propietario: "+ casa.getCodigo_propie()
-                    + "Precio: "+ casa.getPrecio();
+                    + "Cedula Propietario: " + casa.getCodigo_propie()
+                    + "Precio: " + casa.getPrecio();
 
-                    JOptionPane.showMessageDialog(this, mensaje, "Datos de La Casa", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(this, mensaje, "Datos de La Casa", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
             JOptionPane.showMessageDialog(this, "No se encontró la casa con el ID seleccionado.", "Casa no encontrada", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
-    
+
     private void mostrarDatosClienteSeleccionada() {
         String clienteSeleccionada = cod_casa.getSelectedItem().toString();
         Query query = BaseD.query();
         query.constrain(Cliente.class);
         query.descend("codigo_cli").constrain(clienteSeleccionada);
         ObjectSet<Cliente> result = query.execute();
-        
-        if (!result.isEmpty()){
+
+        if (!result.isEmpty()) {
             Cliente cliente = result.next();
-            String mensaje = "Cedula: "+ cliente.getCedula()+ "\n"
-                    + "Nombre: "+ cliente.getNombre()+ "\n"
-                    + "Apellido: "+ cliente.getApellido()+ "\n"
-                    + "Email: "+ cliente.getTelefono()+ "\n"
-                    + "Telefono: "+ cliente.getTelefono() + "\n"
-                    + "Gerono: "+ cliente.getGenero()+ "\n"
-                    + "Codigo_cliente: "+ cliente.getCodigo_cli();
-            
-            
-                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Cliente", JOptionPane.INFORMATION_MESSAGE);
-            
+            String mensaje = "Cedula: " + cliente.getCedula() + "\n"
+                    + "Nombre: " + cliente.getNombre() + "\n"
+                    + "Apellido: " + cliente.getApellido() + "\n"
+                    + "Email: " + cliente.getTelefono() + "\n"
+                    + "Telefono: " + cliente.getTelefono() + "\n"
+                    + "Gerono: " + cliente.getGenero() + "\n"
+                    + "Codigo_cliente: " + cliente.getCodigo_cli();
+
+            JOptionPane.showMessageDialog(this, mensaje, "Datos del Cliente", JOptionPane.INFORMATION_MESSAGE);
+
         } else {
             JOptionPane.showMessageDialog(this, "No se encontró el cliente con el ID seleccionado.", "Casa no encontrada", JOptionPane.ERROR_MESSAGE);
         }
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -116,10 +119,8 @@ private ObjectContainer BaseD;
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
-        jButton6 = new javax.swing.JButton();
+        txtDescripcion = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         VER_CLIENTE = new javax.swing.JButton();
         VER_CASA = new javax.swing.JButton();
@@ -127,6 +128,7 @@ private ObjectContainer BaseD;
         cod_casa = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
+        lblcod = new javax.swing.JLabel();
 
         setAutoscrolls(true);
         setPreferredSize(new java.awt.Dimension(950, 650));
@@ -154,25 +156,20 @@ private ObjectContainer BaseD;
         jLabel6.setText("Descripción:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 100, 300, -1));
-
-        jTextArea1.setEditable(false);
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        txtDescripcion.setEditable(false);
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane1.setViewportView(txtDescripcion);
 
         jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 544, 140));
 
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
-        jPanel2.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 90, -1, -1));
-
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         jButton1.setText("COMENTAR");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 530, -1, -1));
 
         VER_CLIENTE.setBackground(new java.awt.Color(255, 255, 255));
@@ -203,12 +200,13 @@ private ObjectContainer BaseD;
         jLabel1.setText("REALIZE UN COMENTARIO EN BASE A SU EXPERIENCIA");
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 10, -1, -1));
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 380, 10));
+        jPanel2.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 150, 20));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 920, Short.MAX_VALUE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -224,9 +222,65 @@ private ObjectContainer BaseD;
         mostrarDatosClienteSeleccionada();
     }//GEN-LAST:event_VER_CLIENTEActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-    }//GEN-LAST:event_jTextField1ActionPerformed
+        crearComentario(base);
+        base.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void crearComentario(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+        if (txtDescripcion.getText().trim().isEmpty()) {
+
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Query query = base.query();
+            query.constrain(Comentario.class);
+            query.descend("cod_comentario").orderDescending();
+            ObjectSet<Comentario> result = query.execute();
+
+            int ultimoCodigo = 1;
+            if (!result.isEmpty()) {
+                Comentario ultimoPersonal = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_comentario().substring(4)) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda
+            String nuevoCodigo = String.format("COM-%03d", ultimoCodigo);
+            lblcod.setText(nuevoCodigo);
+
+            // Verificar si ya existe una casa con el mismo código
+            result = base.queryByExample(new Comentario(nuevoCodigo, null, null, null));
+
+            if (!result.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "Ya existe un comentario con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear objeto CasaVacacional y almacenar en la base de datos
+            Comentario casa1 = new Comentario(nuevoCodigo, cod_Cliente.getSelectedItem().toString(), cod_casa.getSelectedItem().toString(), txtDescripcion.getText().trim());
+            base.store(casa1);
+
+            JOptionPane.showMessageDialog(this, "Comentario creado exitosamente");
+            limpiar();
+        } finally {
+            base.close();
+        }
+    }
+
+    public void limpiar() {
+        cod_Cliente.setSelectedItem("");
+        cod_casa.setSelectedItem("");
+        txtDescripcion.setText("");
+
+       
+    }
+
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -235,7 +289,6 @@ private ObjectContainer BaseD;
     private javax.swing.JComboBox<String> cod_Cliente;
     private javax.swing.JComboBox<String> cod_casa;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton6;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -245,7 +298,7 @@ private ObjectContainer BaseD;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JLabel lblcod;
+    private javax.swing.JTextArea txtDescripcion;
     // End of variables declaration//GEN-END:variables
 }
