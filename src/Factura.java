@@ -20,8 +20,7 @@ public class Factura extends javax.swing.JPanel {
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
         txtcasa.setText(RESERVA_CLIENTE.casa);
-        String precio = String.valueOf(RESERVA_CLIENTE.precio);
-        txtprecio.setText(precio);
+      
     }
 
     /**

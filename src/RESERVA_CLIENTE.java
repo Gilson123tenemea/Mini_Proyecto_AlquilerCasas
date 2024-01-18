@@ -1,13 +1,16 @@
 
+import clases.Actividades;
+import clases.Agente_inmobiliario;
 import clases.CasaVacacional;
 import clases.Cuerpo_reserva;
 import clases.Enc_Reservacion;
 import clases.Reservar;
+import clases.TIPO_ACTIVIDADES;
+import clases.Tipo_Actividad;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
-import java.util.Date;
 import javax.swing.JOptionPane;
 
 /*
@@ -24,14 +27,14 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
     boolean disponibilidad = false;
 
     public static String casa = " ";
-    public static double precio = 0.0;
+    String tipo = " ", nombretipo = " ";
+    String precio = " ";
 
     /**
      * Creates new form RESERVA_CLIENTE
      */
     public RESERVA_CLIENTE() {
         initComponents();
-       
 
         btnreserva.setEnabled(false);
 
@@ -262,7 +265,7 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(-40, 130, 330, 240));
 
         txtcad_reserva.setForeground(new java.awt.Color(255, 255, 255));
-        txtcad_reserva.setText("jLabel11");
+        txtcad_reserva.setText("jLabel1actividades");
         jPanel1.add(txtcad_reserva, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 70, 130, 30));
 
         lblfechaf.setForeground(new java.awt.Color(255, 0, 51));
@@ -300,7 +303,6 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
                 CasaVacacional casa1 = casas.next();
                 cbxcasa.addItem(casa1.getCod_casa());
                 disponibilidad = casa1.isDisponibilidad();
-                precio = casa1.getPrecio();
 
             }
 
@@ -349,6 +351,45 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
 
     }//GEN-LAST:event_btnreservaActionPerformed
 
+    public void ObtenerTipo(ObjectContainer base) {
+
+        Query query = base.query();
+        query.constrain(Tipo_Actividad.class);
+        query.descend("cod_tipoactividad").constrain(tipo);
+
+        ObjectSet<Tipo_Actividad> result = query.execute();
+
+        if (!result.isEmpty()) {
+
+            for (Tipo_Actividad yip : result) {
+                nombretipo = yip.getNombre();
+
+            }
+
+        }
+
+    }
+
+    public void ObtenerActividades(ObjectContainer base) {
+
+        Query query = base.query();
+        query.constrain(Actividades.class);
+        query.descend("cod_casa").constrain(cbxcasa.getSelectedItem().toString());
+
+        ObjectSet<Actividades> result = query.execute();
+
+        if (!result.isEmpty()) {
+
+            for (Actividades acti : result) {
+                precio = acti.getCosto_adicional();
+                tipo = acti.getTipo_actividad();
+
+            }
+
+        }
+
+    }
+
     private void mostrarDatosCasaSeleccionado(ObjectContainer bases) {
         String codigoSelec = cbxcasa.getSelectedItem().toString();
         Query query = bases.query();
@@ -365,7 +406,11 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
                     + "Capacidad: " + casa.getCapacidad_max() + "\n"
                     + "Habitaciones: " + casa.getNum_habitaciones() + "\n"
                     + "Baños: " + casa.getNum_baños() + "\n"
-                    + "Precio: " + casa.getPrecio();
+                    + "Precio: " + casa.getPrecio() + "\n"
+                    + "Actividades establecidas en la casa" + "\n"
+                    + "Tipo de actividad: " + nombretipo + "\n"
+                    + "Costo de la actividad: " + precio;
+
             JOptionPane.showMessageDialog(this, mensaje, "Datos de Casas Vacacionales", JOptionPane.INFORMATION_MESSAGE);
 
         } else {
@@ -388,6 +433,13 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
         // TODO add your handling code here:
 
         cargar();
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        ObtenerActividades(base);
+
+        ObtenerTipo(base);
+
+        base.close();
+
     }//GEN-LAST:event_cbxcasaMouseClicked
 
     private void reservaiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_reservaiPropertyChange
@@ -400,7 +452,7 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
 
     private void cbxcasaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbxcasaItemStateChanged
         // TODO add your handling code here:
-       
+
     }//GEN-LAST:event_cbxcasaItemStateChanged
 
     public void validar() {
