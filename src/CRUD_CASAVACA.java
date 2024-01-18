@@ -1083,7 +1083,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
-        if (txtcodigo.getText().trim().isEmpty() || txadescripcion.getText().trim().isEmpty()
+        if (txadescripcion.getText().trim().isEmpty()
                 || cbxtipo.getSelectedItem() == null || cbxpropietario.getSelectedItem() == null || jComboBox3.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
