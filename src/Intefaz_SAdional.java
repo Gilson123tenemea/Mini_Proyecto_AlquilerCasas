@@ -59,36 +59,50 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
         txtcedula = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
         txtnombre = new javax.swing.JTextField();
+        jLabel3 = new javax.swing.JLabel();
         txtapellido = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        lblcodigo = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         cboxservicio = new javax.swing.JComboBox<>();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        lblcodigo = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        jSeparator1 = new javax.swing.JSeparator();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
 
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("CEDULA:");
-        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 209, -1, -1));
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel1.setText("Cédula:");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+        jPanel1.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 176, -1));
 
-        jLabel2.setText("NOMBRE:");
-        add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 277, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel2.setText("Nombre:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
+        jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 176, -1));
 
-        jLabel3.setText("APELLIDO:");
-        add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 337, -1, -1));
-        add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 206, 176, -1));
-        add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 274, 176, -1));
-        add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(198, 334, 176, -1));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel3.setText("Apellido:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+        jPanel1.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 176, -1));
 
-        jLabel4.setText("CODIGO SERVICIO:");
-        add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 277, -1, -1));
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel5.setText("Código Servicio Adicional:");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, -1));
+        jPanel1.add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 67, 28));
+
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel4.setText("Código Servicio:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 280, -1, -1));
 
         cboxservicio.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
         cboxservicio.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -96,13 +110,7 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
                 cboxservicioMouseClicked(evt);
             }
         });
-        add(cboxservicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(613, 274, 153, -1));
-
-        jLabel5.setText("CODIGO SERVICIO ADICIONAL:");
-        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(499, 209, -1, -1));
-
-        jLabel6.setText("SERVICIO ADICIONAL");
-        add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(364, 60, -1, -1));
+        jPanel1.add(cboxservicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 280, 153, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -110,16 +118,42 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(772, 274, 55, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 280, 55, -1));
 
+        jButton2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         jButton2.setText("GUARDAR");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton2ActionPerformed(evt);
             }
         });
-        add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 471, -1, -1));
-        add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 200, 67, 28));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 520, -1, -1));
+
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel6.setText("SERVICIO ADICIONAL");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
+
+        jSeparator1.setBackground(new java.awt.Color(51, 102, 255));
+        jSeparator1.setForeground(new java.awt.Color(51, 102, 255));
+        jPanel1.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(333, 61, 192, 10));
+
+        jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/servicio-al-cliente.png"))); // NOI18N
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 390, -1, -1));
+
+        jLabel8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, -1, -1));
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 850, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
     }// </editor-fold>//GEN-END:initComponents
 
     private void cboxservicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxservicioMouseClicked
@@ -216,6 +250,10 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblcodigo;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcedula;
