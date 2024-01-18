@@ -11,10 +11,10 @@ import javax.swing.table.DefaultTableModel;
 
 public class CRUD_Comentario extends javax.swing.JPanel {
 
-    private ObjectContainer BaseD;
+    private ObjectContainer base;
 
     public CRUD_Comentario() {
-        this.BaseD = BaseD;
+        this.base = base;
         initComponents();
         //cargarCasas();
         //cargarCleinte();
@@ -22,7 +22,7 @@ public class CRUD_Comentario extends javax.swing.JPanel {
 
     public void cargarCasas() {
         cod_casa.removeAllItems();
-        Query query = BaseD.query();
+        Query query = base.query();
         query.constrain(CasaVacacional.class);
 
         ObjectSet<CasaVacacional> casas = query.execute();
@@ -40,7 +40,7 @@ public class CRUD_Comentario extends javax.swing.JPanel {
 
     public void cargarCleinte() {
         cod_Cliente.removeAllItems();
-        Query query = BaseD.query();
+        Query query = base.query();
         query.constrain(Cliente.class);
 
         ObjectSet<Cliente> cliente = query.execute();
@@ -57,9 +57,9 @@ public class CRUD_Comentario extends javax.swing.JPanel {
 
     }
 
-    private void mostrarDatosCasaSeleccionada() {
+    private void mostrarDatosCasaSeleccionada(ObjectContainer base) {
         String casaSeleccionada = cod_casa.getSelectedItem().toString();
-        Query query = BaseD.query();
+        Query query = base.query();
         query.constrain(CasaVacacional.class);
         query.descend("cod_casa").constrain(casaSeleccionada);
         ObjectSet<CasaVacacional> result = query.execute();
@@ -84,9 +84,9 @@ public class CRUD_Comentario extends javax.swing.JPanel {
 
     }
 
-    private void mostrarDatosClienteSeleccionada() {
+    private void mostrarDatosClienteSeleccionada(ObjectContainer base) {
         String clienteSeleccionada = cod_casa.getSelectedItem().toString();
-        Query query = BaseD.query();
+        Query query = base.query();
         query.constrain(Cliente.class);
         query.descend("codigo_cli").constrain(clienteSeleccionada);
         ObjectSet<Cliente> result = query.execute();
@@ -119,8 +119,6 @@ public class CRUD_Comentario extends javax.swing.JPanel {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        txtDescripcion = new javax.swing.JTextArea();
         jButton1 = new javax.swing.JButton();
         VER_CLIENTE = new javax.swing.JButton();
         VER_CASA = new javax.swing.JButton();
@@ -129,6 +127,8 @@ public class CRUD_Comentario extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         lblcod = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        txtDescripcion = new javax.swing.JTextArea();
 
         setAutoscrolls(true);
         setPreferredSize(new java.awt.Dimension(950, 650));
@@ -155,13 +155,6 @@ public class CRUD_Comentario extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Descripción:");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 300, -1, -1));
-
-        txtDescripcion.setEditable(false);
-        txtDescripcion.setColumns(20);
-        txtDescripcion.setRows(5);
-        jScrollPane1.setViewportView(txtDescripcion);
-
-        jPanel2.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 300, 544, 140));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         jButton1.setText("COMENTAR");
@@ -202,6 +195,12 @@ public class CRUD_Comentario extends javax.swing.JPanel {
         jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 40, 380, 10));
         jPanel2.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 110, 150, 20));
 
+        txtDescripcion.setColumns(20);
+        txtDescripcion.setRows(5);
+        jScrollPane2.setViewportView(txtDescripcion);
+
+        jPanel2.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, 400, 130));
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -215,11 +214,17 @@ public class CRUD_Comentario extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void VER_CASAActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_CASAActionPerformed
-        mostrarDatosCasaSeleccionada();
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+
+        mostrarDatosCasaSeleccionada(base);
+        base.close();
     }//GEN-LAST:event_VER_CASAActionPerformed
 
     private void VER_CLIENTEActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_VER_CLIENTEActionPerformed
-        mostrarDatosClienteSeleccionada();
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+
+        mostrarDatosClienteSeleccionada(base);
+        base.close();
     }//GEN-LAST:event_VER_CLIENTEActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -296,7 +301,7 @@ public class CRUD_Comentario extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JLabel lblcod;
     private javax.swing.JTextArea txtDescripcion;
