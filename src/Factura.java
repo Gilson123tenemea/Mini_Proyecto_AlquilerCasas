@@ -7,39 +7,33 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import javax.swing.JOptionPane;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author Lenovo.User
  */
 public class Factura extends javax.swing.JPanel {
 
-    String casa= "";
+    String casa = "";
     String nombre = "";
     double precio = 0.0;
     int descuento = 0;
     String codi_promo = "";
 
-    
     public Factura() {
 
         initComponents();
 
-       
+        System.out.println(INICIO.codigo);
         txtcedula.setText(INICIO.usuario);
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
-        txtcasa.setText(casa);
-        String miprecion = String.valueOf(precio);
-        txtprecio.setText(miprecion);
-        String mipromo = String.valueOf(descuento);
-        txtdescuento.setText(mipromo);
 
     }
 
@@ -184,30 +178,11 @@ public class Factura extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public void CalcularPago(){
-        
-       
-        
-    }
-     public void ObtenerReserva(ObjectContainer base) {
-
-        Query query = base.query();
-        query.constrain(Reservar.class);
-        query.descend("codigo_cli").constrain(INICIO.usuario);
-
-        ObjectSet<Reservar> result = query.execute();
-
-        if (!result.isEmpty()) {
-
-            for (Reservar acti : result) {
-                casa= acti.getCodigo_casa();
-            }
-
-        }
+    public void CalcularPago() {
 
     }
-     
-      public void ObtenerCasa(ObjectContainer base) {
+
+    public void ObtenerCasa(ObjectContainer base) {
 
         Query query = base.query();
         query.constrain(CasaVacacional.class);
@@ -218,16 +193,19 @@ public class Factura extends javax.swing.JPanel {
         if (!result.isEmpty()) {
 
             for (CasaVacacional acti : result) {
-                nombre= acti.getNombre_casa();
-                precio=acti.getPrecio();
+                nombre = acti.getNombre_casa();
+                precio = acti.getPrecio();
                 codi_promo = acti.getCod_promocion();
             }
+
+            String miprecion = String.valueOf(precio);
+            txtprecio.setText(miprecion);
 
         }
 
     }
-      
-       public void ObtenerPromocion(ObjectContainer base) {
+
+    public void ObtenerPromocion(ObjectContainer base) {
 
         Query query = base.query();
         query.constrain(Promocion.class);
@@ -241,14 +219,33 @@ public class Factura extends javax.swing.JPanel {
                 descuento = acti.getDescuento();
             }
 
+            String mipromo = String.valueOf(descuento);
+            txtdescuento.setText(mipromo);
+
         }
 
     }
-    
+
+
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtnombreActionPerformed
 
+    public void ObtenerReserva(ObjectContainer base) {
+
+        Query consulta = base.query();
+        consulta.constrain(Reservar.class);
+        consulta.descend("coidigo_cli").constrain(INICIO.codigo);
+
+        ObjectSet<Reservar> result = consulta.execute();
+
+        for (Reservar reserva1 : result) {
+            casa = reserva1.getCodigo_casa();
+        }
+
+        txtcasa.setText(casa);
+
+    }
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         ObtenerReserva(base);

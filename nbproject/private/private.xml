@@ -9,6 +9,8 @@
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/CRUD_Comentario.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/clases/CasaVacacional.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/CRUD_ACTIVIDADES.java</file>
+            <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/clases/TIPO_ACTIVIDADES.java</file>
+            <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/Promocion_crud.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/clases/Reservar.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/Cambio.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/RegistrarCliente.java</file>
@@ -22,6 +24,7 @@
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/CRUD_CLIENTE.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/menu_cliente.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/clases/Enc_Reservacion.java</file>
+            <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/CRUD_PROPIETARIO.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/RESERVA_CLIENTE.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/RESERVA_CLIENTE_1.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/Inicio_administrador.java</file>
@@ -32,6 +35,7 @@
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/reserva_agente.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/Menu_agente.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/RgeistroDelCliente.java</file>
+            <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/clases/Tipo_Actividad.java</file>
             <file>file:/C:/Users/Lenovo.User/Documents/NetBeansProjects/Mini_Proyecto_AlquilerCasas/src/Contrato_cliente.java</file>
         </group>
     </open-files>

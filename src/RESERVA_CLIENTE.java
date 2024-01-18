@@ -36,8 +36,6 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
     public RESERVA_CLIENTE() {
         initComponents();
 
-        btnreserva.setEnabled(false);
-
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
 
@@ -336,13 +334,13 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
             String nuevoCodigo = String.format("RES-%03d", ultimoCodigo);
             txtcad_reserva.setText(nuevoCodigo);
 
-            validar();
             //String codigo_rese, String coidigo_cli, String codigo_casa, Date fecha_ini, Date fecha_fin
             Reservar re = new Reservar(nuevoCodigo, INICIO.codigo, cbxcasa.getSelectedItem().toString(), reservai.getDate(), reservafin.getDate());
 
+            base.store(re);
+
             JOptionPane.showMessageDialog(null, "Se envio la solicitud de reserva");
 
-            base.store(re);
         } finally {
             base.close();
 
