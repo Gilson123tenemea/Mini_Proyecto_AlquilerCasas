@@ -159,7 +159,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Código Servicio", "Nombre Servicio", "Costo Adicional", "Descripción"
+                "Código Servicio", "Nombre Servicio", "Descripcion", "Costo"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -283,8 +283,9 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         for (Servicio servi : result) {
             data[i][0] = servi.getCodigo_servicio();
             data[i][1] = servi.getNombre_ser();
-            data[i][2] = servi.getCostoAdicional();
-            data[i][3] = servi.getDescripcionSer();
+            data[i][2] = servi.getDescripcionSer();
+            data[i][3] = servi.getCostoAdicional();
+            
             
             i++;
         }
@@ -462,7 +463,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
             }
 
             // Crear objeto CasaVacacional y almacenar en la base de datos
-            Servicio casa1 = new Servicio(txtcodigo.getText().trim(),txtnombreservicio.getText().trim(),costoadicionaldouble.getText().trim(),descripciontxt.getText().trim() );
+            Servicio casa1 = new Servicio(txtcodigo.getText().trim(),txtnombreservicio.getText().trim(),descripciontxt.getText().trim() ,costoadicionaldouble.getText().trim());
 
             Base.store(casa1);
 

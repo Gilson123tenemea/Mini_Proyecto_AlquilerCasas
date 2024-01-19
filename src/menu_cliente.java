@@ -50,7 +50,6 @@ public class menu_cliente extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
@@ -73,15 +72,6 @@ public class menu_cliente extends javax.swing.JFrame {
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(45, 38, 186, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
-        jButton2.setText("INFO SERVICIOS");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 180, 40));
-
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/tarifa.png"))); // NOI18N
         jButton3.setText("RESERVAR");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -98,7 +88,7 @@ public class menu_cliente extends javax.swing.JFrame {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 360, 180, 40));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 320, 180, 50));
 
         jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/terminos-y-condiciones.png"))); // NOI18N
         jButton5.setText("TERMINOS Y CONDICIONES");
@@ -116,7 +106,7 @@ public class menu_cliente extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 290, 180, 40));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, 180, 50));
 
         jButton8.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
         jButton8.setText("SERVICIO ADICIONAL");
@@ -125,7 +115,7 @@ public class menu_cliente extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 230, 180, 40));
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 180, 180, 50));
 
         jButton9.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/rompecabezas.png"))); // NOI18N
         jButton9.setText("COMENTARIO");
@@ -134,7 +124,7 @@ public class menu_cliente extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 430, 180, 40));
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 390, 180, 60));
 
         pnldinamico.setLayout(new java.awt.CardLayout());
 
@@ -181,12 +171,6 @@ public class menu_cliente extends javax.swing.JFrame {
         this.repaint();
 
     }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-      // TODO add your handling code here:
-
-
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
 
@@ -256,7 +240,6 @@ public class menu_cliente extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;

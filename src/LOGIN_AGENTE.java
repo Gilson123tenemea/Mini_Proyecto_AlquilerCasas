@@ -12,9 +12,7 @@ import javax.swing.JOptionPane;
  */
 public class LOGIN_AGENTE extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Administrador_Login
-     */
+    public static String cedula=" ";
     public LOGIN_AGENTE() {
         initComponents();
         setLocationRelativeTo(null);

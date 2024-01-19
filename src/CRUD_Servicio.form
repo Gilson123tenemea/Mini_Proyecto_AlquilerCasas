@@ -287,8 +287,8 @@
                       <Table columnCount="4" rowCount="4">
                         <Column editable="true" title="C&#xf3;digo Servicio" type="java.lang.Object"/>
                         <Column editable="true" title="Nombre Servicio" type="java.lang.Object"/>
-                        <Column editable="true" title="Costo Adicional" type="java.lang.Object"/>
-                        <Column editable="true" title="Descripci&#xf3;n" type="java.lang.Object"/>
+                        <Column editable="true" title="Descripcion" type="java.lang.Object"/>
+                        <Column editable="true" title="Costo" type="java.lang.Object"/>
                       </Table>
                     </Property>
                     <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

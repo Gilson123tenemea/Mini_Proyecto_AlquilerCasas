@@ -1,8 +1,11 @@
 
 import clases.Actividades;
 import clases.CasaVacacional;
+import clases.Encabezado_Factura;
 import clases.Promocion;
 import clases.Reservar;
+import clases.Servicio;
+import clases.Servicio_Adicional;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -24,17 +27,24 @@ public class Factura extends javax.swing.JPanel {
     String nombre = "";
     double precio = 0.0;
     int descuento = 0;
-    String codi_promo = "";
-
+    String Nombre_ser = "";
+    String cod_ser_adi = "";
+    double precio_ser = 0.0;
+    String codigopromo = "";
+    String codigoseradicional = "";
+    String reserva = "";
+    String nombrecas = "";
+    double precicasa = 0.0;
     public Factura() {
 
         initComponents();
-
+        
         System.out.println(INICIO.codigo);
         txtcedula.setText(INICIO.usuario);
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
-
+        
+      
     }
 
     /**
@@ -70,6 +80,8 @@ public class Factura extends javax.swing.JPanel {
         txtprecioservicio = new javax.swing.JTextField();
         jTextField12 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -140,7 +152,7 @@ public class Factura extends javax.swing.JPanel {
         txttotal.setText("123.50");
         jPanel2.add(txttotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 351, 212, 77));
         jPanel2.add(txtcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 201, 182, -1));
-        jPanel2.add(txtdescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 343, 206, -1));
+        jPanel2.add(txtdescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 343, 80, -1));
         jPanel2.add(txtservicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 373, 182, -1));
         jPanel2.add(txtservicioadi, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 434, 182, -1));
 
@@ -148,7 +160,7 @@ public class Factura extends javax.swing.JPanel {
         jLabel11.setText("DESCUENTOS");
         jLabel11.setToolTipText("");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 347, 140, -1));
-        jPanel2.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 301, 206, -1));
+        jPanel2.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 301, 80, -1));
         jPanel2.add(txtprecioservicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(792, 373, 57, -1));
         jPanel2.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(797, 434, 52, -1));
 
@@ -159,6 +171,14 @@ public class Factura extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 220, -1, -1));
+
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel2.setText("$");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 20, -1));
+
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
+        jLabel12.setText("%");
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 30, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 920, 530));
 
@@ -182,49 +202,69 @@ public class Factura extends javax.swing.JPanel {
 
     }
 
-    public void ObtenerCasa(ObjectContainer base) {
 
-        Query query = base.query();
-        query.constrain(CasaVacacional.class);
-        query.descend("cod_casa").constrain(casa);
+      public void Obtenerfacturas(ObjectContainer base) {
+          Query query = base.query();
+        query.constrain(Encabezado_Factura.class);
+        query.descend("cod_cliente").constrain(INICIO.codigo);
 
-        ObjectSet<CasaVacacional> result = query.execute();
-
+        ObjectSet<Encabezado_Factura> result = query.execute();
+        JOptionPane.showMessageDialog(null,"Tiene"+result.size()+"Facturas");
         if (!result.isEmpty()) {
 
-            for (CasaVacacional acti : result) {
-                nombre = acti.getNombre_casa();
-                precio = acti.getPrecio();
-                codi_promo = acti.getCod_promocion();
+            for (Encabezado_Factura servi : result) {
+                casa = servi.getCod_casa();
+                codigopromo = servi.getCod_promocion();
+                reserva = servi.getCod_servicio();
+                cod_ser_adi = servi.getDoc_ser_adici();
+                precio = servi.getValor_cancelar();
+                System.out.println(codigopromo);
             }
-
-            String miprecion = String.valueOf(precio);
-            txtprecio.setText(miprecion);
-
+            
+            String total = String.valueOf(precio);
+            txttotal.setText(total);
         }
+  
+      }
+     
+     public void cargarCasas(ObjectContainer base) {
 
-    }
+          Query query = base.query();
+        query.constrain(CasaVacacional.class);
+        query.descend("cod_casa").constrain(casa);
+        ObjectSet<CasaVacacional> result = query.execute();
+        if (!result.isEmpty()) {
 
-    public void ObtenerPromocion(ObjectContainer base) {
+            for (CasaVacacional servi : result) {
+                nombrecas = servi.getNombre_casa();
+                precicasa = servi.getPrecio();
+                
+            }
+            txtcasa.setText(nombrecas);
+           String precioalqioler = String.valueOf(precicasa);
+           txtprecio.setText(precioalqioler);
+           
+        }
+     }
+     
+     public void obtenerPromo(ObjectContainer base) {
 
         Query query = base.query();
         query.constrain(Promocion.class);
-        query.descend("cod_promo").constrain(codi_promo);
-
+        query.descend("cod_promo").constrain(codigopromo);
         ObjectSet<Promocion> result = query.execute();
-
         if (!result.isEmpty()) {
 
-            for (Promocion acti : result) {
-                descuento = acti.getDescuento();
+            for (Promocion servi : result) {
+                descuento = servi.getDescuento();
+                JOptionPane.showMessageDialog(null, "si se cargo");
             }
-
-            String mipromo = String.valueOf(descuento);
-            txtdescuento.setText(mipromo);
-
+           String descu = String.valueOf(descuento);
+          
+           txtdescuento.setText(descu);
         }
-
-    }
+     }
+     
 
 
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
@@ -246,11 +286,13 @@ public class Factura extends javax.swing.JPanel {
         txtcasa.setText(casa);
 
     }
+    
+    
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        ObtenerReserva(base);
-        ObtenerCasa(base);
-        ObtenerPromocion(base);
+        Obtenerfacturas(base);
+        cargarCasas(base);
+        obtenerPromo(base);
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -260,6 +302,8 @@ public class Factura extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;

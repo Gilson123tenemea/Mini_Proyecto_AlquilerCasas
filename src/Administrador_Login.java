@@ -17,8 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class Administrador_Login extends javax.swing.JFrame {
 
-    String usuario = " ", password = " ";
-
+    String  password = " ";
+    public static String usuario = " ";
     public Administrador_Login() {
         initComponents();
         setLocationRelativeTo(null);

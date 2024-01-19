@@ -17,7 +17,8 @@ public class Menu_agente extends javax.swing.JFrame {
     CRUD_Servicio_Adicional ser = new CRUD_Servicio_Adicional ();
     Contrato_agente contra = new Contrato_agente ();
     ComentarioAgente agente = new ComentarioAgente();
-    Factura fac = new Factura ();
+    RESERVAR_AGENTE reserva = new RESERVAR_AGENTE();
+    CRUD_FACTURA fac = new CRUD_FACTURA ();
     CardLayout vista;
 
     public Menu_agente() {
@@ -54,6 +55,7 @@ public class Menu_agente extends javax.swing.JFrame {
         jButton10 = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
+        jButton13 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -122,7 +124,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 590, 140, 30));
+        jPanel1.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 700, 140, 30));
 
         jButton7.setBackground(new java.awt.Color(51, 102, 255));
         jButton7.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -134,7 +136,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton7ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 640, 140, 30));
+        jPanel1.add(jButton7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 620, 140, 30));
 
         jButton8.setBackground(new java.awt.Color(51, 102, 255));
         jButton8.setFont(new java.awt.Font("Dialog", 1, 11)); // NOI18N
@@ -146,7 +148,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton8ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 420, 140, 30));
+        jPanel1.add(jButton8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 410, 140, 30));
 
         jPanel2.setBackground(new java.awt.Color(0, 0, 0));
 
@@ -216,7 +218,7 @@ public class Menu_agente extends javax.swing.JFrame {
                 jButton9ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 690, 140, 30));
+        jPanel1.add(jButton9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 660, 140, 30));
 
         jButton10.setBackground(new java.awt.Color(51, 102, 255));
         jButton10.setForeground(new java.awt.Color(255, 255, 255));
@@ -247,6 +249,14 @@ public class Menu_agente extends javax.swing.JFrame {
             }
         });
         jPanel1.add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 500, 140, 30));
+
+        jButton13.setText("RESERVACIONES");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton13, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 580, 140, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -363,6 +373,13 @@ public class Menu_agente extends javax.swing.JFrame {
         this.repaint(); 
     }//GEN-LAST:event_jButton9ActionPerformed
 
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+       Contenidos.add(reserva, "crud");
+        vista.show(Contenidos, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint(); 
+    }//GEN-LAST:event_jButton13ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -412,6 +429,7 @@ public class Menu_agente extends javax.swing.JFrame {
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
+    private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
