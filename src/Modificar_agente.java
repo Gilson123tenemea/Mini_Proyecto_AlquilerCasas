@@ -145,6 +145,7 @@ public class Modificar_agente extends javax.swing.JPanel {
         lblced = new javax.swing.JLabel();
         btnguardar = new javax.swing.JButton();
         jButton1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         pnlingreso.setBackground(new java.awt.Color(255, 255, 255));
         pnlingreso.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Modificar datos", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial", 1, 36))); // NOI18N
@@ -152,26 +153,26 @@ public class Modificar_agente extends javax.swing.JPanel {
 
         lbltelefono.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lbltelefono.setText("TELEFONO :");
-        pnlingreso.add(lbltelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 400, 220, 20));
+        pnlingreso.add(lbltelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 410, 220, 20));
 
         lblapellido.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblapellido.setText("APELLIDO:");
-        pnlingreso.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 100, 20));
+        pnlingreso.add(lblapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 100, 20));
 
         lblfecha.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblfecha.setText("FECHA DE NACIMIENTO :");
-        pnlingreso.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 230, 250, 20));
+        pnlingreso.add(lblfecha, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 300, 250, 20));
 
         jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
             public void propertyChange(java.beans.PropertyChangeEvent evt) {
                 jDateChooser1PropertyChange(evt);
             }
         });
-        pnlingreso.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, 230, -1));
+        pnlingreso.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 320, 230, -1));
 
         lblnombre.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblnombre.setText("NOMBRE :");
-        pnlingreso.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 100, 20));
+        pnlingreso.add(lblnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 100, 20));
 
         txtnombre.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -201,7 +202,7 @@ public class Modificar_agente extends javax.swing.JPanel {
                 txttelefonoKeyTyped(evt);
             }
         });
-        pnlingreso.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 440, 220, -1));
+        pnlingreso.add(txttelefono, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 430, 220, -1));
 
         txtcedula.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -215,7 +216,7 @@ public class Modificar_agente extends javax.swing.JPanel {
 
         lblsexo.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblsexo.setText("SEXO :");
-        pnlingreso.add(lblsexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 80, 100, 20));
+        pnlingreso.add(lblsexo, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, 100, 20));
 
         lblcod.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         pnlingreso.add(lblcod, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 100, 180, -1));
@@ -241,7 +242,7 @@ public class Modificar_agente extends javax.swing.JPanel {
                 rbnmasculinoKeyReleased(evt);
             }
         });
-        pnlingreso.add(rbnmasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, -1, -1));
+        pnlingreso.add(rbnmasculino, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, -1, -1));
 
         lblcedula.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblcedula.setText("CEDULA :");
@@ -263,7 +264,7 @@ public class Modificar_agente extends javax.swing.JPanel {
                 rbnfemeninoKeyReleased(evt);
             }
         });
-        pnlingreso.add(rbnfemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+        pnlingreso.add(rbnfemenino, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, -1, -1));
 
         lblemail.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         lblemail.setText("CORREO ELECTRONICO:");
@@ -281,7 +282,7 @@ public class Modificar_agente extends javax.swing.JPanel {
 
         lbldate.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbldate.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lbldate, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 390, -1, -1));
+        pnlingreso.add(lbldate, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 370, 210, 30));
 
         lbled.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lbled.setForeground(new java.awt.Color(204, 0, 0));
@@ -289,53 +290,58 @@ public class Modificar_agente extends javax.swing.JPanel {
 
         lblgenero.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblgenero.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 210, -1, -1));
+        pnlingreso.add(lblgenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 260, 180, 20));
 
         lblnom.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblnom.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lblnom, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, -1, -1));
+        pnlingreso.add(lblnom, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 190, 20));
 
         lblape.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblape.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lblape, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+        pnlingreso.add(lblape, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 290, 180, 20));
 
         lblcorreo.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblcorreo.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 360, -1, -1));
+        pnlingreso.add(lblcorreo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 370, 220, 20));
 
         lblcelular.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblcelular.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lblcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 470, -1, -1));
+        pnlingreso.add(lblcelular, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 460, 200, 20));
 
         lblced.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         lblced.setForeground(new java.awt.Color(204, 0, 0));
-        pnlingreso.add(lblced, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 130, -1, -1));
+        pnlingreso.add(lblced, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 130, 200, 20));
 
-        btnguardar.setText("GUARDAR");
+        btnguardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
+        btnguardar.setText("MODIFICAR");
         btnguardar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnguardarActionPerformed(evt);
             }
         });
-        pnlingreso.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 330, 180, -1));
+        pnlingreso.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 520, 180, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar (2).png"))); // NOI18N
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        pnlingreso.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, -1, -1));
+        pnlingreso.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 80, -1, -1));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
+        pnlingreso.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(670, 20, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlingreso, javax.swing.GroupLayout.DEFAULT_SIZE, 830, Short.MAX_VALUE)
+            .addComponent(pnlingreso, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(pnlingreso, javax.swing.GroupLayout.DEFAULT_SIZE, 513, Short.MAX_VALUE)
+            .addComponent(pnlingreso, javax.swing.GroupLayout.DEFAULT_SIZE, 583, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -601,6 +607,7 @@ public class Modificar_agente extends javax.swing.JPanel {
     private javax.swing.JButton btnguardar;
     private javax.swing.JButton jButton1;
     private com.toedter.calendar.JDateChooser jDateChooser1;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel lblape;
     private javax.swing.JLabel lblapellido;
     private javax.swing.JLabel lblced;
