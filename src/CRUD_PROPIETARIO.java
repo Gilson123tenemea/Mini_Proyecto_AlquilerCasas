@@ -8,19 +8,24 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.Color;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-
 public class CRUD_PROPIETARIO extends javax.swing.JPanel {
+
     String sexo;
     int Edad = 0;
-    public CRUD_PROPIETARIO(){
+
+    public CRUD_PROPIETARIO() {
         initComponents();
-        
+
     }
+
     public void Agrupar() {
         ButtonGroup botones = new ButtonGroup();
         botones.add(rbfemeninoPro);
@@ -38,7 +43,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Cédula incorrecta. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
+
         if (txtnombrePro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el nombre del propietario");
             ban_confirmar = false;
@@ -46,7 +51,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Nombre incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
+
         if (txtapellidoPro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el apellido del propietario");
             ban_confirmar = false;
@@ -54,7 +59,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Apellido incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
+
         if (txtemailPro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el correo del propietario");
             ban_confirmar = false;
@@ -62,7 +67,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(this, "Correo incorrecto. Ingrese de nuevo");
             ban_confirmar = false;
         }
-        
+
         if (txttelefonoPro.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Ingrese el celular del propietario");
             ban_confirmar = false;
@@ -85,7 +90,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
 
         return ban_confirmar;
     }
-    
+
     public void crearPropietario(ObjectContainer Base) {
         try {
             if (!validarCampos()) {
@@ -101,12 +106,18 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
 
             Date seleccion = Datefechapro.getDate();
 
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad1(Datefechapro.getDate())) {
+                JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             Query query = Base.query();
             query.constrain(Propietario.class);
             query.descend("codigo_propie").orderDescending();
             ObjectSet<Propietario> result = query.execute();
 
-            int ultimoCodigo = 1; 
+            int ultimoCodigo = 1;
             if (!result.isEmpty()) {
                 Propietario ultimoPropietario = result.next();
                 ultimoCodigo = Integer.parseInt(ultimoPropietario.getCodigo_propie().substring(4)) + 1;
@@ -115,13 +126,14 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             String nuevoCodigo = String.format("PRO-%03d", ultimoCodigo);
             txtcodigoPro.setText(nuevoCodigo);
 
-            result = Base.queryByExample(new Propietario(nuevoCodigo, null, null, null, null, null, null, null, null));
+            result = Base.queryByExample(new Propietario(null, null, txtcedulaPro.getText().trim(), null, null, null, null, null, null));
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un Propietario con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Propietario propietario = new Propietario(nuevoCodigo, txtOcupacion.getText(), txtcedulaPro.getText(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo, seleccion);
+            //  public Propietario(String codigo_propie, String ocupacion, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac) {
+            Propietario propietario = new Propietario(nuevoCodigo, txtOcupacion.getText(), txtcedulaPro.getText().trim(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo, seleccion);
             Base.store(propietario);
 
             JOptionPane.showMessageDialog(null, "Propietario Creado");
@@ -131,6 +143,26 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             Base.close();
         }
         limpiarCamposPropietario();
+    }
+
+    // Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad1(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
     private void limpiarCamposPropietario() {
@@ -145,39 +177,40 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         txtOcupacion.setText("");
         Datefechapro.setDate(null);
     }
-    
-     public void cargarTabla(ObjectContainer base) {
-         
-    DefaultTableModel model = (DefaultTableModel) jTablePropietario.getModel();
-    model.setRowCount(0);
 
-    // Crear una consulta ordenada por el campo deseado (por ejemplo, nombre)
-    Query query = base.query();
-    query.constrain(Propietario.class);
-    query.descend("cedula").orderAscending();
+    public void cargarTabla(ObjectContainer base) {
 
-    // Obtener los resultados ordenados
-    ObjectSet<Propietario> pro = query.execute();
+        DefaultTableModel model = (DefaultTableModel) jTablePropietario.getModel();
+        model.setRowCount(0);
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
-    while (pro.hasNext()) {
-        Propietario propie = pro.next();
-        Object[] row = {
-            propie.getCedula(),
-            propie.getNombre(),
-            propie.getApellido(),
-            propie.getEmail(),
-            propie.getTelefono(),
-            propie.getOcupacion(),
-            propie.getGenero(),
-            propie.getCodigo_propie(),
-            propie.getFecha_nac()
-        };
-        model.addRow(row);
+        // Crear una consulta ordenada por el campo deseado (por ejemplo, nombre)
+        Query query = base.query();
+        query.constrain(Propietario.class);
+        query.descend("cedula").orderAscending();
+
+        // Obtener los resultados ordenados
+        ObjectSet<Propietario> pro = query.execute();
+
+        while (pro.hasNext()) {
+            Propietario propie = pro.next();
+            Object[] row = {
+                propie.getCodigo_propie(),
+                propie.getCedula(),
+                propie.getNombre(),
+                propie.getApellido(),
+                propie.getEmail(),
+                propie.getTelefono(),
+                propie.getOcupacion(),
+                propie.getGenero(),
+                propie.getFecha_nac() != null ? sdf.format(propie.getFecha_nac()) : null
+            };
+            model.addRow(row);
+        }
+        base.close();
+
     }
-    base.close();
-   
-     }
-  
+
     public void limpiar() {
         txtnombrePro.setText("");
         txtapellidoPro.setText("");
@@ -186,7 +219,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         txtOcupacion.setText("");
         txtcodigoPro.setText("");
     }
-    
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -256,16 +289,12 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
 
-        jLabel3.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel3.setText("Código Comentario:");
 
-        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("CódigoCliente:");
 
-        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Código Casa:");
 
-        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Descripción:");
 
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
@@ -557,27 +586,21 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jLabel7.setText("jLabel7");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 260, 150));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setText("Cedula:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("Nombre:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel10.setText("Apellido:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setText("Email:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setText("Telefono:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setText("Genero:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
 
@@ -632,7 +655,6 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         });
         jPanel1.add(txtcedulaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 180, -1));
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel16.setText("Fecha de Nacimiento:");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, -1, -1));
 
@@ -694,7 +716,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 {null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "Codigo", "F.Nacimiento"
+                "Codigo", "Cedula", "Nombre", "Apellido", "Email", "Telefono", "Ocupacion", "Genero", "F.Nacimiento"
             }
         ));
         jScrollPane3.setViewportView(jTablePropietario);
@@ -734,15 +756,15 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         ObjectContainer baseD = Db4o.openFile(INICIO.direccion);
         crearPropietario(baseD);
         baseD.close();
-        
+
     }//GEN-LAST:event_BtnGuardarActionPerformed
 
     private void BtnModiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnModiActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         ActualizarDatos(base);
-        base.close();  
-        
+        base.close();
+
     }//GEN-LAST:event_BtnModiActionPerformed
 
     private void BtnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnEliminarActionPerformed
@@ -751,7 +773,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
 
         try {
             // Verificar si el propietario tiene una Casa Vacacional asociada
-            CasaVacacional casaAsociada = new CasaVacacional(null, null, null, 0, 0, 0, 0, codigopro, 0.0, false, null,null,null);
+            CasaVacacional casaAsociada = new CasaVacacional(null, null, null, 0, 0, 0, 0, codigopro, 0.0, false, null, null, null);
             ObjectSet resultCasa = base.get(casaAsociada);
 
             if (resultCasa.size() > 0) {
@@ -821,7 +843,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
             modelo.removeRow(0);
         }
     }
-    
+
     private void BtnReporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReporteActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
@@ -888,44 +910,70 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
     }//GEN-LAST:event_BtnBuscarActionPerformed
 
     public void ActualizarDatos(ObjectContainer base) {
-         if (rbmasculinoPro.isSelected()) {
-        sexo = "Masculino";
-    } else if (rbfemeninoPro.isSelected()) {
-        sexo = "Femenino";
-    }
+        if (rbmasculinoPro.isSelected()) {
+            sexo = "Masculino";
+        } else if (rbfemeninoPro.isSelected()) {
+            sexo = "Femenino";
+        }
 
-    Propietario mipro = new Propietario( null, null,txtcedulaPro.getText().trim(), null, null, null, null, null, null);
-
-    try {
-        ObjectSet res = base.get(mipro);
-
-        if (res.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No se encontró ningún propietario con la cédula proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
+        // Validar edad (mayor a 18 años)
+        if (!esMayorDeEdad(Datefechapro.getDate())) {
+            JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        Propietario mipropietario = (Propietario) res.next();
-        mipropietario.setNombre(txtnombrePro.getText().trim());
-        mipropietario.setApellido(txtapellidoPro.getText().trim());
-        mipropietario.setEmail(txtemailPro.getText().trim());
-        mipropietario.setTelefono(txttelefonoPro.getText().trim());
-        mipropietario.setOcupacion(txtOcupacion.getText().trim());
-        mipropietario.setGenero(sexo.trim());
-        mipropietario.setCodigo_propie(txtcodigoPro.getText().trim());
-        mipropietario.setFecha_nac(Datefechapro.getDate());
+        Propietario mipro = new Propietario(null, null, txtcedulaPro.getText().trim(), null, null, null, null, null, null);
 
-        base.set(mipropietario);
-        JOptionPane.showMessageDialog(this, "Modificación exitosa");
-    } catch (Exception e) {
-        e.printStackTrace();
-        JOptionPane.showMessageDialog(this, "Error durante la modificación. Consulta los registros para obtener más detalles.", "Error", JOptionPane.ERROR_MESSAGE);
-    } finally {
-        base.close();
-    }
+        try {
+            ObjectSet res = base.get(mipro);
+
+            if (res.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontró ningún propietario con la cédula proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Propietario mipropietario = (Propietario) res.next();
+            mipropietario.setNombre(txtnombrePro.getText().trim());
+            mipropietario.setApellido(txtapellidoPro.getText().trim());
+            mipropietario.setEmail(txtemailPro.getText().trim());
+            mipropietario.setTelefono(txttelefonoPro.getText().trim());
+            mipropietario.setOcupacion(txtOcupacion.getText().trim());
+            mipropietario.setGenero(sexo.trim());
+            mipropietario.setCodigo_propie(txtcodigoPro.getText().trim());
+            mipropietario.setFecha_nac(Datefechapro.getDate());
+
+            base.set(mipropietario);
+            JOptionPane.showMessageDialog(this, "Modificación exitosa");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error durante la modificación. Consulta los registros para obtener más detalles.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            base.close();
+        }
 
         limpiar();
     }
-    
+
+    // Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
+    }
+
     public void inhabiltarDatos() {
 
         txtnombrePro.setEnabled(false);
@@ -938,8 +986,8 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         txtcodigoPro.setEnabled(false);
         Datefechapro.setEnabled(false);
     }
-    
-     public void habiltarDatos() {
+
+    public void habiltarDatos() {
 
         txtnombrePro.setEnabled(true);
         txtapellidoPro.setEnabled(true);
@@ -949,10 +997,10 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         rbmasculinoPro.setEnabled(true);
         rbfemeninoPro.setEnabled(true);
         txtcodigoPro.setEnabled(true);
-        Datefechapro.setEnabled(true);    
+        Datefechapro.setEnabled(true);
 
     }
-    
+
     private void rbmasculinoProActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbmasculinoProActionPerformed
 
     }//GEN-LAST:event_rbmasculinoProActionPerformed
