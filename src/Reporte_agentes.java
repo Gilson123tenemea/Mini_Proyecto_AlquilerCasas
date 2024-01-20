@@ -4,6 +4,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import javax.swing.table.DefaultTableModel;
@@ -19,7 +20,6 @@ import javax.swing.table.DefaultTableModel;
  */
 public class Reporte_agentes extends javax.swing.JPanel {
 
-
     /**
      * Creates new form Reporte_agentes
      */
@@ -29,8 +29,7 @@ public class Reporte_agentes extends javax.swing.JPanel {
 
         initComponents();
         actualizarDatos();
-        
-        
+
         /*
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
@@ -59,8 +58,7 @@ public class Reporte_agentes extends javax.swing.JPanel {
         tbagentes.setModel(model);
 
         base.close();
-*/
-
+         */
     }
 
     public void actualizarDatos() {
@@ -73,6 +71,7 @@ public class Reporte_agentes extends javax.swing.JPanel {
 
         String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "TELEFONO", "CORREO", "SEXO", "FECHA DE NACIMIENTO"};
         Object[][] data = new Object[listaagentes.size()][8];
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         for (int i = 0; i < listaagentes.size(); i++) {
             data[i][0] = listaagentes.get(i).getCodigo_agente();
@@ -82,7 +81,7 @@ public class Reporte_agentes extends javax.swing.JPanel {
             data[i][4] = listaagentes.get(i).getTelefono();
             data[i][5] = listaagentes.get(i).getEmail();
             data[i][6] = listaagentes.get(i).getGenero();
-            data[i][7] = listaagentes.get(i).getFecha_nac();
+            data[i][7] = listaagentes.get(i).getFecha_nac() != null ? sdf.format(listaagentes.get(i).getFecha_nac()) : null;
         }
 
         this.validate();
@@ -178,7 +177,6 @@ public class Reporte_agentes extends javax.swing.JPanel {
         actualizarDatos();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;

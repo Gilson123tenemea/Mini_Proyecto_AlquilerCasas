@@ -3,6 +3,9 @@ import clases.Agente_inmobiliario;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -32,7 +35,6 @@ public class Ingreso_agente extends javax.swing.JPanel {
         initComponents();
         Agrupar();
 
-
         // btnguardar.setEnabled(false);
     }
 
@@ -51,7 +53,6 @@ public class Ingreso_agente extends javax.swing.JPanel {
         } else {
             lblced.setText(" ");
         }
-
 
         if (txtnombre.getText().isEmpty()) {
             lblnom.setText("Campo requerido");
@@ -106,7 +107,7 @@ public class Ingreso_agente extends javax.swing.JPanel {
             lblcorreo.setText("");
         }
 
-        if ( txtcedula.getText().isEmpty() || (!rbnfemenino.isSelected() && !rbnmasculino.isSelected()) || (!txtcorreo.getText().contains("@") || !txtcorreo.getText().contains(".")) || txtnombre.getText().isEmpty() || txtapellido.getText().isEmpty() || txttelefono.getText().isEmpty() || jDateChooser1.getDate() == null || txtcorreo.getText().isEmpty()) {
+        if (txtcedula.getText().isEmpty() || (!rbnfemenino.isSelected() && !rbnmasculino.isSelected()) || (!txtcorreo.getText().contains("@") || !txtcorreo.getText().contains(".")) || txtnombre.getText().isEmpty() || txtapellido.getText().isEmpty() || txttelefono.getText().isEmpty() || jDateChooser1.getDate() == null || txtcorreo.getText().isEmpty()) {
 
             btnguardar.setEnabled(false);
         } else {
@@ -556,8 +557,6 @@ public class Ingreso_agente extends javax.swing.JPanel {
             int aux = 1 + Reporte_agentes.listaagentes.size();
             String auxn = String.valueOf(aux);
             String cod = "00" + auxn;
-            
-
 
             if (rbnmasculino.isSelected()) {
                 sexo = "Masculino";
@@ -567,11 +566,16 @@ public class Ingreso_agente extends javax.swing.JPanel {
 
             Date Seleccion = jDateChooser1.getDate();
 
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad1(jDateChooser1.getDate())) {
+                JOptionPane.showMessageDialog(this, "El Agente debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
 
             validar();
 
             // Verificar si ya existe un agente con la misma cédula
-            ObjectSet<Agente_inmobiliario> resul = Base.queryByExample(new Agente_inmobiliario(null,null, null,txtcedula.getText().trim(), null, null, null, null, null, null));
+            ObjectSet<Agente_inmobiliario> resul = Base.queryByExample(new Agente_inmobiliario(null, null, null, txtcedula.getText().trim(), null, null, null, null, null, null));
 
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un agente con la cédula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -579,7 +583,7 @@ public class Ingreso_agente extends javax.swing.JPanel {
             }
 
             //String codigo_agente, String usuario, String password, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
-            Agente_inmobiliario agente1 = new Agente_inmobiliario(cod.trim(),null, null, txtcedula.getText().trim(), txtnombre.getText().trim(), txtapellido.getText().trim(), txtcorreo.getText().trim(), txttelefono.getText(), sexo.trim(), Seleccion);
+            Agente_inmobiliario agente1 = new Agente_inmobiliario(cod.trim(), null, null, txtcedula.getText().trim(), txtnombre.getText().trim(), txtapellido.getText().trim(), txtcorreo.getText().trim(), txttelefono.getText(), sexo.trim(), Seleccion);
 
             // Almacenar el agente en la base de datos
             Base.store(agente1);
@@ -603,7 +607,25 @@ public class Ingreso_agente extends javax.swing.JPanel {
         rbnmasculino.setSelected(false);
     }
 
+// Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad1(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
 
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnguardar;
     private com.toedter.calendar.JDateChooser jDateChooser1;

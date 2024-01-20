@@ -6,6 +6,9 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 
 import java.util.Date;
 import javax.swing.ButtonGroup;
@@ -350,6 +353,12 @@ public class Modificar_agente extends javax.swing.JPanel {
             sexo = "Femenino";
         }
 
+        // Validar edad (mayor a 18 años)
+        if (!esMayorDeEdad(jDateChooser1.getDate())) {
+            JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         Agente_inmobiliario miagente = new Agente_inmobiliario(null, null, null, txtcedula.getText().trim(), null, null, null, null, null, null);
 
         ObjectSet res = base.get(miagente);
@@ -381,6 +390,26 @@ public class Modificar_agente extends javax.swing.JPanel {
 
         inhabiltarDatos();
 
+    }
+
+    // Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
         // TODO add your handling code here:

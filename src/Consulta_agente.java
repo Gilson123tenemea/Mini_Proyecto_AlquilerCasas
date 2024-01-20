@@ -4,6 +4,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -193,6 +194,7 @@ public class Consulta_agente extends javax.swing.JPanel {
         String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "TELEFONO", "CORREO", "SEXO", "FECHA DE NACIMIENTO"};
 
         Object[][] data = new Object[result.size()][8];
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         int i = 0;
         for (Agente_inmobiliario agente : result) {
@@ -203,7 +205,7 @@ public class Consulta_agente extends javax.swing.JPanel {
             data[i][4] = agente.getTelefono();
             data[i][5] = agente.getEmail();
             data[i][6] = agente.getGenero();
-            data[i][7] = agente.getFecha_nac();
+            data[i][7] = agente.getFecha_nac() != null ? sdf.format(agente.getFecha_nac()) : null;
 
             i++;
         }
@@ -281,6 +283,7 @@ public class Consulta_agente extends javax.swing.JPanel {
         String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "TELEFONO", "CORREO", "SEXO", "FECHA DE NACIMIENTO"};
 
         Object[][] data = new Object[result.size()][8];
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         int i = 0;
         for (Agente_inmobiliario agente : result) {
@@ -291,7 +294,7 @@ public class Consulta_agente extends javax.swing.JPanel {
             data[i][4] = agente.getTelefono();
             data[i][5] = agente.getEmail();
             data[i][6] = agente.getGenero();
-            data[i][7] = agente.getFecha_nac();
+            data[i][7] = agente.getFecha_nac() != null ? sdf.format(agente.getFecha_nac()) : null;
 
             i++;
         }
