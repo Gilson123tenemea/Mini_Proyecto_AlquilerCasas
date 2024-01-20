@@ -6,6 +6,9 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
@@ -320,11 +323,29 @@ public class Clientes extends javax.swing.JPanel {
             } else if (rbtNo.isSelected()) {
                 discapacidad1 = "No";
             }
-//String discapacidad, String contraseña, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac
-            Cliente micliente = new Cliente(null, null, null, null, null, null, null, null, null, null);
 
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad(Datefechaclie.getDate())) {
+                JOptionPane.showMessageDialog(this, "El personal debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Crear un objeto Cliente con la cédula proporcionada para la búsqueda
+            Cliente micliente = new Cliente(null, null, null, txtcedulaClie.getText().trim(), null, null, null, null, null, null);
+
+            // Realizar la búsqueda
             ObjectSet res = base.get(micliente);
+
+            // Verificar si se encontró el cliente
+            if (res.isEmpty()) {
+                JOptionPane.showMessageDialog(this, "No se encontró el cliente con la cédula proporcionada.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            // Obtener el cliente encontrado
             Cliente micliente1 = (Cliente) res.next();
+
+            // Actualizar los datos del cliente
             micliente1.setNombre(txtnombreCli.getText().trim());
             micliente1.setApellido(txtapellidoCli.getText().trim());
             micliente1.setEmail(txtemailCli.getText().trim());
@@ -334,6 +355,7 @@ public class Clientes extends javax.swing.JPanel {
             micliente1.setFecha_nac(Datefechaclie.getDate());
             micliente1.setContraseña(txtcontraseña.getText().trim());
 
+            // Actualizar el cliente en la base de datos
             base.set(micliente1);
 
             JOptionPane.showMessageDialog(this, "Modificacion exitosa");
@@ -356,8 +378,27 @@ public class Clientes extends javax.swing.JPanel {
 
             HabilitarDatos();
             cargarTabla(base);
-
         }
+    }
+
+    // Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
     public void HabilitarDatos() {

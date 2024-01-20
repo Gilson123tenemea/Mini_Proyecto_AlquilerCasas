@@ -6,6 +6,9 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
@@ -76,6 +79,12 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
 
             Date seleccion = Datefechaclie.getDate();
 
+            // Validar edad (mayor a 18 años)
+            if (!esMayorDeEdad1(Datefechaclie.getDate())) {
+                JOptionPane.showMessageDialog(this, "El Cliente debe ser mayor de 18 años.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
             // Crear un nuevo Cliente y almacenarlo en la base de datos
             Cliente cliente1 = new Cliente(cod, discapacidad1, txtcontraseña.getText(), txtcedulaClie.getText(), txtnombreCli.getText(), txtapellidoCli.getText(), txtemailCli.getText(), txttelefonoCli.getText(), sexo, seleccion);
             base.store(cliente1);
@@ -98,6 +107,26 @@ public class RgeistroDelCliente extends javax.swing.JFrame {
         rbtSi.setSelected(false);
         rbtNo.setSelected(false);
 
+    }
+
+    // Método para validar si la fecha de nacimiento indica que la persona es mayor de 18 años
+    private boolean esMayorDeEdad1(Date fechaNacimiento) {
+        if (fechaNacimiento == null) {
+            System.out.println("Fecha de nacimiento es nula");
+            return false;
+        }
+
+        // Obtener la fecha actual
+        LocalDate fechaActual = LocalDate.now();
+
+        // Convertir la fecha de nacimiento a LocalDate
+        LocalDate fechaNac = fechaNacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+
+        // Calcular la diferencia en años
+        int edad = Period.between(fechaNac, fechaActual).getYears();
+
+        // Verificar si la persona tiene al menos 18 años
+        return edad >= 18;
     }
 
     public boolean validarCampos() {
