@@ -35,6 +35,7 @@ public class Factura extends javax.swing.JPanel {
     String reserva = "";
     String nombrecas = "";
     double precicasa = 0.0;
+    String cod_Factura = "";
     public Factura() {
 
         initComponents();
@@ -43,7 +44,6 @@ public class Factura extends javax.swing.JPanel {
         txtcedula.setText(INICIO.usuario);
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
-        
       
     }
 
@@ -82,6 +82,7 @@ public class Factura extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        cboxFactura = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -180,6 +181,13 @@ public class Factura extends javax.swing.JPanel {
         jLabel12.setText("%");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 30, 30));
 
+        cboxFactura.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cboxFacturaMouseClicked(evt);
+            }
+        });
+        jPanel2.add(cboxFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 150, -1));
+
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 920, 530));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -204,12 +212,12 @@ public class Factura extends javax.swing.JPanel {
 
 
       public void Obtenerfacturas(ObjectContainer base) {
+        cboxFactura.removeAllItems();
           Query query = base.query();
         query.constrain(Encabezado_Factura.class);
         query.descend("cod_cliente").constrain(INICIO.codigo);
 
         ObjectSet<Encabezado_Factura> result = query.execute();
-        JOptionPane.showMessageDialog(null,"Tiene"+result.size()+"Facturas");
         if (!result.isEmpty()) {
 
             for (Encabezado_Factura servi : result) {
@@ -218,14 +226,23 @@ public class Factura extends javax.swing.JPanel {
                 reserva = servi.getCod_servicio();
                 cod_ser_adi = servi.getDoc_ser_adici();
                 precio = servi.getValor_cancelar();
-                System.out.println(codigopromo);
+                cod_Factura = servi.getCodigo_fac();
+                
             }
+            
+            while (result.hasNext()) {
+                Encabezado_Factura casa = result.next();
+                cboxFactura.addItem(casa.getCodigo_fac());
+             }
+            
             
             String total = String.valueOf(precio);
             txttotal.setText(total);
         }
   
       }
+      
+      
      
      public void cargarCasas(ObjectContainer base) {
 
@@ -257,13 +274,25 @@ public class Factura extends javax.swing.JPanel {
 
             for (Promocion servi : result) {
                 descuento = servi.getDescuento();
-                JOptionPane.showMessageDialog(null, "si se cargo");
             }
            String descu = String.valueOf(descuento);
           
            txtdescuento.setText(descu);
         }
-     }
+    }
+
+    public void cargagrDatos(ObjectContainer base) {
+       
+        if (cboxFactura.getSelectedItem() != null) {
+            Obtenerfacturas(base);
+            cargarCasas(base);
+            obtenerPromo(base);
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Escoja un Factura para que visualise sus datos");
+        }
+    }
+     
      
 
 
@@ -282,12 +311,26 @@ public class Factura extends javax.swing.JPanel {
         for (Reservar reserva1 : result) {
             casa = reserva1.getCodigo_casa();
         }
-
         txtcasa.setText(casa);
 
     }
-    
-    
+
+    public void mostrarDatosCbx(ObjectContainer base) {
+        cboxFactura.removeAllItems();
+        Query query = base.query();
+        query.constrain(Encabezado_Factura.class);
+        query.descend("cod_cliente").constrain(INICIO.codigo);
+        ObjectSet<Encabezado_Factura> result = query.execute();
+        if (!result.isEmpty()) {
+            while (result.hasNext()) {
+                Encabezado_Factura casa = result.next();
+                cboxFactura.addItem(casa.getCodigo_fac());
+
+            }
+        }
+
+    }
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         Obtenerfacturas(base);
@@ -296,8 +339,16 @@ public class Factura extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void cboxFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxFacturaMouseClicked
+       ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosCbx(base);
+        cargagrDatos(base);
+        base.close();     
+    }//GEN-LAST:event_cboxFacturaMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cboxFactura;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
