@@ -132,7 +132,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 return;
             }
 
-            //  public Propietario(String codigo_propie, String ocupacion, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac) {
+            //  Propietario(String codigo_propie, String ocupacion, String cedula, String nombre, String apellido, String email, String telefono, String genero, Date fecha_nac) {
             Propietario propietario = new Propietario(nuevoCodigo, txtOcupacion.getText(), txtcedulaPro.getText().trim(), txtnombrePro.getText(), txtapellidoPro.getText(), txtemailPro.getText(), txttelefonoPro.getText(), sexo, seleccion);
             Base.store(propietario);
 
