@@ -14,19 +14,24 @@ import java.util.Date;
 public class Contrato {
     
     private String codigo_contrato;
-    private Date Fecha_ini;
-    private Date Fecha_fin; 
-    private String TerminosCondiciones;
+    private String codigo_cli;
+    private String codigo_age;
+    private String nombre_casa;
+    private String precio_casa;
+    private boolean TerminosCondiciones;
 
-    public Contrato(String codigo_contrato, Date Fecha_ini, Date Fecha_fin, String TerminosCondiciones) {
+    public Contrato(String codigo_contrato, String codigo_cli, String codigo_age, String nombre_casa, String precio_casa, boolean TerminosCondiciones) {
         this.codigo_contrato = codigo_contrato;
-        this.Fecha_ini = Fecha_ini;
-        this.Fecha_fin = Fecha_fin;
+        this.codigo_cli = codigo_cli;
+        this.codigo_age = codigo_age;
+        this.nombre_casa = nombre_casa;
+        this.precio_casa = precio_casa;
         this.TerminosCondiciones = TerminosCondiciones;
     }
 
-    public Contrato() {
-    }
+   
+
+   
 
     public String getCodigo_contrato() {
         return codigo_contrato;
@@ -36,35 +41,46 @@ public class Contrato {
         this.codigo_contrato = codigo_contrato;
     }
 
-    public Date getFecha_ini() {
-        return Fecha_ini;
+    public String getCodigo_cli() {
+        return codigo_cli;
     }
 
-    public void setFecha_ini(Date Fecha_ini) {
-        this.Fecha_ini = Fecha_ini;
+    public void setCodigo_cli(String codigo_cli) {
+        this.codigo_cli = codigo_cli;
     }
 
-    public Date getFecha_fin() {
-        return Fecha_fin;
+    public String getCodigo_age() {
+        return codigo_age;
     }
 
-    public void setFecha_fin(Date Fecha_fin) {
-        this.Fecha_fin = Fecha_fin;
+    public void setCodigo_age(String codigo_age) {
+        this.codigo_age = codigo_age;
     }
 
-    public String getTerminosCondiciones() {
+    public boolean isTerminosCondiciones() {
         return TerminosCondiciones;
     }
 
-    public void setTerminosCondiciones(String TerminosCondiciones) {
-        this.TerminosCondiciones = TerminosCondiciones;
+    public String getNombre_casa() {
+        return nombre_casa;
     }
 
-    @Override
-    public String toString() {
-        return "Contrato{" + "codigo_contrato=" + codigo_contrato + ", Fecha_ini=" + Fecha_ini + ", Fecha_fin=" + Fecha_fin + ", TerminosCondiciones=" + TerminosCondiciones + '}';
+    public void setNombre_casa(String nombre_casa) {
+        this.nombre_casa = nombre_casa;
+    }
+
+    public String getPrecio_casa() {
+        return precio_casa;
+    }
+
+    public void setPrecio_casa(String precio_casa) {
+        this.precio_casa = precio_casa;
     }
     
+
+    public void setTerminosCondiciones(boolean TerminosCondiciones) {
+        this.TerminosCondiciones = TerminosCondiciones;
+    }
     
-    
+ 
 }

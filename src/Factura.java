@@ -65,24 +65,17 @@ public class Factura extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
         txtcedula = new javax.swing.JTextField();
         txtnombre = new javax.swing.JTextField();
         txtapellido = new javax.swing.JTextField();
         txttotal = new javax.swing.JTextField();
         txtcasa = new javax.swing.JTextField();
         txtdescuento = new javax.swing.JTextField();
-        txtservicio = new javax.swing.JTextField();
-        txtservicioadi = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         txtprecio = new javax.swing.JTextField();
-        txtprecioservicio = new javax.swing.JTextField();
-        jTextField12 = new javax.swing.JTextField();
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
-        cboxFactura = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -118,22 +111,12 @@ public class Factura extends javax.swing.JPanel {
         jLabel7.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel7.setText("PRECIO DE ALQUILER");
         jLabel7.setToolTipText("");
-        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 305, 201, -1));
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 360, 201, -1));
 
         jLabel8.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel8.setText("CASA");
         jLabel8.setToolTipText("");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 205, 67, -1));
-
-        jLabel9.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel9.setText("SERVICIOS");
-        jLabel9.setToolTipText("");
-        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 377, 140, -1));
-
-        jLabel10.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel10.setText("SERVICIO ADICIONALES");
-        jLabel10.setToolTipText("");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 438, 214, -1));
 
         txtcedula.setEditable(false);
         jPanel2.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 113, 265, -1));
@@ -153,40 +136,29 @@ public class Factura extends javax.swing.JPanel {
         txttotal.setText("123.50");
         jPanel2.add(txttotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 351, 212, 77));
         jPanel2.add(txtcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 201, 182, -1));
-        jPanel2.add(txtdescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 343, 80, -1));
-        jPanel2.add(txtservicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 373, 182, -1));
-        jPanel2.add(txtservicioadi, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 434, 182, -1));
+        jPanel2.add(txtdescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 400, 80, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setText("DESCUENTOS");
         jLabel11.setToolTipText("");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(347, 347, 140, -1));
-        jPanel2.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(592, 301, 80, -1));
-        jPanel2.add(txtprecioservicio, new org.netbeans.lib.awtextra.AbsoluteConstraints(792, 373, 57, -1));
-        jPanel2.add(jTextField12, new org.netbeans.lib.awtextra.AbsoluteConstraints(797, 434, 52, -1));
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 140, -1));
+        jPanel2.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 80, -1));
 
-        jButton1.setText("cargar");
+        jButton1.setText("VER FACTURA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 220, -1, -1));
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 40, -1, -1));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel2.setText("$");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 20, -1));
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 360, 20, -1));
 
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel12.setText("%");
-        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 340, 30, 30));
-
-        cboxFactura.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cboxFacturaMouseClicked(evt);
-            }
-        });
-        jPanel2.add(cboxFactura, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 50, 150, -1));
+        jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 30, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 920, 530));
 
@@ -212,7 +184,6 @@ public class Factura extends javax.swing.JPanel {
 
 
       public void Obtenerfacturas(ObjectContainer base) {
-        cboxFactura.removeAllItems();
           Query query = base.query();
         query.constrain(Encabezado_Factura.class);
         query.descend("cod_cliente").constrain(INICIO.codigo);
@@ -229,13 +200,7 @@ public class Factura extends javax.swing.JPanel {
                 cod_Factura = servi.getCodigo_fac();
                 
             }
-            
-            while (result.hasNext()) {
-                Encabezado_Factura casa = result.next();
-                cboxFactura.addItem(casa.getCodigo_fac());
-             }
-            
-            
+              
             String total = String.valueOf(precio);
             txttotal.setText(total);
         }
@@ -281,17 +246,17 @@ public class Factura extends javax.swing.JPanel {
         }
     }
 
-    public void cargagrDatos(ObjectContainer base) {
-       
-        if (cboxFactura.getSelectedItem() != null) {
-            Obtenerfacturas(base);
-            cargarCasas(base);
-            obtenerPromo(base);
-
-        } else {
-            JOptionPane.showMessageDialog(null, "Escoja un Factura para que visualise sus datos");
-        }
-    }
+//    public void cargagrDatos(ObjectContainer base) {
+//       
+//        if (cboxFactura.getSelectedItem() != null) {
+//            Obtenerfacturas(base);
+//            cargarCasas(base);
+//            obtenerPromo(base);
+//
+//        } else {
+//            JOptionPane.showMessageDialog(null, "Escoja un Factura para que visualise sus datos");
+//        }
+//    }
      
      
 
@@ -315,21 +280,21 @@ public class Factura extends javax.swing.JPanel {
 
     }
 
-    public void mostrarDatosCbx(ObjectContainer base) {
-        cboxFactura.removeAllItems();
-        Query query = base.query();
-        query.constrain(Encabezado_Factura.class);
-        query.descend("cod_cliente").constrain(INICIO.codigo);
-        ObjectSet<Encabezado_Factura> result = query.execute();
-        if (!result.isEmpty()) {
-            while (result.hasNext()) {
-                Encabezado_Factura casa = result.next();
-                cboxFactura.addItem(casa.getCodigo_fac());
-
-            }
-        }
-
-    }
+//    public void mostrarDatosCbx(ObjectContainer base) {
+//        cboxFactura.removeAllItems();
+//        Query query = base.query();
+//        query.constrain(Encabezado_Factura.class);
+//        query.descend("cod_cliente").constrain(INICIO.codigo);
+//        ObjectSet<Encabezado_Factura> result = query.execute();
+//        if (!result.isEmpty()) {
+//            while (result.hasNext()) {
+//                Encabezado_Factura casa = result.next();
+//                cboxFactura.addItem(casa.getCodigo_fac());
+//
+//            }
+//        }
+//
+//    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
@@ -339,19 +304,10 @@ public class Factura extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
-    private void cboxFacturaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxFacturaMouseClicked
-       ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        mostrarDatosCbx(base);
-        cargagrDatos(base);
-        base.close();     
-    }//GEN-LAST:event_cboxFacturaMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JComboBox<String> cboxFactura;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -361,19 +317,14 @@ public class Factura extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField12;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcasa;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtdescuento;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtprecio;
-    private javax.swing.JTextField txtprecioservicio;
-    private javax.swing.JTextField txtservicio;
-    private javax.swing.JTextField txtservicioadi;
     private javax.swing.JTextField txttotal;
     // End of variables declaration//GEN-END:variables
 }

@@ -9,6 +9,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
@@ -951,14 +952,12 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
     }
 
-    private void mostrarDatosPromocionSeleccionado(ObjectContainer bases) {
+     private void mostrarDatosPromocionSeleccionado(ObjectContainer bases) {
         try {
-            // Obtener el índice seleccionado en lugar de solo el elemento seleccionado
-            int selectedIndex = jComboBox3.getSelectedIndex();
+            int selectedIndex = cbxPromocion.getSelectedIndex();
 
             if (selectedIndex != -1) {
-                // Obtener el código seleccionado directamente del modelo del JComboBox
-                String codigoSelec = jComboBox3.getItemAt(selectedIndex).toString();
+                String codigoSelec = cbxPromocion.getItemAt(selectedIndex).toString();
 
                 Query query = bases.query();
                 query.constrain(Promocion.class);
@@ -967,10 +966,11 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
                 if (!result.isEmpty()) {
                     Promocion promo = result.next();
-                    String mensaje = "Descuento: " + promo.getDescuento() + "\n"
+                    SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+                    String mensaje = "Descuento: " + promo.getDescuento() + "%" + "\n"
                             + "Descripcion: " + promo.getDescripcion() + "\n"
-                            + "Fecha Inicio: " + promo.getFecha_inicio() + "\n"
-                            + "Fecha Fin: " + promo.getFecha_fin();
+                            + "Fecha Inicio: " + (promo.getFecha_inicio() != null ? sdf.format(promo.getFecha_inicio()) : "No disponible") + "\n"
+                            + "Fecha Fin: " + (promo.getFecha_fin() != null ? sdf.format(promo.getFecha_fin()) : "No disponible");
 
                     JOptionPane.showMessageDialog(this, mensaje, "Datos de Promoción", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -987,10 +987,9 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
 
     }
-
     private void mostrarDatosServicioSeleccionado(ObjectContainer bases) {
         try {
-            Object selectedItem = jComboBox3.getSelectedItem();
+            Object selectedItem = cboxServicio.getSelectedItem();
 
             if (selectedItem != null) {
                 String codigoSelec = selectedItem.toString();

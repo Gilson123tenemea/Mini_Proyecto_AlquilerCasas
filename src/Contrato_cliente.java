@@ -1,6 +1,6 @@
 
 import clases.CasaVacacional;
-import clases.Encabezado_Factura;
+import clases.Contrato;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -9,55 +9,39 @@ import javax.swing.JOptionPane;
 
 
 public class Contrato_cliente extends javax.swing.JPanel {
-    String nombrePro = "";
-    String nombrecasa = "";
-    double precio = 0.0;
-    String casa = "";
-    
+    String agente = "";
+    String cleinte = "";
+    String Casa_nombre = "";
+    String precio_casa = "";
     
     public Contrato_cliente() {
         initComponents();
         txtcliente.setText(INICIO.nombre+"  "+INICIO.apellido);
     }
-    
+
     public void cargarCasas(ObjectContainer base) {
 
           Query query = base.query();
-        query.constrain(CasaVacacional.class);
-        query.descend("cod_casa").constrain(casa);
-        ObjectSet<CasaVacacional> result = query.execute();
+        query.constrain(Contrato.class);
+        query.descend("codigo_cli").constrain(INICIO.codigo);
+        ObjectSet<Contrato> result = query.execute();
         if (!result.isEmpty()) { 
-            for (CasaVacacional servi : result) {
-                nombrecasa = servi.getNombre_casa();
-                precio = servi.getPrecio();
+            for (Contrato servi : result) {
+                agente = servi.getCodigo_age();
+                cleinte = servi.getCodigo_cli();
+                Casa_nombre = servi.getNombre_casa();
+                precio_casa = servi.getPrecio_casa();
                 
             }
-            txtcasa.setText(nombrecasa);
-           String precioalqioler = String.valueOf(precio);
-           txtPrecio.setText(precioalqioler);
-           
+            txtAgente.setText(agente);
+            txtcliente.setText(cleinte);
+            txtcasa.setText(cleinte);
+            txtPrecio.setText(precio_casa);
+            
         }
      }
-     public void Obtenerfacturas(ObjectContainer base) {
-          Query query = base.query();
-        query.constrain(Encabezado_Factura.class);
-        query.descend("cod_cliente").constrain(INICIO.codigo);
-
-        ObjectSet<Encabezado_Factura> result = query.execute();
-        if (!result.isEmpty()) {
-
-            for (Encabezado_Factura servi : result) {
-                casa = servi.getCod_casa();
-                precio = servi.getValor_cancelar();
-                
-            }
-       
-            String total = String.valueOf(precio);
-            txtPrecio.setText(total);
-        }
-  
-      }
     
+
     
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -248,7 +232,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         cargarCasas(base);
-      Obtenerfacturas(base);
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 
