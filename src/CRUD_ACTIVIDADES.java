@@ -515,13 +515,13 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
     private void cargarTabla(ObjectContainer base, Actividades actividadFiltrada) {
         DefaultTableModel model = (DefaultTableModel) TableActi.getModel();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         Object[] row = {
             actividadFiltrada.getId_actividades(),
             actividadFiltrada.getCod_casa(),
             actividadFiltrada.getTipo_actividad(),
             actividadFiltrada.getCosto_adicional(),
-            actividadFiltrada.getFecha(),
+            actividadFiltrada.getFecha() != null ? sdf.format(actividadFiltrada.getFecha()) : null,
             actividadFiltrada.getHora()
         };
         model.addRow(row);
