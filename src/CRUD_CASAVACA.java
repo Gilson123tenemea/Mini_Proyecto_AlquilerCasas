@@ -416,40 +416,40 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jLabel7.setText("jLabel7");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 10, 220, 140));
 
-        jLabel8.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel8.setText("Codigo:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 50, -1, -1));
 
-        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel9.setText("Descripcion:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 80, -1, -1));
 
-        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel10.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel10.setText("Tipo:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 160, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel11.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel11.setText("Numero Pisos:");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 190, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel12.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel12.setText("Capacidad Max:");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
 
-        jLabel13.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel13.setText("Numero Habitaciones:");
         jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 250, -1, -1));
 
-        jLabel14.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel14.setText("Numero Baño:");
         jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 280, -1, -1));
         jPanel1.add(spnrpisos, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 190, 100, -1));
 
-        jLabel16.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel16.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel16.setText("Precio de alquiler:");
         jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 60, -1, -1));
 
-        jLabel17.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel17.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel17.setText("Propietario:");
         jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 170, -1, 20));
 
@@ -544,6 +544,11 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 cbxpropietarioMouseClicked(evt);
             }
         });
+        cbxpropietario.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxpropietarioActionPerformed(evt);
+            }
+        });
         cbxpropietario.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
                 cbxpropietarioKeyTyped(evt);
@@ -568,20 +573,25 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         });
         jPanel1.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 60, 140, -1));
 
-        jLabel21.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel21.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel21.setText("Disponiblidad:");
         jPanel1.add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 100, -1, -1));
 
         jCheckBox1.setText("Si");
         jPanel1.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 140, -1));
 
-        jLabel22.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Dialog", 0, 14)); // NOI18N
         jLabel22.setText("Ubicacion:");
         jPanel1.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 220, -1, -1));
 
         jComboBox3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jComboBox3MouseClicked(evt);
+            }
+        });
+        jComboBox3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jComboBox3ActionPerformed(evt);
             }
         });
         jPanel1.add(jComboBox3, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 220, 130, -1));
@@ -1048,18 +1058,6 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtprecioActionPerformed
 
-    private void cbxpropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxpropietarioKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbxpropietarioKeyTyped
-
-    private void cbxpropietarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxpropietarioMouseClicked
-        cargarPropietarios();
-    }//GEN-LAST:event_cbxpropietarioMouseClicked
-
-    private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
-        cargarUbicacion();
-    }//GEN-LAST:event_jComboBox3MouseClicked
-
     private void cbxPromocionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxPromocionMouseClicked
         cargarPromocion();
     }//GEN-LAST:event_cbxPromocionMouseClicked
@@ -1079,6 +1077,26 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         mostrarDatosServicioSeleccionado(bases);
         bases.close();
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void cbxpropietarioKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_cbxpropietarioKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxpropietarioKeyTyped
+
+    private void cbxpropietarioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxpropietarioActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxpropietarioActionPerformed
+
+    private void cbxpropietarioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxpropietarioMouseClicked
+        cargarPropietarios();
+    }//GEN-LAST:event_cbxpropietarioMouseClicked
+
+    private void jComboBox3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jComboBox3ActionPerformed
+
+    private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
+        cargarUbicacion();
+    }//GEN-LAST:event_jComboBox3MouseClicked
 
     public void vaciarTabla() {
         // Obtenemos el modelo de la tabla
