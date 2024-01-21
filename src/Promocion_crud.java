@@ -311,7 +311,7 @@ public class Promocion_crud extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
-    public void ActualizarDatos(ObjectContainer base) {
+     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
         if (codpromocion.getText().trim().isEmpty() || txadescripcion.getText().trim().isEmpty()
                 || jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
