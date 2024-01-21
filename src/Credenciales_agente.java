@@ -261,18 +261,20 @@ public class Credenciales_agente extends javax.swing.JPanel {
                 nombre = agente.getNombre();
                 apellido = agente.getApellido();
                 cod = agente.getCodigo_agente();
-
             }
             txtnombre.setText(nombre.trim());
             txtapellido.setText(apellido.trim());
             lblcod.setText(cod.trim());
+
+            // Mostrar los datos del agente en un mensaje de diálogo
+            String mensaje = "Código: " + cod + "\nNombre: " + nombre + "\nApellido: " + apellido;
+            JOptionPane.showMessageDialog(null, mensaje, "Información del Agente Inmobiliario", JOptionPane.INFORMATION_MESSAGE);
         } else {
-
-            JOptionPane.showMessageDialog(null, "No se encontró ningún agente inmobiliario con la cedula ingresada");
-
+            JOptionPane.showMessageDialog(null, "No se encontró ningún agente inmobiliario con la cedula ingresada", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
         base.close();
+
     }//GEN-LAST:event_btnbuscarActionPerformed
 
     private void txtnombreKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtnombreKeyReleased
@@ -378,7 +380,7 @@ public class Credenciales_agente extends javax.swing.JPanel {
 
         habiltarDatos();
 
-        Agente_inmobiliario miagente = new Agente_inmobiliario(null,null, null, txtconsulta.getText().trim(), null, null, null, null, null, null);
+        Agente_inmobiliario miagente = new Agente_inmobiliario(null, null, null, txtconsulta.getText().trim(), null, null, null, null, null, null);
 
         ObjectSet res = base.get(miagente);
         Agente_inmobiliario miagent = (Agente_inmobiliario) res.next();
