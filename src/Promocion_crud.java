@@ -5,6 +5,7 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -173,6 +174,7 @@ public class Promocion_crud extends javax.swing.JPanel {
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
         ObjectSet<Promocion> result = base.queryByExample(new clases.Promocion());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 
         while (result.hasNext()) {
             Promocion promo1 = result.next();
@@ -181,8 +183,8 @@ public class Promocion_crud extends javax.swing.JPanel {
                 promo1.getCod_promo(),
                 promo1.getDescripcion(),
                 promo1.getDescuento(),
-                promo1.getFecha_inicio(),
-                promo1.getFecha_fin(),};
+                promo1.getFecha_inicio() != null ? sdf.format(promo1.getFecha_inicio()) : null,
+                promo1.getFecha_fin() != null ? sdf.format(promo1.getFecha_fin()) : null,};
             model.addRow(row);
         }
 
@@ -302,58 +304,8 @@ public class Promocion_crud extends javax.swing.JPanel {
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        String codcasa = " ", descripcion = " ";
-        int descuento = 0;
-        Date fechafin = null;
-        Date fechainicio = null;
 
-        int ed = 0;
-        Query query = base.query();
-        query.constrain(Promocion.class
-        );
-        query.descend("cod_promo").constrain(codpromocion.getText().trim());
-        ObjectSet<Promocion> result = query.execute();
-
-        String[] columnNames = {"CODIGO DE LA PROMOCION","DESCRIPCION", "DESCUENTO", "FECHA DE INICIO", "FECHA DE FIN"};
-
-        Object[][] data = new Object[result.size()][5];
-
-        int i = 0;
-        for (Promocion promo1 : result) {
-            data[i][0] = promo1.getCod_promo();
-            data[i][1] = promo1.getDescripcion();
-            data[i][2] = promo1.getDescuento();
-            data[i][3] = promo1.getFecha_inicio();
-            data[i][4] = promo1.getFecha_fin();
-
-            i++;
-        }
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable2.setModel(model);
-
-        jTable2.repaint();
-
-        if (!result.isEmpty()) {
-            //habiltarDatos();
-            for (Promocion promo1 : result) {
-                descripcion = promo1.getDescripcion();
-                descuento = promo1.getDescuento();
-                fechainicio = promo1.getFecha_inicio();
-                fechafin = promo1.getFecha_fin();
-
-            }
-            txadescripcion.setText(descripcion);
-            jTextField3.setValue(descuento);
-            jDateChooser1.setDate(fechainicio);
-            jDateChooser2.setDate(fechafin);
-
-            //txtcodigoPropi.setText(cod.trim());
-        } else {
-
-            JOptionPane.showMessageDialog(null, "No se encontró ningúna Casa Vacional con la cedula ingresada");
-
-        }
+        buscarPromocion(base);
 
         base.close();
 
@@ -361,7 +313,7 @@ public class Promocion_crud extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
-        if (codpromocion.getText().trim().isEmpty() ||  txadescripcion.getText().trim().isEmpty()
+        if (codpromocion.getText().trim().isEmpty() || txadescripcion.getText().trim().isEmpty()
                 || jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -412,4 +364,45 @@ public class Promocion_crud extends javax.swing.JPanel {
     private javax.swing.JSpinner jTextField3;
     private javax.swing.JTextArea txadescripcion;
     // End of variables declaration//GEN-END:variables
+private void buscarPromocion(ObjectContainer base) {
+        String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la promoción a buscar:", "Buscar Promoción", JOptionPane.QUESTION_MESSAGE);
+
+        if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
+            Query query = base.query();
+            query.constrain(Promocion.class);
+            query.descend("cod_promo").constrain(codigoBusqueda);
+            ObjectSet<Promocion> result = query.execute();
+
+            if (!result.isEmpty()) {
+                // Si hay resultados, llenar la tabla
+                String[] columnNames = {"CODIGO DE LA PROMOCION", "DESCRIPCION", "DESCUENTO", "FECHA DE INICIO", "FECHA DE FIN"};
+                Object[][] data = new Object[result.size()][5];
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+                int i = 0;
+                for (Promocion promo : result) {
+                    data[i][0] = promo.getCod_promo();
+                    data[i][1] = promo.getDescripcion();
+                    data[i][2] = promo.getDescuento();
+                    data[i][3] = promo.getFecha_inicio() != null ? sdf.format(promo.getFecha_inicio()) : null;
+                    data[i][4] = promo.getFecha_fin() != null ? sdf.format(promo.getFecha_fin()) : null;
+                    i++;
+                }
+
+                DefaultTableModel model = new DefaultTableModel(data, columnNames);
+                jTable2.setModel(model);
+
+                // Mostrar detalles de la primera promoción encontrada
+                Promocion primeraPromocion = result.next();
+                txadescripcion.setText(primeraPromocion.getDescripcion());
+                jTextField3.setValue(primeraPromocion.getDescuento());
+                jDateChooser1.setDate(primeraPromocion.getFecha_inicio());
+                jDateChooser2.setDate(primeraPromocion.getFecha_fin());
+            } else {
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna promoción con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        base.close();
+    }
+
 }
