@@ -13,6 +13,7 @@ import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 public class CRUD_FACTURA extends javax.swing.JPanel {
@@ -20,6 +21,8 @@ public class CRUD_FACTURA extends javax.swing.JPanel {
     public CRUD_FACTURA() {
         initComponents();
         txtagente.setText(Administrador_Login.usuario);
+        spnPromo.setModel(new SpinnerNumberModel(0, 0, 100, 1));
+        spndias.setModel(new SpinnerNumberModel(1, 1, 30, 1));
     }
 
      public void creaFactura(ObjectContainer base) {

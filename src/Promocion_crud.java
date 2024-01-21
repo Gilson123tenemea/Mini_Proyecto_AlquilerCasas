@@ -8,12 +8,16 @@ import com.db4o.query.Query;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
+import javax.swing.SpinnerNumberModel;
 import javax.swing.table.DefaultTableModel;
 
 public class Promocion_crud extends javax.swing.JPanel {
 
     public Promocion_crud() {
         initComponents();
+        spndescu.setModel(new SpinnerNumberModel(0, 0, 100, 1));
+        
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -39,7 +43,7 @@ public class Promocion_crud extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         txadescripcion = new javax.swing.JTextArea();
-        jTextField3 = new javax.swing.JSpinner();
+        spndescu = new javax.swing.JSpinner();
         codpromocion = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(102, 153, 255));
@@ -134,8 +138,8 @@ public class Promocion_crud extends javax.swing.JPanel {
 
         jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 63, 250, 53));
 
-        jTextField3.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        jPanel6.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 60, 30));
+        spndescu.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
+        jPanel6.add(spndescu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 60, 30));
         jPanel6.add(codpromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 110, 20));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 900, -1));
@@ -163,7 +167,7 @@ public class Promocion_crud extends javax.swing.JPanel {
     public void limpiar() {
         codpromocion.setText("");
         txadescripcion.setText("");
-        jTextField3.setValue(0);
+        spndescu.setValue(0);
         jDateChooser1.setDate(null); // Establecer la fecha a null o a un valor específico
         jDateChooser2.setDate(null); // Establecer la fecha a null o a un valor específico
 
@@ -224,7 +228,7 @@ public class Promocion_crud extends javax.swing.JPanel {
             codpromocion.setText(nuevoCodigo);
 
             // Obtener la edad como entero
-            int edad = (int) jTextField3.getValue();
+            int edad = (int) spndescu.getValue();
 
             // Crear objeto Promocion y almacenar en la base de datos
             Promocion promocion = new Promocion(nuevoCodigo, edad, jDateChooser1.getDate(), jDateChooser2.getDate(), txadescripcion.getText().trim());
@@ -334,7 +338,7 @@ public class Promocion_crud extends javax.swing.JPanel {
 
                 // Actualizar los campos de la Promocion
                 miPromocionEncontrada.setDescripcion(txadescripcion.getText());
-                miPromocionEncontrada.setDescuento((int) jTextField3.getValue());
+                miPromocionEncontrada.setDescuento((int) spndescu.getValue());
                 miPromocionEncontrada.setFecha_inicio(jDateChooser1.getDate());
                 miPromocionEncontrada.setFecha_fin(jDateChooser2.getDate());
 
@@ -375,7 +379,7 @@ public class Promocion_crud extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTable jTable2;
-    private javax.swing.JSpinner jTextField3;
+    private javax.swing.JSpinner spndescu;
     private javax.swing.JTextArea txadescripcion;
     // End of variables declaration//GEN-END:variables
 private void buscarPromocion(ObjectContainer base) {
@@ -410,7 +414,7 @@ private void buscarPromocion(ObjectContainer base) {
                 Promocion primeraPromocion = result.next();
                 codpromocion.setText(primeraPromocion.getCod_promo());
                 txadescripcion.setText(primeraPromocion.getDescripcion());
-                jTextField3.setValue(primeraPromocion.getDescuento());
+                spndescu.setValue(primeraPromocion.getDescuento());
                 jDateChooser1.setDate(primeraPromocion.getFecha_inicio());
                 jDateChooser2.setDate(primeraPromocion.getFecha_fin());
             } else {
