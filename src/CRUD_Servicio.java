@@ -16,7 +16,6 @@ import javax.swing.table.DefaultTableModel;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 /**
  *
  * @author eliza
@@ -161,7 +160,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 {null, null, null, null}
             },
             new String [] {
-                "Código Servicio", "Nombre Servicio", "Descripcion", "Costo"
+                "Código Servicio", "Nombre Servicio", "Costo", "Descripcion"
             }
         ));
         jScrollPane2.setViewportView(jTable2);
@@ -256,41 +255,47 @@ public class CRUD_Servicio extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         crearServicio(base);
         base.close();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         String codigoBusqueda = JOptionPane.showInputDialog(null, "Ingrese el código a buscar:");
-
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            ObjectContainer base = Db4o.openFile(INICIO.direccion);
-
-            String codservi = " ", codcli = " ", nombreserv = " ", descripcion = " ";
-            String costoad = "";
-
             Query query = base.query();
             query.constrain(Servicio.class);
             query.descend("codigo_servicio").constrain(codigoBusqueda.trim());
             ObjectSet<Servicio> result = query.execute();
 
+            // Limpiar la tabla y agregar solo las filas de los servicios encontrados
+            DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+            model.setRowCount(0); // Limpiar la tabla antes de agregar filas
+
             if (!result.isEmpty()) {
                 for (Servicio servi1 : result) {
-                    codservi = servi1.getCodigo_servicio();
-                    nombreserv = servi1.getNombre_ser();
-                    costoad = servi1.getCostoAdicional();
-                    descripcion = servi1.getDescripcionSer();
+                    Object[] row = {
+                        servi1.getCodigo_servicio(),
+                        servi1.getNombre_ser(),
+                        servi1.getCostoAdicional(),
+                        servi1.getDescripcionSer()
+                    };
+                    model.addRow(row);
                 }
 
-                txtnombreservicio.setText(nombreserv.trim());
-                costoadicionaldouble.setText(costoad.trim());
-                descripciontxt.setText(descripcion.trim());
+                // Muestra la primera fila (si existe) en los campos de texto
+                if (jTable2.getRowCount() > 0) {
+                    txtcodigo.setText(codigoBusqueda);
+                    txtnombreservicio.setText(jTable2.getValueAt(0, 1).toString().trim());
+                    costoadicionaldouble.setText(jTable2.getValueAt(0, 2).toString().trim());
+                    descripciontxt.setText(jTable2.getValueAt(0, 3).toString().trim());
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "No se encontró ningún servicio con el código ingresado");
             }
@@ -301,9 +306,12 @@ public class CRUD_Servicio extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Operación cancelada o código no válido");
         }
 
-        
-    }//GEN-LAST:event_jButton6ActionPerformed
 
+    }//GEN-LAST:event_jButton6ActionPerformed
+    private void limpiarTablaUbicacion() {
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0);
+    }
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código del servicio a eliminar");
         boolean encontrado = false;
@@ -354,16 +362,13 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-   
-    
-    
-    
+
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarTabla(base);
 
-        base.close();     
+        base.close();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -371,40 +376,58 @@ public class CRUD_Servicio extends javax.swing.JPanel {
         ActualizarDatos(base);
         base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
-   
-    
-     public void ActualizarDatos(ObjectContainer base) {
-         
+
+    public void ActualizarDatos(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+        if (txtnombreservicio.getText().trim().isEmpty() || costoadicionaldouble.getText().trim().isEmpty() || descripciontxt.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos para realizar la modificación", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
         try {
-            Servicio micasa = new Servicio( null, null, null,null);
+            // Crear un objeto Servicio para buscar
+            Servicio miServicioBusqueda = new Servicio(txtcodigo.getText().trim(), null, null, null);
 
-            ObjectSet res = base.get(micasa);
-            Servicio micasita = (Servicio) res.next();
-            micasita.setNombre_ser(txtnombreservicio.getText().trim());
-            micasita.setCostoAdicional(costoadicionaldouble.getText().trim());
-            micasita.setDescripcionSer(descripciontxt.getText().trim());
-           
-            base.set(micasita);
+            // Obtener resultados de la búsqueda
+            ObjectSet<Servicio> result = base.queryByExample(miServicioBusqueda);
 
-            JOptionPane.showMessageDialog(this, "Modificación exitosa");
-            limpiar();
+            // Verificar si se encontraron resultados
+            if (!result.isEmpty()) {
+                // Obtener el primer Servicio encontrado
+                Servicio miServicioEncontrado = result.next();
 
+                // Actualizar los campos del Servicio
+                miServicioEncontrado.setNombre_ser(txtnombreservicio.getText().trim());
+                miServicioEncontrado.setCostoAdicional(costoadicionaldouble.getText().trim());
+                miServicioEncontrado.setDescripcionSer(descripciontxt.getText().trim());
+
+                // Guardar los cambios en la base de datos
+                base.store(miServicioEncontrado);
+
+                // Mostrar mensaje de modificación exitosa
+                JOptionPane.showMessageDialog(this, "Modificación exitosa");
+                limpiar();
+            } else {
+                // Mostrar mensaje si no se encuentra el Servicio
+                JOptionPane.showMessageDialog(this, "No se encontró ningún servicio en la base de datos.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } finally {
+            // Cerrar la base de datos
             base.close();
         }
     }
-     
-     public void crearServicio(ObjectContainer Base) {
+
+    public void crearServicio(ObjectContainer Base) {
         // Verificar si todos los campos están llenos
-        if (txtnombreservicio.getText().trim().isEmpty() ||costoadicionaldouble.getText().trim().isEmpty() || descripciontxt.getText().trim().isEmpty()) {
+        if (txtnombreservicio.getText().trim().isEmpty() || costoadicionaldouble.getText().trim().isEmpty() || descripciontxt.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
-        
+
         }
 
         try {
-            
+
             Query query = Base.query();
             query.constrain(Servicio.class);
             query.descend("codigo_servicio").orderDescending();
@@ -419,7 +442,6 @@ public class CRUD_Servicio extends javax.swing.JPanel {
             // Formatear el código con ceros a la izquierda y agregar "ACT-"
             String nuevoCodigo = String.format("SER-%03d", ultimoCodigo);
             txtcodigo.setText(nuevoCodigo);
-            
 
             // Verificar si ya existe una casa con el mismo código
             result = Base.queryByExample(new Servicio(nuevoCodigo, null, null, null));
@@ -430,7 +452,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
             }
 
             // Crear objeto CasaVacacional y almacenar en la base de datos
-            Servicio casa1 = new Servicio(txtcodigo.getText().trim(),txtnombreservicio.getText().trim(),descripciontxt.getText().trim() ,costoadicionaldouble.getText().trim());
+            Servicio casa1 = new Servicio(txtcodigo.getText().trim(), txtnombreservicio.getText().trim(), descripciontxt.getText().trim(), costoadicionaldouble.getText().trim());
 
             Base.store(casa1);
 
@@ -441,16 +463,16 @@ public class CRUD_Servicio extends javax.swing.JPanel {
             Base.close();
         }
     }
-     public void limpiar() {
+
+    public void limpiar() {
         txtcodigo.setText("");
         txtnombreservicio.setText("");
         costoadicionaldouble.setText("");
         descripciontxt.setText("");
-        
-        
+
         //  txtcodigoPropi.setText(" ");
     }
-    
+
     public void cargarTabla(ObjectContainer base) {
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -465,15 +487,12 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 servi1.getCodigo_servicio(),
                 servi1.getNombre_ser(),
                 servi1.getCostoAdicional(),
-                servi1.getDescripcionSer(),
-                
-
-            };
+                servi1.getDescripcionSer(),};
             model.addRow(row);
         }
 
     }
-    
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField costoadicionaldouble;

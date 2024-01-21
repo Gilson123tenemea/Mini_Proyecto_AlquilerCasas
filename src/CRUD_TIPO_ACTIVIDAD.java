@@ -333,7 +333,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             result = base.queryByExample(new Tipo_Actividad(nuevoCodigo, null, null));
 
             if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un personal con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ya existe un Tipo de Actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
@@ -341,7 +341,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             Tipo_Actividad casa1 = new Tipo_Actividad(nuevoCodigo, jTextField1.getText().trim(), jTextField2.getText().trim());
             base.store(casa1);
 
-            JOptionPane.showMessageDialog(this, "Casa creada exitosamente");
+            JOptionPane.showMessageDialog(this, "Tipo de Actividad creada exitosamente");
             limpiar();
             cargarTabla(base);
         } finally {

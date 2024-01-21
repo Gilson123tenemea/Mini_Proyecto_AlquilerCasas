@@ -7,9 +7,9 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-
 
 public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
@@ -59,53 +59,54 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }
 
     public void cargarTabla(ObjectContainer base) {
-        DefaultTableModel model = (DefaultTableModel) TableActi.getModel(); 
+        DefaultTableModel model = (DefaultTableModel) TableActi.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
-        
+
         ObjectSet<Actividades> result = base.queryByExample(new Actividades());
-       
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
         while (result.hasNext()) {
             Actividades acti = result.next();
-             Object[] row = {
-                 acti.getId_actividades(),
-                 acti.getCod_casa(),
-                 acti.getTipo_actividad(),
-                 acti.getCosto_adicional(),
-                 acti.getFecha(),
-                 acti.getHora()
-                 
-             };
-             model.addRow(row);
+            Object[] row = {
+                acti.getId_actividades(),
+                acti.getCod_casa(),
+                acti.getTipo_actividad(),
+                acti.getCosto_adicional(),
+                acti.getFecha() != null ? sdf.format(acti.getFecha()) : null,
+                acti.getHora()
+
+            };
+            model.addRow(row);
         }
-        
+
     }
-    
+
     public void limpiar() {
-        cbxNombreCasa.setSelectedItem("");  
+        cbxNombreCasa.setSelectedItem("");
         cboxTipoActi.setSelectedItem("");
         lblIdActividades.setText("");
     }
-    
-    
-     public void cargarCasas() {
+
+    public void cargarCasas() {
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cbxNombreCasa.removeAllItems();
         Query query = Base.query();
         query.constrain(CasaVacacional.class);
-        
+
         ObjectSet<CasaVacacional> casas = query.execute();
-        
-         if (casas.isEmpty()) {             
-             JOptionPane.showMessageDialog(this, "No hay casas vacacionales disponibles", "Error", JOptionPane.ERROR_MESSAGE);    
-         } else {
-             while (casas.hasNext()) {
+
+        if (casas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay casas vacacionales disponibles", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (casas.hasNext()) {
                 CasaVacacional casa = casas.next();
                 cbxNombreCasa.addItem(casa.getCod_casa());
-             }
-             
-         }
-         Base.close();   
-     }
+            }
+
+        }
+        Base.close();
+    }
+
     public void Modificar(ObjectContainer base) {
 
         if (cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null) {
@@ -136,25 +137,24 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
     }
 
-    
-     public void cargarTipoActividades() {
+    public void cargarTipoActividades() {
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cboxTipoActi.removeAllItems();
         Query query = Base.query();
         query.constrain(Tipo_Actividad.class);
-        
-         ObjectSet<Tipo_Actividad> activi = query.execute();
-          if (activi.isEmpty()) {
-               JOptionPane.showMessageDialog(this, "NO EXISTEN LOS TIPOS DE ACTIVIDADES", "Error", JOptionPane.ERROR_MESSAGE);
-          }else {
-              while (activi.hasNext()) {
+
+        ObjectSet<Tipo_Actividad> activi = query.execute();
+        if (activi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "NO EXISTEN LOS TIPOS DE ACTIVIDADES", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (activi.hasNext()) {
                 Tipo_Actividad pro = activi.next();
                 cboxTipoActi.addItem(pro.getCod_tipoactividad());
-            } 
-          }
-        
-       Base.close();
-     }
+            }
+        }
+
+        Base.close();
+    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -444,44 +444,43 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void eliminarActividad(ObjectContainer base) {
-    String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la Actividad a eliminar");
+        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la Actividad a eliminar");
 
-    if (codigoEliminar != null && !codigoEliminar.isEmpty()) {
-        boolean encontrado = false;
+        if (codigoEliminar != null && !codigoEliminar.isEmpty()) {
+            boolean encontrado = false;
 
-        Query query = base.query();
-        query.constrain(Actividades.class);
+            Query query = base.query();
+            query.constrain(Actividades.class);
 
-        ObjectSet<Actividades> result = query.execute();
+            ObjectSet<Actividades> result = query.execute();
 
-        while (result.hasNext()) {
-            Actividades actividad = result.next();
+            while (result.hasNext()) {
+                Actividades actividad = result.next();
 
-            if (actividad.getId_actividades().equals(codigoEliminar)) {
-                encontrado = true;
+                if (actividad.getId_actividades().equals(codigoEliminar)) {
+                    encontrado = true;
 
-                int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos de la Actividad?", "Confirmación", JOptionPane.YES_NO_OPTION);
+                    int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos de la Actividad?", "Confirmación", JOptionPane.YES_NO_OPTION);
 
-                if (resul == JOptionPane.YES_OPTION) {
-                    base.delete(actividad);
-                    JOptionPane.showMessageDialog(null, "Datos de la Actividad eliminados correctamente");
-                    cargarTabla(base);
-                } else if (resul == JOptionPane.NO_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Datos de la Actividad no eliminados");
+                    if (resul == JOptionPane.YES_OPTION) {
+                        base.delete(actividad);
+                        JOptionPane.showMessageDialog(null, "Datos de la Actividad eliminados correctamente");
+                        cargarTabla(base);
+                    } else if (resul == JOptionPane.NO_OPTION) {
+                        JOptionPane.showMessageDialog(null, "Datos de la Actividad no eliminados");
+                    }
+                    break; // No es necesario seguir buscando después de encontrar la actividad
                 }
-                break; // No es necesario seguir buscando después de encontrar la actividad
+            }
+
+            if (!encontrado) {
+                JOptionPane.showMessageDialog(null, "No se encontró la actividad con el código proporcionado");
+                cargarTabla(base);
             }
         }
-
-        if (!encontrado) {
-            JOptionPane.showMessageDialog(null, "No se encontró la actividad con el código proporcionado");
-            cargarTabla(base);
-        }
+        base.close();
     }
-    base.close();
-}
-    
-    
+
     private void buscarActividad(ObjectContainer base) {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
@@ -529,13 +528,13 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
         base.close();
     }
-   
+
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         crearActividades(base);
         base.close();
-        
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cboxHoraActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxHoraActionPerformed
@@ -551,9 +550,9 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-       ObjectContainer base = Db4o.openFile(INICIO.direccion);
-       buscarActividad(base);        
-       base.close();
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        buscarActividad(base);
+        base.close();
     }//GEN-LAST:event_jButton6ActionPerformed
 
     private void mostrarDatosCasaSeleccionado(ObjectContainer bases) {
@@ -590,6 +589,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             bases.close();
         }
     }
+
     private void mostrarDatosTipoActiSeleccionado(ObjectContainer bases) {
         try {
             Object selectedItem = cboxTipoActi.getSelectedItem();
@@ -620,11 +620,11 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             bases.close();
         }
     }
-    
+
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
-         Modificar(Base);
-         Base.close();
+        Modificar(Base);
+        Base.close();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
