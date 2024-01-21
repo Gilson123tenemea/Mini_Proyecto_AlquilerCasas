@@ -133,8 +133,10 @@ public class Promocion_crud extends javax.swing.JPanel {
         jScrollPane2.setViewportView(txadescripcion);
 
         jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 63, 250, 53));
+
+        jTextField3.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
         jPanel6.add(jTextField3, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 60, 30));
-        jPanel6.add(codpromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 110, 30));
+        jPanel6.add(codpromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 110, 20));
 
         jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 900, -1));
 
@@ -311,35 +313,47 @@ public class Promocion_crud extends javax.swing.JPanel {
 
     }//GEN-LAST:event_jButton6ActionPerformed
 
-     public void ActualizarDatos(ObjectContainer base) {
+    public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
-        if (codpromocion.getText().trim().isEmpty() || txadescripcion.getText().trim().isEmpty()
-                || jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
-
-            JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
+        if (txadescripcion.getText().trim().isEmpty() || jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos para realizar la modificación", "Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
-            Promocion micasa = new Promocion(codpromocion.getText().trim(), 0, null, null, null);
+            // Crear un objeto Promocion para buscar
+            Promocion miPromocionBusqueda = new Promocion(codpromocion.getText().trim(), 0, null, null, null);
 
-            ObjectSet res = base.get(micasa);
-            Promocion micasita = (Promocion) res.next();
-            micasita.setDescripcion(txadescripcion.getText());
+            // Obtener resultados de la búsqueda
+            ObjectSet<Promocion> result = base.queryByExample(miPromocionBusqueda);
 
-            micasita.setDescuento((int) jTextField3.getValue());
-            micasita.setFecha_inicio(jDateChooser1.getDate());
-            micasita.setFecha_fin(jDateChooser2.getDate());
+            // Verificar si se encontraron resultados
+            if (!result.isEmpty()) {
+                // Obtener la primera Promocion encontrada
+                Promocion miPromocionEncontrada = result.next();
 
-            base.set(micasita);
+                // Actualizar los campos de la Promocion
+                miPromocionEncontrada.setDescripcion(txadescripcion.getText());
+                miPromocionEncontrada.setDescuento((int) jTextField3.getValue());
+                miPromocionEncontrada.setFecha_inicio(jDateChooser1.getDate());
+                miPromocionEncontrada.setFecha_fin(jDateChooser2.getDate());
 
-            JOptionPane.showMessageDialog(this, "Modificación exitosa");
-            limpiar();
+                // Guardar los cambios en la base de datos
+                base.store(miPromocionEncontrada);
 
+                // Mostrar mensaje de modificación exitosa
+                JOptionPane.showMessageDialog(this, "Modificación exitosa");
+                limpiar();
+            } else {
+                // Mostrar mensaje si no se encuentra la Promocion
+                JOptionPane.showMessageDialog(this, "No se encontró ninguna promoción con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         } finally {
+            // Cerrar la base de datos
             base.close();
         }
     }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel codpromocion;
@@ -394,6 +408,7 @@ private void buscarPromocion(ObjectContainer base) {
 
                 // Mostrar detalles de la primera promoción encontrada
                 Promocion primeraPromocion = result.next();
+                codpromocion.setText(primeraPromocion.getCod_promo());
                 txadescripcion.setText(primeraPromocion.getDescripcion());
                 jTextField3.setValue(primeraPromocion.getDescuento());
                 jDateChooser1.setDate(primeraPromocion.getFecha_inicio());
