@@ -1,5 +1,5 @@
 
-import clases.CasaVacacional;
+import clases.Cliente;
 import clases.Contrato;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
@@ -7,42 +7,54 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import javax.swing.JOptionPane;
 
-
 public class Contrato_cliente extends javax.swing.JPanel {
+
     String agente = "";
     String cleinte = "";
     String Casa_nombre = "";
     String precio_casa = "";
-    
+    String codigo_cliente ="";
+    String nombree=" ",apellidoo=" ";
+
     public Contrato_cliente() {
         initComponents();
-        txtcliente.setText(INICIO.nombre+"  "+INICIO.apellido);
+        txtcliente.setText(INICIO.nombre + "  " + INICIO.apellido);
+        txtAgente.setText(agente);
+        txtcliente.setText(cleinte);
+        txtcasa.setText(Casa_nombre);
+        txtPrecio.setText(precio_casa);
     }
+    
+    
+   
 
     public void cargarCasas(ObjectContainer base) {
 
-          Query query = base.query();
+        Query query = base.query();
         query.constrain(Contrato.class);
-        query.descend("codigo_cli").constrain(INICIO.codigo);
+        query.descend("codigo_cli").constrain(INICIO.usuario);
         ObjectSet<Contrato> result = query.execute();
-        if (!result.isEmpty()) { 
+        JOptionPane.showMessageDialog(null, INICIO.codigo + " ghhcewc" + result);
+
+        if (!result.isEmpty()) {
             for (Contrato servi : result) {
                 agente = servi.getCodigo_age();
                 cleinte = servi.getCodigo_cli();
                 Casa_nombre = servi.getNombre_casa();
                 precio_casa = servi.getPrecio_casa();
-                
+
             }
+
             txtAgente.setText(agente);
             txtcliente.setText(cleinte);
-            txtcasa.setText(cleinte);
+            txtcasa.setText(Casa_nombre);
             txtPrecio.setText(precio_casa);
-            
-        }
-     }
-    
 
-    
+        } else {
+            JOptionPane.showMessageDialog(null, "Aun no se establece un contrato");
+        }
+    }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -62,7 +74,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jCheckBox1 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
+        btncontrato = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
@@ -97,13 +109,12 @@ public class Contrato_cliente extends javax.swing.JPanel {
 
         jCheckBox1.setText("Acepto los terminos y condiciones");
 
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(0, 0, 0));
-        jButton1.setText("MI  CONTRATO");
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btncontrato.setBackground(new java.awt.Color(255, 255, 255));
+        btncontrato.setText("MI  CONTRATO");
+        btncontrato.setBorder(null);
+        btncontrato.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btncontratoActionPerformed(evt);
             }
         });
 
@@ -151,7 +162,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(362, 362, 362)
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(btncontrato, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(337, 337, 337)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -167,7 +178,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jButton1)
+                .addComponent(btncontrato)
                 .addGap(28, 28, 28)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -192,7 +203,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
                 .addComponent(jCheckBox1)
                 .addGap(18, 18, 18)
                 .addComponent(jButton2)
-                .addContainerGap(41, Short.MAX_VALUE))
+                .addContainerGap(56, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(157, 157, 157)
@@ -229,19 +240,19 @@ public class Contrato_cliente extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btncontratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontratoActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         cargarCasas(base);
         base.close();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_btncontratoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       JOptionPane.showMessageDialog(null, "Espera 1 minuto y su fatura se generada");
+        JOptionPane.showMessageDialog(null, "Espera 1 minuto y su fatura se generada");
     }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
+    private javax.swing.JButton btncontrato;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;

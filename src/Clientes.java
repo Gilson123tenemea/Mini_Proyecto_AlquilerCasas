@@ -83,7 +83,6 @@ public class Clientes extends javax.swing.JPanel {
         jLabel1 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -206,14 +205,6 @@ public class Clientes extends javax.swing.JPanel {
             }
         });
         jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/atras.png"))); // NOI18N
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -574,12 +565,6 @@ public class Clientes extends javax.swing.JPanel {
             modelo.removeRow(0);
         }
     }
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        LOGIN_CLIENTES cli = new LOGIN_CLIENTES();
-        cli.setVisible(true);
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     public void habiltarDatos() {
 
         txtnombreCli.setEnabled(true);
@@ -697,7 +682,6 @@ public class Clientes extends javax.swing.JPanel {
     private javax.swing.JButton btnModificar;
     private javax.swing.JLabel genero;
     private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel1;

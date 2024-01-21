@@ -1,21 +1,30 @@
 
+import clases.CasaVacacional;
+import clases.Cliente;
 import clases.Contrato;
+import clases.Reservar;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
-
 
 public class Contrato_agente extends javax.swing.JPanel {
 
+    String agente = "";
+
     public Contrato_agente() {
         initComponents();
+        txtcodagen.setText(Administrador_Login.nombre + " " + Administrador_Login.apellido);
+       
     }
+
+  
     
-     public void crear(ObjectContainer base) {
-          try {
-              
+    public void crear(ObjectContainer base) {
+        try {
+
             Query query = base.query();
             query.constrain(Contrato.class);
             query.descend("codigo_contrato").orderDescending();
@@ -28,45 +37,86 @@ public class Contrato_agente extends javax.swing.JPanel {
             }
             String nuevoCodigo = String.format("CON-%03d", ultimoCodigo);
             lblcontrato.setText(nuevoCodigo);
-             
-            ObjectSet<Contrato> resul = base.queryByExample(new Contrato(nuevoCodigo, null,null,null,null,false));
+
+            ObjectSet<Contrato> resul = base.queryByExample(new Contrato(nuevoCodigo, null, null, null, null, false));
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe un contato con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
-            
+
             try {
-                Contrato casa1 = new Contrato(nuevoCodigo, jTextField1.getText().trim(), jTextField2.getText().trim(),jTextField3.getText().trim(),jTextField4.getText().trim(),false);
+                //String codigo_contrato, String codigo_cli, String codigo_age, String nombre_casa, String precio_casa, boolean TerminosCondiciones
+                Contrato casa1 = new Contrato(nuevoCodigo, cbxcliente.getSelectedItem().toString(), txtcodagen.getText().trim(), cbxcasa.getSelectedItem().toString(), txtprecio.getText().trim(), false);
                 base.store(casa1);
 
                 JOptionPane.showMessageDialog(this, "Contrato creada exitosamente");
-                limpiar(); 
-                
-                
-                
-            }catch (NumberFormatException e) {
+                limpiar();
+
+            } catch (NumberFormatException e) {
                 JOptionPane.showMessageDialog(this, "Ingrese un valor de precio válido.", "Error", JOptionPane.ERROR_MESSAGE);
             }
-            
-            
-            
-              
-          }finally {
+
+        } finally {
             base.close();
         }
 
-          
-     }
-     
-      public void limpiar() {
-        lblcontrato.setText("");
-        jTextField1.setText("");
-        jTextField2.setText("");
-        jTextField3.setText("");
-        jTextField4.setText("");
     }
-    
 
+    public void limpiar() {
+        lblcontrato.setText("");
+        txtcodagen.setText("");
+        txtprecio.setText("");
+    }
+
+    public void cargarCliente(ObjectContainer base) {
+
+
+        try {
+            cbxcliente.removeAllItems();
+            Query query = base.query();
+            query.constrain(Cliente.class);
+
+            ObjectSet<Cliente> evento1 = query.execute();
+
+            while (evento1.hasNext()) {
+
+                Cliente mie = evento1.next();
+                System.out.println("tipo:" + mie.getNombre());
+                cbxcliente.addItem(mie.getCodigo_cli());
+
+            }
+
+        } finally {
+
+            base.close();
+
+        }
+    }
+
+    
+    public void cargarCasa(ObjectContainer base) {
+
+
+        try {
+            cbxcasa.removeAllItems();
+            Query query = base.query();
+            query.constrain(CasaVacacional.class);
+
+            ObjectSet<CasaVacacional> evento1 = query.execute();
+
+            while (evento1.hasNext()) {
+
+                CasaVacacional mie = evento1.next();
+                cbxcasa.addItem(mie.getCod_casa());
+
+            }
+
+        } finally {
+
+            base.close();
+
+        }
+    }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -75,20 +125,22 @@ public class Contrato_agente extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
-        jTextField4 = new javax.swing.JTextField();
+        txtprecio = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         lblcontrato = new javax.swing.JLabel();
+        cbxcliente = new javax.swing.JComboBox<>();
+        cbxcasa = new javax.swing.JComboBox<>();
+        jButton2 = new javax.swing.JButton();
+        jButton3 = new javax.swing.JButton();
+        txtcodagen = new javax.swing.JTextField();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -133,6 +185,27 @@ public class Contrato_agente extends javax.swing.JPanel {
 
         lblcontrato.setText("jLabel11");
 
+        cbxcliente.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxclienteMouseClicked(evt);
+            }
+        });
+
+        cbxcasa.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxcasaMouseClicked(evt);
+            }
+        });
+        cbxcasa.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbxcasaActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("ver");
+
+        jButton3.setText("ver");
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -146,27 +219,32 @@ public class Contrato_agente extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtprecio, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE))
                     .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtcodagen, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(cbxcasa, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(23, 23, 23)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(jButton3)
                                 .addGap(18, 18, 18)
-                                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel10, javax.swing.GroupLayout.PREFERRED_SIZE, 419, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(cbxcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(18, 18, 18)
+                                .addComponent(jButton2)))))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -194,17 +272,19 @@ public class Contrato_agente extends javax.swing.JPanel {
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
+                    .addComponent(cbxcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2)
+                    .addComponent(txtcodagen, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(57, 57, 57)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
+                    .addComponent(jLabel6)
+                    .addComponent(cbxcasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtprecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel7))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel8)
@@ -214,7 +294,7 @@ public class Contrato_agente extends javax.swing.JPanel {
                 .addComponent(jLabel10)
                 .addGap(48, 48, 48)
                 .addComponent(jButton1)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(61, Short.MAX_VALUE))
             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addGroup(jPanel2Layout.createSequentialGroup()
                     .addGap(157, 157, 157)
@@ -252,17 +332,42 @@ public class Contrato_agente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-       
+
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         crear(base);
         base.close();
-   
+
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbxcasaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbxcasaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbxcasaActionPerformed
+
+    private void cbxclienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxclienteMouseClicked
+        // TODO add your handling code here:
+        
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+
+        cargarCliente(base);
+        base.close();
+    }//GEN-LAST:event_cbxclienteMouseClicked
+
+    private void cbxcasaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxcasaMouseClicked
+        // TODO add your handling code here:
+         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+
+        cargarCasa(base);
+        base.close();
+    }//GEN-LAST:event_cbxcasaMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JComboBox<String> cbxcasa;
+    private javax.swing.JComboBox<String> cbxcliente;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
@@ -275,10 +380,8 @@ public class Contrato_agente extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;
     private javax.swing.JLabel lblcontrato;
+    private javax.swing.JTextField txtcodagen;
+    private javax.swing.JTextField txtprecio;
     // End of variables declaration//GEN-END:variables
 }

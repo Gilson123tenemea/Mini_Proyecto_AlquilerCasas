@@ -17,6 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class Administrador_Login extends javax.swing.JFrame {
 
+    
+    public static String nombre="",apellido=" ";
     String  password = " ";
     public static String usuario = " ";
     public Administrador_Login() {
@@ -131,6 +133,8 @@ public class Administrador_Login extends javax.swing.JFrame {
             for (Agente_inmobiliario agente : result) {
                 usuario = agente.getUsuario();
                 password = agente.getPassword();
+                nombre=agente.getNombre();
+                apellido=agente.getApellido();
 
             }
 
