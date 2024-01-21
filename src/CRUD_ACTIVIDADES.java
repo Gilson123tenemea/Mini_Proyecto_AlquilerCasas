@@ -115,7 +115,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             return;
         }
         try {
-            Actividades acti = new Actividades(null, null, null, null, null, null);
+            Actividades acti = new Actividades(lblIdActividades.getText(), null, null, null, null, null);
             ObjectSet res = base.get(acti);
             Actividades actividad = (Actividades) res.next();
 
