@@ -499,6 +499,11 @@ public class CRUD_CLIENTE extends javax.swing.JPanel {
 
         jButton11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton11.setText("BUSCAR");
+        jButton11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton11ActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButton11, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 340, 120, 40));
 
         jButton12.setBackground(new java.awt.Color(255, 255, 255));
@@ -568,6 +573,10 @@ public class CRUD_CLIENTE extends javax.swing.JPanel {
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton11ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

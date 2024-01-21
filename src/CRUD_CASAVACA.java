@@ -30,8 +30,11 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     int bano = 0;
     int habitaciones = 0;
 
+    DefaultTableModel model = new DefaultTableModel();
+
     public CRUD_CASAVACA() {
         initComponents();
+        model.setColumnIdentifiers(new String[]{"CODIGO DE CASA VACACIONAL", "DESCRIPCION", "TIPO", "NUMERO DE PISOS", "CAPACIDAD MAX", "NUMERO DE HABITACIONES", "BAÑOS", "CODIGO PROPIETARIO", "PRECIO DE ALQUILER", "DISPONIBILIDAD", "CODIGO DE UBICACION", "CODIGO DE PROMOCION", "CODIGO DE SERVICIO"});
 
         spnrpisos.setModel(new SpinnerNumberModel(0, 0, 60, 1));
         spnrhabitaciones.setModel(new SpinnerNumberModel(0, 0, 60, 1));
@@ -685,8 +688,8 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-       buscarActividad(base);        
-       base.close();
+        buscarActividad(base);
+        base.close();
 
     }//GEN-LAST:event_jButton12ActionPerformed
 
@@ -694,13 +697,13 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional(codigoBusqueda, null, null, 0, 0, 0, 0, null, 0.0, false, null,null,null));
+            ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional(codigoBusqueda, null, null, 0, 0, 0, 0, null, 0.0, false, null, null, null));
 
             if (!result.isEmpty()) {
                 CasaVacacional actividadEncontrada = result.next();
                 cargarDatosActividad(actividadEncontrada);
                 limpiarTabla();
-                cargarTabla(base, actividadEncontrada);
+                cargarTabla(base);
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró ninguna actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -708,26 +711,28 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         base.close();
     }
 
+    // model.setColumnIdentifiers(new String[]{"CODIGO DE CASA VACACIONAL", "DESCRIPCION", "TIPO", "NUMERO DE PISOS", "CAPACIDAD MAX", "NUMERO DE HABITACIONES", "BAÑOS", "CODIGO PROPIETARIO", "PRECIO DE ALQUILER", "DISPONIBILIDAD", "CODIGO DE UBICACION", "CODIGO DE PROPIETARIO", "CODIGO DE SERVICIO"});
     private void cargarTabla(ObjectContainer base, CasaVacacional actividadFiltrada) {
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
 
         Object[] row = {
             actividadFiltrada.getCod_casa(),
-            actividadFiltrada.getCodigo_propie(),
             actividadFiltrada.getNombre_casa(),
-            actividadFiltrada.getCod_ubicacion(),
+            actividadFiltrada.getTipo_casa(),
+            actividadFiltrada.getNum_pisos(),
             actividadFiltrada.getCapacidad_max(),
             actividadFiltrada.getNum_habitaciones(),
             actividadFiltrada.getNum_baños(),
-            actividadFiltrada.getNum_pisos(),
-            actividadFiltrada.getTipo_casa(),
+            actividadFiltrada.getCodigo_propie(),
             actividadFiltrada.getPrecio(),
-            actividadFiltrada.isDisponibilidad()
-
+            actividadFiltrada.isDisponibilidad(),
+            actividadFiltrada.getCod_ubicacion(),
+            actividadFiltrada.getCod_promocion(),
+            actividadFiltrada.getCod_servicio()
         };
         model.addRow(row);
 
-        base.close();
+        // No cierres la base de datos aquí, hazlo después de realizar todas las operaciones necesarias
     }
 
     private void cargarDatosActividad(CasaVacacional actividad) {
@@ -742,7 +747,12 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         spnrbano.setValue(actividad.getNum_baños());
 
         cbxpropietario.setSelectedItem(actividad.getCodigo_propie());
+
         jComboBox3.setSelectedItem(actividad.getCod_ubicacion());
+
+        cbxPromocion.setSelectedItem(actividad.getCod_promocion());
+
+        cboxServicio.setSelectedItem(actividad.getCod_servicio());
 
         // Corrección para establecer el valor numérico del precio
         txtprecio.setText(String.valueOf(actividad.getPrecio()));
@@ -794,7 +804,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         Base.close();
 
     }
-    
+
     public void cargarPromocion() {
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cbxPromocion.removeAllItems();
@@ -816,23 +826,23 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     }
 
     public void cargaServicio() {
-    ObjectContainer Base = Db4o.openFile(INICIO.direccion);
-    cboxServicio.removeAllItems();
-    Query query = Base.query();
-    query.constrain(Servicio.class);
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+        cboxServicio.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Servicio.class);
 
-    ObjectSet<Servicio> servi = query.execute();
+        ObjectSet<Servicio> servi = query.execute();
 
-    if (servi.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "No existen Servicios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
-    } else {
-        while (servi.hasNext()) {
-            Servicio ub = servi.next();
-            cboxServicio.addItem(ub.getCodigo_servicio());  // Corregido aquí
+        if (servi.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No existen Servicios ingresados", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (servi.hasNext()) {
+                Servicio ub = servi.next();
+                cboxServicio.addItem(ub.getCodigo_servicio());  // Corregido aquí
+            }
         }
+        Base.close();
     }
-    Base.close();
-}
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
@@ -852,7 +862,6 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         query.descend("cod_casa").constrain(codigoEliminar);
 
         ObjectSet<CasaVacacional> result = query.execute();
-        cargarTabla(base);
 
         if (result.size() > 0) {
             encontrado = true;
@@ -864,7 +873,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                     // Eliminar la Casa Vacacional de la base de datos db4o
                     base.delete(vacacionalDB);
                     JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
-                    cargarTabla(base);
+
                 }
             } else if (resul == JOptionPane.NO_OPTION) {
                 JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
@@ -882,7 +891,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         cargarTabla(base);
-        base.close();     
+        base.close();
     }//GEN-LAST:event_btnreporteActionPerformed
 
     private void mostrarDatosPropietarioSeleccionado(ObjectContainer bases) {
@@ -952,7 +961,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
     }
 
-     private void mostrarDatosPromocionSeleccionado(ObjectContainer bases) {
+    private void mostrarDatosPromocionSeleccionado(ObjectContainer bases) {
         try {
             int selectedIndex = cbxPromocion.getSelectedIndex();
 
@@ -987,6 +996,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
 
     }
+
     private void mostrarDatosServicioSeleccionado(ObjectContainer bases) {
         try {
             Object selectedItem = cboxServicio.getSelectedItem();
@@ -1020,7 +1030,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
 
     }
-    
+
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
         ObjectContainer bases = Db4o.openFile(INICIO.direccion);
@@ -1047,15 +1057,15 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     }//GEN-LAST:event_cbxpropietarioMouseClicked
 
     private void jComboBox3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox3MouseClicked
-       cargarUbicacion();
+        cargarUbicacion();
     }//GEN-LAST:event_jComboBox3MouseClicked
 
     private void cbxPromocionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxPromocionMouseClicked
-       cargarPromocion();
+        cargarPromocion();
     }//GEN-LAST:event_cbxPromocionMouseClicked
 
     private void cboxServicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxServicioMouseClicked
-       cargaServicio();
+        cargaServicio();
     }//GEN-LAST:event_cboxServicioMouseClicked
 
     private void jButton11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton11ActionPerformed
@@ -1067,7 +1077,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
         ObjectContainer bases = Db4o.openFile(INICIO.direccion);
         mostrarDatosServicioSeleccionado(bases);
-        bases.close(); 
+        bases.close();
     }//GEN-LAST:event_jButton13ActionPerformed
 
     public void vaciarTabla() {
@@ -1090,7 +1100,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         }
 
         try {
-            CasaVacacional micasa = new CasaVacacional(txtcodigo.getText().trim(), null, null, 0, 0, 0, 0, null, 0.0, false, null,null,null);
+            CasaVacacional micasa = new CasaVacacional(txtcodigo.getText().trim(), null, null, 0, 0, 0, 0, null, 0.0, false, null, null, null);
 
             ObjectSet res = base.get(micasa);
             CasaVacacional micasita = (CasaVacacional) res.next();
@@ -1111,7 +1121,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
             micasita.setTipo_casa(cbxtipo.getSelectedItem().toString());
             micasita.setCod_promocion(cbxPromocion.getSelectedItem().toString());
             micasita.setCod_servicio(cboxServicio.getSelectedItem().toString());
-            
+
             base.set(micasita);
 
             JOptionPane.showMessageDialog(this, "Modificación exitosa");
@@ -1125,7 +1135,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     public void crearCasa(ObjectContainer Base) {
         // Verificar si todos los campos están llenos
         if (txadescripcion.getText().trim().isEmpty()
-                || cbxtipo.getSelectedItem() == null || cbxpropietario.getSelectedItem() == null || jComboBox3.getSelectedItem() == null ||cboxServicio.getSelectedItem() == null) {
+                || cbxtipo.getSelectedItem() == null || cbxpropietario.getSelectedItem() == null || jComboBox3.getSelectedItem() == null || cboxServicio.getSelectedItem() == null) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
@@ -1155,7 +1165,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
             int habitaciones = (int) spnrhabitaciones.getValue();
 
             // Verificar si ya existe una casa con el mismo código
-            ObjectSet<CasaVacacional> resul = Base.queryByExample(new CasaVacacional(nuevoCodigo, null, null, 0, 0, 0, 0, null, 0.0, false, null,null,null));
+            ObjectSet<CasaVacacional> resul = Base.queryByExample(new CasaVacacional(nuevoCodigo, null, null, 0, 0, 0, 0, null, 0.0, false, null, null, null));
 
             if (!resul.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe una casa con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -1198,7 +1208,6 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     }
 
     public void cargarTabla(ObjectContainer base) {
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
 
         ObjectSet<CasaVacacional> result = base.queryByExample(new CasaVacacional(null, null, null, 0, 0, 0, 0, null, 0.0, false, null, null, null));
@@ -1223,6 +1232,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
             };
             model.addRow(row);
         }
+        jTable2.setModel(model); // Cambiado de 'jtbMostrar' a 'model'
         base.close();
     }
 

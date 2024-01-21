@@ -242,7 +242,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
 
-        try  {
+        try {
             // Verificar si la ubicación tiene una Casa Vacacional asociada
             Query queryCasa = base.query();
             queryCasa.constrain(CasaVacacional.class);
@@ -285,7 +285,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
             cargarTabla(base);
             base.close();
         }
-        
+
     }//GEN-LAST:event_btneliminarActionPerformed
 
     public void crearCasa(ObjectContainer base) {
@@ -318,6 +318,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 return;
             }
 
+            // public Ubicacion(String cod_ubicacion, String provincia, String ciudad, String barriocalle, String principal) {
             Ubicacion nuevaUbicacion = new Ubicacion(nuevoCodigo, provinciacombo.getSelectedItem().toString(), ciudadcombo.getSelectedItem().toString(), txtbarrio.getText().trim(), txtcalleprincipal.getText().trim());
             base.store(nuevaUbicacion);
 
@@ -328,7 +329,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
             base.close();
         }
     }
-    
+
     public void limpiar() {
         provinciacombo.setSelectedItem(0);
         ciudadcombo.setSelectedItem(0);
@@ -336,8 +337,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         txtcalleprincipal.setText("");
         lblcodigo.setText(" ");
     }
-    
-    
+
     public void cargarTabla(ObjectContainer base) {
 
         DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
@@ -350,17 +350,15 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
             Object[] row = {
                 personal1.getCod_ubicacion(),
-                personal1.getPrincipal(),
+                personal1.getProvincia(),
                 personal1.getCiudad(),
                 personal1.getBarriocalle(),
-                personal1.getPrincipal(),
-                
-
-            };
+                personal1.getPrincipal(),};
             model.addRow(row);
         }
 
     }
+
     private void buscarUbicacion(ObjectContainer base) {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la ubicación a buscar:", "Buscar Ubicación", JOptionPane.QUESTION_MESSAGE);
 
@@ -375,9 +373,21 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 ciudadcombo.setSelectedItem(ubicacionEncontrada.getCiudad());
                 txtbarrio.setText(ubicacionEncontrada.getBarriocalle());
                 txtcalleprincipal.setText(ubicacionEncontrada.getPrincipal());
-                 cargarDatosUbicacion(ubicacionEncontrada);
+                cargarDatosUbicacion(ubicacionEncontrada);
+
+                // Limpiar la tabla y agregar solo la fila de la ubicación encontrada
                 limpiarTablaUbicacion();
-                cargarTablaUbicacion(base);
+                DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+
+                Object[] row = {
+                    ubicacionEncontrada.getCod_ubicacion(),
+                    ubicacionEncontrada.getProvincia(),
+                    ubicacionEncontrada.getCiudad(),
+                    ubicacionEncontrada.getBarriocalle(),
+                    ubicacionEncontrada.getPrincipal(), // Agrega aquí los demás campos de Ubicacion que quieras mostrar
+                };
+                model.addRow(row);
+                jTable2.setModel(model);  // Asegúrate de establecer el modelo en la tabla
             } else {
                 JOptionPane.showMessageDialog(this, "No se encontró ninguna ubicación con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
             }
@@ -418,7 +428,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         }
         base.close();
     }
-    
+
     public void ActualizarDatos(ObjectContainer base) {
         if (provinciacombo.getSelectedItem() == null || ciudadcombo.getSelectedItem() == null || txtbarrio.getText().trim().isEmpty() || txtcalleprincipal.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Por favor llene en el campo del Codigo para la Modificacion", "ERROR", JOptionPane.ERROR_MESSAGE);
@@ -454,7 +464,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
     }//GEN-LAST:event_btnreporteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         buscarUbicacion(base);
         base.close();
