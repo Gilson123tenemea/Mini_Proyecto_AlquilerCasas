@@ -13,15 +13,48 @@ import javax.swing.JOptionPane;
 public class Contrato_agente extends javax.swing.JPanel {
 
     String agente = "";
+    double precio=0.0;
 
     public Contrato_agente() {
         initComponents();
         txtcodagen.setText(Administrador_Login.nombre + " " + Administrador_Login.apellido);
-       
+
     }
 
-  
-    
+    private void mostrarDatosClienteSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = cbxcliente.getSelectedItem();
+
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Cliente.class);
+                query.descend("codigo_cli").constrain(codigoSelec);
+                ObjectSet<Cliente> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Cliente cli = result.next();
+                    String mensaje = "Codigo: " + cli.getCodigo_cli() + "\n"
+                            + "Nombre: " + cli.getNombre() + "\n"
+                            + "Apellido: " + cli.getApellido() + "\n"
+                            + "telefono: " + cli.getTelefono() + "\n"
+                            + "Correo: " + cli.getEmail();
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Cliente", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un cliente con el código seleccionado.", "Contrato no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Cliente.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+    }
+
     public void crear(ObjectContainer base) {
         try {
 
@@ -70,7 +103,6 @@ public class Contrato_agente extends javax.swing.JPanel {
 
     public void cargarCliente(ObjectContainer base) {
 
-
         try {
             cbxcliente.removeAllItems();
             Query query = base.query();
@@ -93,9 +125,7 @@ public class Contrato_agente extends javax.swing.JPanel {
         }
     }
 
-    
     public void cargarCasa(ObjectContainer base) {
-
 
         try {
             cbxcasa.removeAllItems();
@@ -117,6 +147,7 @@ public class Contrato_agente extends javax.swing.JPanel {
 
         }
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -203,8 +234,18 @@ public class Contrato_agente extends javax.swing.JPanel {
         });
 
         jButton2.setText("ver");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("ver");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -346,7 +387,7 @@ public class Contrato_agente extends javax.swing.JPanel {
 
     private void cbxclienteMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxclienteMouseClicked
         // TODO add your handling code here:
-        
+
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarCliente(base);
@@ -355,11 +396,62 @@ public class Contrato_agente extends javax.swing.JPanel {
 
     private void cbxcasaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxcasaMouseClicked
         // TODO add your handling code here:
-         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarCasa(base);
         base.close();
     }//GEN-LAST:event_cbxcasaMouseClicked
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosClienteSeleccionado(base);
+        base.close();
+    }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
+        // TODO add your handling code here:
+         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosCasaSeleccionado(base);
+        base.close();
+    }//GEN-LAST:event_jButton3ActionPerformed
+
+     private void mostrarDatosCasaSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = cbxcasa.getSelectedItem();
+
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(CasaVacacional.class);
+                query.descend("cod_casa").constrain(codigoSelec);
+                ObjectSet<CasaVacacional> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    CasaVacacional ca = result.next();
+                    precio=ca.getPrecio();
+                    String mensaje = "Codigo: " + ca.getCod_casa() + "\n"
+                            + "Nombre: " + ca.getNombre_casa() + "\n"
+                            + "tipo de casa: " + ca.getTipo_casa() + "\n"
+                            + "Capacidad: " + ca.getCapacidad_max();
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Cliente", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró una casa con el código seleccionado.", "Contrato no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+                
+                String p = String.valueOf(precio);
+                txtprecio.setText(p);
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos de la casa", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

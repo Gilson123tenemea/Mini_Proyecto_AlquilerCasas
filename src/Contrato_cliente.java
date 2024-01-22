@@ -1,4 +1,5 @@
 
+import clases.Agente_inmobiliario;
 import clases.Cliente;
 import clases.Contrato;
 import com.db4o.Db4o;
@@ -13,26 +14,21 @@ public class Contrato_cliente extends javax.swing.JPanel {
     String cleinte = "";
     String Casa_nombre = "";
     String precio_casa = "";
-    String codigo_cliente ="";
-    String nombree=" ",apellidoo=" ";
+    String codigo_cliente = "";
+    String nombree = " ", apellidoo = " ";
+    String nombrec = " ", apellidoc = " ",nombrea = " ", apellidoa = " ";
 
     public Contrato_cliente() {
         initComponents();
         txtcliente.setText(INICIO.nombre + "  " + INICIO.apellido);
-        txtAgente.setText(agente);
-        txtcliente.setText(cleinte);
-        txtcasa.setText(Casa_nombre);
-        txtPrecio.setText(precio_casa);
+        
     }
-    
-    
-   
 
     public void cargarCasas(ObjectContainer base) {
 
         Query query = base.query();
         query.constrain(Contrato.class);
-        query.descend("codigo_cli").constrain(INICIO.usuario);
+        query.descend("codigo_cli").constrain(INICIO.codigo);
         ObjectSet<Contrato> result = query.execute();
         JOptionPane.showMessageDialog(null, INICIO.codigo + " ghhcewc" + result);
 
@@ -45,8 +41,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
 
             }
 
-            txtAgente.setText(agente);
-            txtcliente.setText(cleinte);
             txtcasa.setText(Casa_nombre);
             txtPrecio.setText(precio_casa);
 
@@ -54,6 +48,45 @@ public class Contrato_cliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Aun no se establece un contrato");
         }
     }
+
+    public void cargarCliente(ObjectContainer base) {
+
+        Query query = base.query();
+        query.constrain(Cliente.class);
+        query.descend("codigo_cli").constrain(cleinte);
+        ObjectSet<Cliente> result = query.execute();
+
+        if (!result.isEmpty()) {
+            for (Cliente servi : result) {
+                nombrec = servi.getNombre();
+                apellidoc = servi.getApellido();
+
+            }
+
+            txtAgente.setText(nombrec + " " + apellidoc);
+
+        }
+    }
+
+    public void cargarAgente(ObjectContainer base) {
+
+        Query query = base.query();
+        query.constrain(Agente_inmobiliario.class);
+        query.descend("codigo_cli").constrain(cleinte);
+        ObjectSet<Agente_inmobiliario> result = query.execute();
+
+        if (!result.isEmpty()) {
+            for (Agente_inmobiliario servi : result) {
+                nombrea = servi.getNombre();
+                apellidoa = servi.getApellido();
+
+            }
+
+            txtAgente.setText(nombrea + " " + apellidoa);
+
+        }
+    }
+
     public void cargarContrato() {
         ObjectContainer Base = Db4o.openFile(INICIO.direccion);
         cbxContrato.removeAllItems();
@@ -73,8 +106,8 @@ public class Contrato_cliente extends javax.swing.JPanel {
         }
         Base.close();
     }
-    
-     private void mostrarDatosContratoSeleccionado(ObjectContainer bases) {
+
+    private void mostrarDatosContratoSeleccionado(ObjectContainer bases) {
         try {
             Object selectedItem = cbxContrato.getSelectedItem();
 
@@ -88,10 +121,10 @@ public class Contrato_cliente extends javax.swing.JPanel {
 
                 if (!result.isEmpty()) {
                     Contrato casa = result.next();
-                    String mensaje = "Codigo: " + casa.getCodigo_contrato()+ "\n"
-                            + "Cliente: " + casa.getCodigo_cli()+ "\n"
-                            + "Agente: " + casa.getCodigo_age()+ "\n"
-                            + "Nombre de la casa: " + casa.getNombre_casa()+ "\n"
+                    String mensaje = "Codigo: " + casa.getCodigo_contrato() + "\n"
+                            + "Cliente: " + casa.getCodigo_cli() + "\n"
+                            + "Agente: " + casa.getCodigo_age() + "\n"
+                            + "Nombre de la casa: " + casa.getNombre_casa() + "\n"
                             + "Precio de la casa: " + casa.getPrecio_casa();
                     JOptionPane.showMessageDialog(this, mensaje, "Datos del Contrato", JOptionPane.INFORMATION_MESSAGE);
                 } else {
@@ -107,14 +140,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
             bases.close();
         }
     }
-    
-    
-    
-    
-    
-    
-    
-    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -255,6 +280,9 @@ public class Contrato_cliente extends javax.swing.JPanel {
     private void btncontratoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btncontratoActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         cargarCasas(base);
+        cargarAgente(base);
+        cargarCliente(base);
+        
         base.close();
     }//GEN-LAST:event_btncontratoActionPerformed
 
@@ -263,12 +291,12 @@ public class Contrato_cliente extends javax.swing.JPanel {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        
+
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         mostrarDatosContratoSeleccionado(base);
         base.close();
-        
-        
+
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbxContratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxContratoMouseClicked
