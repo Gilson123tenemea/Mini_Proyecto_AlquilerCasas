@@ -54,6 +54,67 @@ public class Contrato_cliente extends javax.swing.JPanel {
             JOptionPane.showMessageDialog(null, "Aun no se establece un contrato");
         }
     }
+    public void cargarContrato() {
+        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+        cbxContrato.removeAllItems();
+        Query query = Base.query();
+        query.constrain(Contrato.class);
+
+        ObjectSet<Contrato> casas = query.execute();
+
+        if (casas.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "No hay contratos creados", "Error", JOptionPane.ERROR_MESSAGE);
+        } else {
+            while (casas.hasNext()) {
+                Contrato casa = casas.next();
+                cbxContrato.addItem(casa.getCodigo_contrato());
+            }
+
+        }
+        Base.close();
+    }
+    
+     private void mostrarDatosContratoSeleccionado(ObjectContainer bases) {
+        try {
+            Object selectedItem = cbxContrato.getSelectedItem();
+
+            if (selectedItem != null) {
+                String codigoSelec = selectedItem.toString();
+
+                Query query = bases.query();
+                query.constrain(Contrato.class);
+                query.descend("codigo_contrato").constrain(codigoSelec);
+                ObjectSet<Contrato> result = query.execute();
+
+                if (!result.isEmpty()) {
+                    Contrato casa = result.next();
+                    String mensaje = "Codigo: " + casa.getCodigo_contrato()+ "\n"
+                            + "Cliente: " + casa.getCodigo_cli()+ "\n"
+                            + "Agente: " + casa.getCodigo_age()+ "\n"
+                            + "Nombre de la casa: " + casa.getNombre_casa()+ "\n"
+                            + "Precio de la casa: " + casa.getPrecio_casa();
+                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Contrato", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró un contrato con el código seleccionado.", "Contrato no encontrada", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Contrato.", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            bases.close();
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -76,38 +137,54 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jCheckBox1 = new javax.swing.JCheckBox();
         btncontrato = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        cbxContrato = new javax.swing.JComboBox<>();
+        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
         jPanel2.setBackground(new java.awt.Color(255, 255, 255));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Con fundamento del articulo del codigo civil del estado de Ecuador celebran el presente contrato de arrendamiento como arrendador");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 74, 858, -1));
+        jPanel2.add(txtAgente, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 103, 171, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel3.setText("como arrendatario");
+        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(218, 106, 127, -1));
 
         txtcliente.setEditable(false);
+        jPanel2.add(txtcliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(357, 103, 271, -1));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel4.setText("Usted se compromete a cuidar de la casa ");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 188, 279, -1));
 
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("y aceptando todos los terminos de la clausula");
+        jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 157, 300, -1));
+        jPanel2.add(txtcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 185, 203, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText(", la cual esta valorada para su arendamiento de");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(529, 188, 309, -1));
+        jPanel2.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 221, 203, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(", si existe algun suceso que dañe dicho bien usted sera el responsable de pagar el arreglo de la casa");
+        jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 228, 637, -1));
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel8.setText("Cabe recalcar que casa casa lleva servicios los cuales puede aceptar o rechazar, si es que necesita de otros servicios no dude en  ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 263, 858, -1));
 
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("comunicarse con el arrendador");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 286, 219, -1));
 
         jCheckBox1.setText("Acepto los terminos y condiciones");
+        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 345, 200, -1));
 
         btncontrato.setBackground(new java.awt.Color(255, 255, 255));
         btncontrato.setText("MI  CONTRATO");
@@ -117,6 +194,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
                 btncontratoActionPerformed(evt);
             }
         });
+        jPanel2.add(btncontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 30, 156, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         jButton2.setText("SOLICITAR FACTURA");
@@ -125,91 +203,25 @@ public class Contrato_cliente extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 387, 200, -1));
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(jLabel7, javax.swing.GroupLayout.DEFAULT_SIZE, 637, Short.MAX_VALUE))
-                            .addComponent(jLabel8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(txtAgente, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, 271, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 279, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtcasa, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 309, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 219, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jCheckBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(362, 362, 362)
-                                .addComponent(btncontrato, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(337, 337, 337)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(39, 39, 39)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addContainerGap(554, Short.MAX_VALUE)))
-        );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(30, 30, 30)
-                .addComponent(btncontrato)
-                .addGap(28, 28, 28)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtAgente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel3)
-                    .addComponent(txtcliente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(58, 58, 58)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel4)
-                    .addComponent(txtcasa, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel6))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel7))
-                .addGap(18, 18, 18)
-                .addComponent(jLabel8)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel9)
-                .addGap(42, 42, 42)
-                .addComponent(jCheckBox1)
-                .addGap(18, 18, 18)
-                .addComponent(jButton2)
-                .addContainerGap(56, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addGroup(jPanel2Layout.createSequentialGroup()
-                    .addGap(157, 157, 157)
-                    .addComponent(jLabel5)
-                    .addContainerGap(279, Short.MAX_VALUE)))
-        );
+        cbxContrato.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                cbxContratoMouseClicked(evt);
+            }
+        });
+        jPanel2.add(cbxContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 138, -1));
+
+        jButton1.setBackground(new java.awt.Color(255, 255, 255));
+        jButton1.setForeground(new java.awt.Color(255, 255, 255));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
+        jButton1.setBorder(null);
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -218,14 +230,14 @@ public class Contrato_cliente extends javax.swing.JPanel {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(23, 23, 23)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addContainerGap(70, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -250,9 +262,24 @@ public class Contrato_cliente extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Espera 1 minuto y su fatura se generada");
     }//GEN-LAST:event_jButton2ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        mostrarDatosContratoSeleccionado(base);
+        base.close();
+        
+        
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void cbxContratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxContratoMouseClicked
+        cargarContrato();
+    }//GEN-LAST:event_cbxContratoMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncontrato;
+    private javax.swing.JComboBox<String> cbxContrato;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;
