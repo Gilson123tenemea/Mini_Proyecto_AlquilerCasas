@@ -41,10 +41,11 @@ public class Factura extends javax.swing.JPanel {
     Date fehcaini = null;
     Date fehcafin = null;
     String precionServicio = "";
+
     public Factura() {
 
         initComponents();
-        
+
         System.out.println(INICIO.codigo);
         txtcedula.setText(INICIO.usuario);
         txtnombre.setText(INICIO.nombre);
@@ -229,9 +230,8 @@ public class Factura extends javax.swing.JPanel {
 
     }
 
-
-      public void Obtenerfacturas(ObjectContainer base) {
-          Query query = base.query();
+    public void Obtenerfacturas(ObjectContainer base) {
+        Query query = base.query();
         query.constrain(Encabezado_Factura.class);
         query.descend("cod_cliente").constrain(INICIO.codigo);
 
@@ -245,16 +245,16 @@ public class Factura extends javax.swing.JPanel {
                 cod_ser_adi = servi.getDoc_ser_adici();
                 precio = servi.getValor_cancelar();
                 cod_Factura = servi.getCodigo_fac();
-               
+
             }
-              
+
             String total = String.valueOf(precio);
             txttotal.setText(total);
         }
-  
-      }
 
-     public void cargarCasas(ObjectContainer base) {
+    }
+
+    public void cargarCasas(ObjectContainer base) {
 
         Query query = base.query();
         query.constrain(CasaVacacional.class);
@@ -267,14 +267,14 @@ public class Factura extends javax.swing.JPanel {
                 precicasa = servi.getPrecio();
             }
             txtcasa.setText(nombrecas);
-           String precioalqioler = String.valueOf(precicasa);
-           
-           txtprecio.setText(precioalqioler);
-           
+            String precioalqioler = String.valueOf(precicasa);
+
+            txtprecio.setText(precioalqioler);
+
         }
-     }
-     
-     public void obtenerPromo(ObjectContainer base) {
+    }
+
+    public void obtenerPromo(ObjectContainer base) {
 
         Query query = base.query();
         query.constrain(Promocion.class);
@@ -285,8 +285,8 @@ public class Factura extends javax.swing.JPanel {
             for (Promocion servi : result) {
                 descuento = servi.getDescuento();
             }
-           String descu = String.valueOf(descuento);
-           txtdescuento.setText(descu);
+            String descu = String.valueOf(descuento);
+            txtdescuento.setText(descu);
         }
     }
 
@@ -298,7 +298,7 @@ public class Factura extends javax.swing.JPanel {
 
         Query consulta = base.query();
         consulta.constrain(Reservar.class);
-        
+
         consulta.descend("coidigo_cli").constrain(INICIO.codigo);
 
         ObjectSet<Reservar> result = consulta.execute();
@@ -307,22 +307,29 @@ public class Factura extends javax.swing.JPanel {
             fehcaini = reserva1.getFecha_ini();
             fehcafin = reserva1.getFecha_fin();
         }
-  
+
         String fechaIniFormateada = sdf.format(fehcaini);
         String fechaFinFormateada = sdf.format(fehcafin);
 
         txtfechaini.setText(fechaIniFormateada);
         txtfechafin.setText(fechaFinFormateada);
-        
+
     }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        Obtenerfacturas(base);
-        cargarCasas(base);
-        obtenerPromo(base);
-        ObtenerReserva(base);
-        base.close();
+        try {
+            ObjectContainer base = Db4o.openFile(INICIO.direccion);
+            Obtenerfacturas(base);
+            cargarCasas(base);
+            obtenerPromo(base);
+            ObtenerReserva(base);
+            base.close();
+        } catch (Exception e) {
+            // Mostrar un mensaje con JOptionPane
+            JOptionPane.showMessageDialog(null, "Por favor, realice primero una reserva.", "Error", JOptionPane.ERROR_MESSAGE);
+            // Opcionalmente, puedes registrar la excepción o tomar otras acciones según tus necesidades
+        }
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void txtcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedulaActionPerformed

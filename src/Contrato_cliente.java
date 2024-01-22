@@ -87,59 +87,59 @@ public class Contrato_cliente extends javax.swing.JPanel {
         }
     }
 
-    public void cargarContrato() {
-        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
-        cbxContrato.removeAllItems();
-        Query query = Base.query();
-        query.constrain(Contrato.class);
+//    public void cargarContrato() {
+//        ObjectContainer Base = Db4o.openFile(INICIO.direccion);
+//        cbxContrato.removeAllItems();
+//        Query query = Base.query();
+//        query.constrain(Contrato.class);
+//
+//        ObjectSet<Contrato> casas = query.execute();
+//
+//        if (casas.isEmpty()) {
+//            JOptionPane.showMessageDialog(this, "No hay contratos creados", "Error", JOptionPane.ERROR_MESSAGE);
+//        } else {
+//            while (casas.hasNext()) {
+//                Contrato casa = casas.next();
+//                cbxContrato.addItem(casa.getCodigo_contrato());
+//            }
+//
+//        }
+//        Base.close();
+//    }
 
-        ObjectSet<Contrato> casas = query.execute();
-
-        if (casas.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "No hay contratos creados", "Error", JOptionPane.ERROR_MESSAGE);
-        } else {
-            while (casas.hasNext()) {
-                Contrato casa = casas.next();
-                cbxContrato.addItem(casa.getCodigo_contrato());
-            }
-
-        }
-        Base.close();
-    }
-
-    private void mostrarDatosContratoSeleccionado(ObjectContainer bases) {
-        try {
-            Object selectedItem = cbxContrato.getSelectedItem();
-
-            if (selectedItem != null) {
-                String codigoSelec = selectedItem.toString();
-
-                Query query = bases.query();
-                query.constrain(Contrato.class);
-                query.descend("codigo_contrato").constrain(codigoSelec);
-                ObjectSet<Contrato> result = query.execute();
-
-                if (!result.isEmpty()) {
-                    Contrato casa = result.next();
-                    String mensaje = "Codigo: " + casa.getCodigo_contrato() + "\n"
-                            + "Cliente: " + casa.getCodigo_cli() + "\n"
-                            + "Agente: " + casa.getCodigo_age() + "\n"
-                            + "Nombre de la casa: " + casa.getNombre_casa() + "\n"
-                            + "Precio de la casa: " + casa.getPrecio_casa();
-                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Contrato", JOptionPane.INFORMATION_MESSAGE);
-                } else {
-                    JOptionPane.showMessageDialog(this, "No se encontró un contrato con el código seleccionado.", "Contrato no encontrada", JOptionPane.ERROR_MESSAGE);
-                }
-            } else {
-                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Contrato.", "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            bases.close();
-        }
-    }
+//    private void mostrarDatosContratoSeleccionado(ObjectContainer bases) {
+//        try {
+//            Object selectedItem = cbxContrato.getSelectedItem();
+//
+//            if (selectedItem != null) {
+//                String codigoSelec = selectedItem.toString();
+//
+//                Query query = bases.query();
+//                query.constrain(Contrato.class);
+//                query.descend("codigo_contrato").constrain(codigoSelec);
+//                ObjectSet<Contrato> result = query.execute();
+//
+//                if (!result.isEmpty()) {
+//                    Contrato casa = result.next();
+//                    String mensaje = "Codigo: " + casa.getCodigo_contrato() + "\n"
+//                            + "Cliente: " + casa.getCodigo_cli() + "\n"
+//                            + "Agente: " + casa.getCodigo_age() + "\n"
+//                            + "Nombre de la casa: " + casa.getNombre_casa() + "\n"
+//                            + "Precio de la casa: " + casa.getPrecio_casa();
+//                    JOptionPane.showMessageDialog(this, mensaje, "Datos del Contrato", JOptionPane.INFORMATION_MESSAGE);
+//                } else {
+//                    JOptionPane.showMessageDialog(this, "No se encontró un contrato con el código seleccionado.", "Contrato no encontrada", JOptionPane.ERROR_MESSAGE);
+//                }
+//            } else {
+//                JOptionPane.showMessageDialog(this, "No se ha seleccionado ningún código.", "Error", JOptionPane.ERROR_MESSAGE);
+//            }
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//            JOptionPane.showMessageDialog(this, "Error al mostrar datos del Contrato.", "Error", JOptionPane.ERROR_MESSAGE);
+//        } finally {
+//            bases.close();
+//        }
+//    }
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -159,11 +159,8 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jCheckBox1 = new javax.swing.JCheckBox();
         btncontrato = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
-        cbxContrato = new javax.swing.JComboBox<>();
-        jButton1 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -173,6 +170,8 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel2.setText("Con fundamento del articulo del codigo civil del estado de Ecuador celebran el presente contrato de arrendamiento como arrendador");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 74, 858, -1));
+
+        txtAgente.setEditable(false);
         jPanel2.add(txtAgente, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 103, 171, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -189,11 +188,15 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jLabel5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel5.setText("y aceptando todos los terminos de la clausula");
         jPanel2.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(39, 157, 300, -1));
+
+        txtcasa.setEditable(false);
         jPanel2.add(txtcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(314, 185, 203, -1));
 
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText(", la cual esta valorada para su arendamiento de");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(529, 188, 309, -1));
+
+        txtPrecio.setEditable(false);
         jPanel2.add(txtPrecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 221, 203, -1));
 
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -207,9 +210,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jLabel9.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel9.setText("comunicarse con el arrendador");
         jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 286, 219, -1));
-
-        jCheckBox1.setText("Acepto los terminos y condiciones");
-        jPanel2.add(jCheckBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 345, 200, -1));
 
         btncontrato.setBackground(new java.awt.Color(255, 255, 255));
         btncontrato.setText("MI  CONTRATO");
@@ -229,24 +229,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
             }
         });
         jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 387, 200, -1));
-
-        cbxContrato.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                cbxContratoMouseClicked(evt);
-            }
-        });
-        jPanel2.add(cbxContrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 20, 138, -1));
-
-        jButton1.setBackground(new java.awt.Color(255, 255, 255));
-        jButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/VER.jpg"))); // NOI18N
-        jButton1.setBorder(null);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 30, -1, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -290,26 +272,10 @@ public class Contrato_cliente extends javax.swing.JPanel {
         JOptionPane.showMessageDialog(null, "Espera 1 minuto y su fatura se generada");
     }//GEN-LAST:event_jButton2ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        mostrarDatosContratoSeleccionado(base);
-        base.close();
-
-
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    private void cbxContratoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxContratoMouseClicked
-        cargarContrato();
-    }//GEN-LAST:event_cbxContratoMouseClicked
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncontrato;
-    private javax.swing.JComboBox<String> cbxContrato;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

@@ -195,6 +195,8 @@ public class Contrato_agente extends javax.swing.JPanel {
         jLabel6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel6.setText(", la cual esta valorada para su arendamiento de");
 
+        txtprecio.setEditable(false);
+
         jLabel7.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         jLabel7.setText(", si existe algun suceso que dañe dicho bien usted sera el responsable de pagar el arreglo de la casa");
 
@@ -213,8 +215,6 @@ public class Contrato_agente extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-
-        lblcontrato.setText("jLabel11");
 
         cbxcliente.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -246,6 +246,8 @@ public class Contrato_agente extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
+
+        txtcodagen.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);

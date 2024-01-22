@@ -142,7 +142,11 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
         jLabel2.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel2.setText("APELLIDO");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, -1, -1));
+
+        txtnombre.setEditable(false);
         jPanel2.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 160, -1));
+
+        txtapellido.setEditable(false);
         jPanel2.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, 160, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 120, 260, 220));

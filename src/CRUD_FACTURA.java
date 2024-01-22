@@ -144,7 +144,7 @@ public class CRUD_FACTURA extends javax.swing.JPanel {
                             + "Baños: " + casa.getNum_baños() + "\n"
                             + "Servicio: " + casa.getCod_servicio() + "\n"
                             + "Promocion: " + casa.getCod_promocion() + "\n"
-                            + "Baños: " + casa.getPrecio() + "\n";
+                            + "Precio: " + casa.getPrecio() + "\n";
                     JOptionPane.showMessageDialog(this, mensaje, "Datos de Casas Vacacionales", JOptionPane.INFORMATION_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(this, "No se encontró una casa con el código seleccionado.", "Casa no encontrada", JOptionPane.ERROR_MESSAGE);

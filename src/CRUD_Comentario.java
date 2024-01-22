@@ -217,8 +217,14 @@ public class CRUD_Comentario extends javax.swing.JPanel {
         jLabel8.setFont(new java.awt.Font("sansserif", 1, 12)); // NOI18N
         jLabel8.setText("APELLIDO");
         jPanel3.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 150, -1, -1));
+
+        txtnombre.setEditable(false);
         jPanel3.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 160, -1));
+
+        txtapellido.setEditable(false);
         jPanel3.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 180, 160, -1));
+
+        cod_Cliente.setEditable(false);
         jPanel3.add(cod_Cliente, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 160, -1));
 
         jLabel15.setText("CEDULA");

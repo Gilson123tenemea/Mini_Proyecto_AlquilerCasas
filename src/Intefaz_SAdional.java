@@ -82,14 +82,20 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
 
         jLabel1.setText("Cédula:");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, -1, -1));
+
+        txtcedula.setEditable(false);
         jPanel1.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 176, -1));
 
         jLabel2.setText("Nombre:");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, -1, -1));
+
+        txtnombre.setEditable(false);
         jPanel1.add(txtnombre, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 240, 176, -1));
 
         jLabel3.setText("Apellido:");
         jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, -1, -1));
+
+        txtapellido.setEditable(false);
         jPanel1.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 176, -1));
 
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
