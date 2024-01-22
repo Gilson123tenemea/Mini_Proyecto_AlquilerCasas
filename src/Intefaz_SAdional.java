@@ -95,6 +95,9 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
         jLabel5.setForeground(new java.awt.Color(255, 255, 255));
         jLabel5.setText("Código Servicio Adicional:");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 200, -1, -1));
+
+        lblcodigo.setBackground(new java.awt.Color(255, 255, 255));
+        lblcodigo.setForeground(new java.awt.Color(255, 255, 255));
         jPanel1.add(lblcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 67, 28));
 
         jLabel4.setText("Servicios Adicionales");

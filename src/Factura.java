@@ -10,6 +10,8 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /*
@@ -29,13 +31,16 @@ public class Factura extends javax.swing.JPanel {
     int descuento = 0;
     String Nombre_ser = "";
     String cod_ser_adi = "";
-    double precio_ser = 0.0;
+    String precio_ser = null;
     String codigopromo = "";
     String codigoseradicional = "";
     String reserva = "";
     String nombrecas = "";
     double precicasa = 0.0;
     String cod_Factura = "";
+    Date fehcaini = null;
+    Date fehcafin = null;
+    String precionServicio = "";
     public Factura() {
 
         initComponents();
@@ -44,7 +49,6 @@ public class Factura extends javax.swing.JPanel {
         txtcedula.setText(INICIO.usuario);
         txtnombre.setText(INICIO.nombre);
         txtapellido.setText(INICIO.apellido);
-      
     }
 
     /**
@@ -76,6 +80,10 @@ public class Factura extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        txtfechaini = new javax.swing.JTextField();
+        txtfechafin = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
 
         jPanel1.setBackground(new java.awt.Color(0, 102, 102));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -119,6 +127,11 @@ public class Factura extends javax.swing.JPanel {
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(99, 205, 67, -1));
 
         txtcedula.setEditable(false);
+        txtcedula.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtcedulaActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtcedula, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 113, 265, -1));
 
         txtnombre.setEditable(false);
@@ -132,18 +145,34 @@ public class Factura extends javax.swing.JPanel {
         txtapellido.setEditable(false);
         jPanel2.add(txtapellido, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 149, 176, -1));
 
+        txttotal.setEditable(false);
+        txttotal.setBackground(new java.awt.Color(255, 255, 255));
         txttotal.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
+        txttotal.setForeground(new java.awt.Color(0, 0, 0));
         txttotal.setText("123.50");
         jPanel2.add(txttotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 351, 212, 77));
+
+        txtcasa.setEditable(false);
+        txtcasa.setBackground(new java.awt.Color(255, 255, 255));
+        txtcasa.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 201, 182, -1));
+
+        txtdescuento.setEditable(false);
+        txtdescuento.setBackground(new java.awt.Color(255, 255, 255));
+        txtdescuento.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtdescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 400, 80, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
         jLabel11.setText("DESCUENTOS");
         jLabel11.setToolTipText("");
         jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 400, 140, -1));
+
+        txtprecio.setEditable(false);
+        txtprecio.setBackground(new java.awt.Color(255, 255, 255));
+        txtprecio.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 80, -1));
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         jButton1.setText("VER FACTURA");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -159,6 +188,24 @@ public class Factura extends javax.swing.JPanel {
         jLabel12.setFont(new java.awt.Font("Dialog", 1, 24)); // NOI18N
         jLabel12.setText("%");
         jPanel2.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 400, 30, 30));
+
+        txtfechaini.setEditable(false);
+        txtfechaini.setBackground(new java.awt.Color(255, 255, 255));
+        txtfechaini.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(txtfechaini, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 180, -1));
+
+        txtfechafin.setEditable(false);
+        txtfechafin.setBackground(new java.awt.Color(255, 255, 255));
+        txtfechafin.setForeground(new java.awt.Color(0, 0, 0));
+        jPanel2.add(txtfechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, 180, -1));
+
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel9.setText("Fecha Inicio:");
+        jPanel2.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 210, -1, -1));
+
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
+        jLabel10.setText("Fecha Fin:");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 240, -1, -1));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 920, 530));
 
@@ -198,7 +245,7 @@ public class Factura extends javax.swing.JPanel {
                 cod_ser_adi = servi.getDoc_ser_adici();
                 precio = servi.getValor_cancelar();
                 cod_Factura = servi.getCodigo_fac();
-                
+               
             }
               
             String total = String.valueOf(precio);
@@ -206,12 +253,10 @@ public class Factura extends javax.swing.JPanel {
         }
   
       }
-      
-      
-     
+
      public void cargarCasas(ObjectContainer base) {
 
-          Query query = base.query();
+        Query query = base.query();
         query.constrain(CasaVacacional.class);
         query.descend("cod_casa").constrain(casa);
         ObjectSet<CasaVacacional> result = query.execute();
@@ -220,10 +265,10 @@ public class Factura extends javax.swing.JPanel {
             for (CasaVacacional servi : result) {
                 nombrecas = servi.getNombre_casa();
                 precicasa = servi.getPrecio();
-                
             }
             txtcasa.setText(nombrecas);
            String precioalqioler = String.valueOf(precicasa);
+           
            txtprecio.setText(precioalqioler);
            
         }
@@ -241,25 +286,9 @@ public class Factura extends javax.swing.JPanel {
                 descuento = servi.getDescuento();
             }
            String descu = String.valueOf(descuento);
-          
            txtdescuento.setText(descu);
         }
     }
-
-//    public void cargagrDatos(ObjectContainer base) {
-//       
-//        if (cboxFactura.getSelectedItem() != null) {
-//            Obtenerfacturas(base);
-//            cargarCasas(base);
-//            obtenerPromo(base);
-//
-//        } else {
-//            JOptionPane.showMessageDialog(null, "Escoja un Factura para que visualise sus datos");
-//        }
-//    }
-     
-     
-
 
     private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
@@ -269,45 +298,42 @@ public class Factura extends javax.swing.JPanel {
 
         Query consulta = base.query();
         consulta.constrain(Reservar.class);
+        
         consulta.descend("coidigo_cli").constrain(INICIO.codigo);
 
         ObjectSet<Reservar> result = consulta.execute();
-
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
         for (Reservar reserva1 : result) {
-            casa = reserva1.getCodigo_casa();
+            fehcaini = reserva1.getFecha_ini();
+            fehcafin = reserva1.getFecha_fin();
         }
-        txtcasa.setText(casa);
+  
+        String fechaIniFormateada = sdf.format(fehcaini);
+        String fechaFinFormateada = sdf.format(fehcafin);
 
+        txtfechaini.setText(fechaIniFormateada);
+        txtfechafin.setText(fechaFinFormateada);
+        
     }
-
-//    public void mostrarDatosCbx(ObjectContainer base) {
-//        cboxFactura.removeAllItems();
-//        Query query = base.query();
-//        query.constrain(Encabezado_Factura.class);
-//        query.descend("cod_cliente").constrain(INICIO.codigo);
-//        ObjectSet<Encabezado_Factura> result = query.execute();
-//        if (!result.isEmpty()) {
-//            while (result.hasNext()) {
-//                Encabezado_Factura casa = result.next();
-//                cboxFactura.addItem(casa.getCodigo_fac());
-//
-//            }
-//        }
-//
-//    }
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         Obtenerfacturas(base);
         cargarCasas(base);
         obtenerPromo(base);
+        ObtenerReserva(base);
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void txtcedulaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtcedulaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtcedulaActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;
@@ -317,12 +343,15 @@ public class Factura extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JTextField txtapellido;
     private javax.swing.JTextField txtcasa;
     private javax.swing.JTextField txtcedula;
     private javax.swing.JTextField txtdescuento;
+    private javax.swing.JTextField txtfechafin;
+    private javax.swing.JTextField txtfechaini;
     private javax.swing.JTextField txtnombre;
     private javax.swing.JTextField txtprecio;
     private javax.swing.JTextField txttotal;
