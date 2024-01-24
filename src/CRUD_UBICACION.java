@@ -1,12 +1,34 @@
 
+import base.ReporteCliente;
+import clases.Agente_inmobiliario;
 import clases.CasaVacacional;
+import clases.Cliente;
 import clases.Ubicacion;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.Frame;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -454,19 +476,74 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
 
     }
 
+    public void mostrarReporte(Agente_inmobiliario agente, ObjectContainer base) {
+        boolean flag = true;
+        ArrayList<Ubicacion> listaUbicaciones = new ArrayList<>();
+        ObjectSet<Ubicacion> result = base.queryByExample(Ubicacion.class);
+        if (result.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NO podemos mostrar datos estadisticas y reportes debido a que no existen registros");
+            flag = false;
+        } else {
+
+        }
+
+        if (flag) {
+            while (result.hasNext()) {
+                Ubicacion ubicacion = result.next();
+                listaUbicaciones.add(ubicacion);
+            }
+
+            try {
+                JRBeanArrayDataSource emptyDataSource = new JRBeanArrayDataSource(listaUbicaciones.toArray());
+                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/base/ReporteUbicacion.jasper"));
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(listaUbicaciones.toArray());
+                InputStream inputStreamImagen = new FileInputStream(new File("src/imagenes/logokame.PNG"));
+
+                Map<String, Object> params = new HashMap<String, Object>();
+
+                params.put("ds", emptyDataSource);
+                params.put("rutaImagen", inputStreamImagen);
+                params.put("codigoAgente", agente.getCodigo_agente());
+                params.put("nombreAgente", agente.getNombre());
+                params.put("apellidoAgente", agente.getApellido());
+                params.put("emailAgente", agente.getEmail());
+
+                JasperPrint jp = JasperFillManager.fillReport(jr, params, ds);
+                // JasperExportManager.exportReportToPdfStream(jp, out);
+                JasperViewer pv = new JasperViewer(jp, false);
+                pv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+                pv.setVisible(true);
+
+            } catch (JRException ex) {
+                System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA");
+                Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA DE LA IMAGEN");
+                Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                System.out.println("ERROR");
+                e.printStackTrace();
+            }
+        }
+    }
+
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarTabla(base);
+        
+        mostrarReporte(Administrador_Login.agente, base);
+
 
         base.close();      // TODO add your handling code here:
-
     }//GEN-LAST:event_btnreporteActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        buscarUbicacion(base);
+        buscarUbicacion(base);    
+        
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
 

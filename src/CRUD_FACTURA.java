@@ -1,4 +1,6 @@
 
+import base.ReporteCliente;
+import clases.Agente_inmobiliario;
 import clases.CasaVacacional;
 import clases.Cliente;
 import clases.Encabezado_Factura;
@@ -6,15 +8,33 @@ import clases.Promocion;
 import clases.Reservar;
 import clases.Servicio;
 import clases.Servicio_Adicional;
+import clases.Tipo_Actividad;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 public class CRUD_FACTURA extends javax.swing.JPanel {
 
@@ -727,8 +747,61 @@ public class CRUD_FACTURA extends javax.swing.JPanel {
         
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
         creaFactura(base);
+        
         base.close();
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void mostrarReporte(Agente_inmobiliario agente, ObjectContainer base) {
+        boolean flag = true;
+        ArrayList<Encabezado_Factura> listaTipoActividad = new ArrayList<>();
+        ObjectSet<Encabezado_Factura> result = base.queryByExample(Encabezado_Factura.class);
+        if (result.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NO podemos mostrar datos estadisticas y reportes debido a que no existen registros");
+            flag = false;
+        } else {
+
+        }
+
+        if (flag) {
+            while (result.hasNext()) {
+                Encabezado_Factura factura = result.next();
+                listaTipoActividad.add(factura);
+            }
+
+            try {
+                JRBeanArrayDataSource emptyDataSource = new JRBeanArrayDataSource(listaTipoActividad.toArray());
+                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/base/Facturas.jasper"));
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(listaTipoActividad.toArray());
+                InputStream inputStreamImagen = new FileInputStream(new File("src/imagenes/logokame.PNG"));
+
+                Map<String, Object> params = new HashMap<String, Object>();
+
+                params.put("ds", emptyDataSource);
+                params.put("rutaImagen", inputStreamImagen);
+                params.put("codigoAgente", agente.getCodigo_agente());
+                params.put("nombreAgente", agente.getNombre());
+                params.put("apellidoAgente", agente.getApellido());
+                params.put("emailAgente", agente.getEmail());
+
+                JasperPrint jp = JasperFillManager.fillReport(jr, params, ds);
+                // JasperExportManager.exportReportToPdfStream(jp, out);
+                JasperViewer pv = new JasperViewer(jp, false);
+                pv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+                pv.setVisible(true);
+
+            } catch (JRException ex) {
+                System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA");
+                Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA DE LA IMAGEN");
+                Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                System.out.println("ERROR");
+                e.printStackTrace();
+            }
+        }
+    }
 
     private void cbCasaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbCasaMouseClicked
        cargarCasas();
@@ -753,10 +826,10 @@ public class CRUD_FACTURA extends javax.swing.JPanel {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
        
-
-         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarTabla(base);
+        mostrarReporte(Administrador_Login.agente,base);
 
         base.close();
     }//GEN-LAST:event_jButton2ActionPerformed

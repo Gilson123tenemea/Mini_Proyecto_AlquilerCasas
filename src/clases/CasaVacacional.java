@@ -12,8 +12,8 @@ package clases;
 public class CasaVacacional  {
     
     private String cod_casa;
-    private String Nombre_casa;
-    private String Tipo_casa;
+    private String nombre_casa;
+    private String tipo_casa;
     private int num_pisos;
     private int capacidad_max;
     private int num_habitaciones;
@@ -27,8 +27,8 @@ public class CasaVacacional  {
 
     public CasaVacacional(String cod_casa, String Nombre_casa, String Tipo_casa, int num_pisos, int capacidad_max, int num_habitaciones, int num_baños, String codigo_propie, double precio, boolean disponibilidad, String cod_ubicacion, String cod_promocion, String cod_servicio) {
         this.cod_casa = cod_casa;
-        this.Nombre_casa = Nombre_casa;
-        this.Tipo_casa = Tipo_casa;
+        this.nombre_casa = Nombre_casa;
+        this.tipo_casa = Tipo_casa;
         this.num_pisos = num_pisos;
         this.capacidad_max = capacidad_max;
         this.num_habitaciones = num_habitaciones;
@@ -50,19 +50,19 @@ public class CasaVacacional  {
     }
 
     public String getNombre_casa() {
-        return Nombre_casa;
+        return nombre_casa;
     }
 
     public void setNombre_casa(String Nombre_casa) {
-        this.Nombre_casa = Nombre_casa;
+        this.nombre_casa = Nombre_casa;
     }
 
     public String getTipo_casa() {
-        return Tipo_casa;
+        return tipo_casa;
     }
 
     public void setTipo_casa(String Tipo_casa) {
-        this.Tipo_casa = Tipo_casa;
+        this.tipo_casa = Tipo_casa;
     }
 
     public int getNum_pisos() {

@@ -14,7 +14,7 @@ public class Servicio {
     private String codigo_servicio;
     private String nombre_ser;
     private String descripcionSer;
-    private String CostoAdicional;
+    private String costoAdicional;
 
     public Servicio() {
     }
@@ -23,7 +23,7 @@ public class Servicio {
         this.codigo_servicio = codigo_servicio;
         this.nombre_ser = nombre_ser;
         this.descripcionSer = descripcionSer;
-        this.CostoAdicional = CostoAdicional;
+        this.costoAdicional = CostoAdicional;
     }
 
     public String getCodigo_servicio() {
@@ -51,11 +51,11 @@ public class Servicio {
     }
 
     public String getCostoAdicional() {
-        return CostoAdicional;
+        return costoAdicional;
     }
 
     public void setCostoAdicional(String CostoAdicional) {
-        this.CostoAdicional = CostoAdicional;
+        this.costoAdicional = CostoAdicional;
     }
 
     

@@ -1,9 +1,11 @@
 
+import base.ReporteCliente;
 import clases.Cliente;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.Frame;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
@@ -13,6 +15,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -643,6 +646,10 @@ public class Clientes extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();// TODO add your handling code here:
+        
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReporteCliente vista = new ReporteCliente(parentFrame, true, Administrador_Login.agente);
+        vista.setVisible(true);
     }//GEN-LAST:event_btnCargartActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed

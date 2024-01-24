@@ -1,4 +1,6 @@
 
+import base.ReporteActividad;
+import base.ReporteCliente;
 import clases.Actividades;
 import clases.CasaVacacional;
 import clases.TIPO_ACTIVIDADES;
@@ -7,8 +9,10 @@ import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.Frame;
 import java.text.SimpleDateFormat;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
@@ -545,8 +549,14 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarTabla(base);
-
+        
         base.close();
+        
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReporteActividad vista = new ReporteActividad(parentFrame, true, Administrador_Login.agente);
+        vista.setVisible(true);
+
+     
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed

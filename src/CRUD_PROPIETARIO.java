@@ -1,4 +1,6 @@
 
+import base.ReporteCliente;
+import base.ReportePropietarios;
 import clases.CasaVacacional;
 import clases.Propietario;
 import clases.Validaciones;
@@ -7,6 +9,7 @@ import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.Color;
+import java.awt.Frame;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
@@ -14,6 +17,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import javax.swing.ButtonGroup;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class CRUD_PROPIETARIO extends javax.swing.JPanel {
@@ -851,6 +855,10 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();
+        
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReportePropietarios vista = new ReportePropietarios(parentFrame, true, Administrador_Login.agente);
+        vista.setVisible(true);
     }//GEN-LAST:event_BtnReporteActionPerformed
 
     private void BtnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBuscarActionPerformed

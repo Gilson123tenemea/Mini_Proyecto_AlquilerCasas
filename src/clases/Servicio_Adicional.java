@@ -14,12 +14,12 @@ import java.util.Date;
 public class Servicio_Adicional {
 
     private String codigo_servicio_adi;
-    private String Codigo_servi;
+    private String codigo_servi;
     private String codigo_cli;
 
     public Servicio_Adicional(String codigo_servicio_adi, String Codigo_servi, String codigo_cli) {
         this.codigo_servicio_adi = codigo_servicio_adi;
-        this.Codigo_servi = Codigo_servi;
+        this.codigo_servi = Codigo_servi;
         this.codigo_cli = codigo_cli;
     }
 
@@ -32,11 +32,11 @@ public class Servicio_Adicional {
     }
 
     public String getCodigo_servi() {
-        return Codigo_servi;
+        return codigo_servi;
     }
 
     public void setCodigo_servi(String Codigo_servi) {
-        this.Codigo_servi = Codigo_servi;
+        this.codigo_servi = Codigo_servi;
     }
 
     public String getCodigo_cli() {

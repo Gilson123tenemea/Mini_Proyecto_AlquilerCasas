@@ -1,14 +1,18 @@
 
+import base.ReporteCliente;
+import base.ReportePromocion;
 import clases.CasaVacacional;
 import clases.Promocion;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.awt.Frame;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 public class Promocion_crud extends javax.swing.JPanel {
@@ -228,7 +232,7 @@ public class Promocion_crud extends javax.swing.JPanel {
             codpromocion.setText(nuevoCodigo);
 
             // Obtener la edad como entero
-            int edad = (int) spndescu.getValue();
+            Integer edad = (Integer) spndescu.getValue();
 
             // Crear objeto Promocion y almacenar en la base de datos
             Promocion promocion = new Promocion(nuevoCodigo, edad, jDateChooser1.getDate(), jDateChooser2.getDate(), txadescripcion.getText().trim());
@@ -301,10 +305,12 @@ public class Promocion_crud extends javax.swing.JPanel {
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-
         cargarTabla(base);
-
         base.close();      // TODO add your handling code here:
+        
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReportePromocion vista = new ReportePromocion(parentFrame, true, Administrador_Login.agente);
+        vista.setVisible(true);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
@@ -314,6 +320,8 @@ public class Promocion_crud extends javax.swing.JPanel {
         buscarPromocion(base);
 
         base.close();
+        
+        
 
     }//GEN-LAST:event_jButton6ActionPerformed
 

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package clases;
 
 import java.util.Date;
@@ -14,7 +9,7 @@ import java.util.Date;
 public class Promocion {
 
     private String cod_promo;
-    private int Descuento;
+    private Integer descuento;
     private Date fecha_inicio;
     private Date fecha_fin;
     private String descripcion;
@@ -22,9 +17,9 @@ public class Promocion {
     public Promocion() {
     }
 
-    public Promocion(String cod_promo, int Descuento, Date fecha_inicio, Date fecha_fin, String descripcion) {
+    public Promocion(String cod_promo, Integer Descuento, Date fecha_inicio, Date fecha_fin, String descripcion) {
         this.cod_promo = cod_promo;
-        this.Descuento = Descuento;
+        this.descuento = Descuento;
         this.fecha_inicio = fecha_inicio;
         this.fecha_fin = fecha_fin;
         this.descripcion = descripcion;
@@ -41,12 +36,12 @@ public class Promocion {
     }
 
 
-    public int getDescuento() {
-        return Descuento;
+    public Integer getDescuento() {
+        return descuento;
     }
 
-    public void setDescuento(int Descuento) {
-        this.Descuento = Descuento;
+    public void setDescuento(Integer Descuento) {
+        this.descuento = Descuento;
     }
 
     public Date getFecha_inicio() {

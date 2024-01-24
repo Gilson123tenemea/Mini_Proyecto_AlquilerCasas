@@ -21,6 +21,9 @@ public class Administrador_Login extends javax.swing.JFrame {
     public static String nombre="",apellido=" ";
     String  password = " ";
     public static String usuario = " ";
+    
+    public static Agente_inmobiliario agente;
+    
     public Administrador_Login() {
         initComponents();
         setLocationRelativeTo(null);
@@ -135,6 +138,8 @@ public class Administrador_Login extends javax.swing.JFrame {
                 password = agente.getPassword();
                 nombre=agente.getNombre();
                 apellido=agente.getApellido();
+                
+                this.agente = agente;
 
             }
 

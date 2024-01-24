@@ -1,8 +1,11 @@
 
+import base.ReporteServicioAdicional;
 import clases.Servicio_Adicional;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import java.awt.Frame;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -201,9 +204,13 @@ public class CRUD_Servicio_Adicional extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-         cargarTablaServicios(base);
-         base.close();
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        cargarTablaServicios(base);
+        base.close();
+        
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReporteServicioAdicional vista = new ReporteServicioAdicional(parentFrame, true, Administrador_Login.agente);
+        vista.setVisible(true); 
     }//GEN-LAST:event_jButton4ActionPerformed
 
 

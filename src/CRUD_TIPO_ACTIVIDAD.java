@@ -1,12 +1,32 @@
 
+import base.ReporteCliente;
 import clases.Actividades;
+import clases.Agente_inmobiliario;
 import clases.Tipo_Actividad;
+import clases.Ubicacion;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
 import com.db4o.query.Query;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DISPOSE_ON_CLOSE;
 import javax.swing.table.DefaultTableModel;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.data.JRBeanArrayDataSource;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.view.JasperViewer;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -221,7 +241,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
     }//GEN-LAST:event_btnguardarActionPerformed
 
     private void btnmodificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnmodificarActionPerformed
-       ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         ActualizarDatos(base);
         base.close();
@@ -280,14 +300,14 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
 
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
-         if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()) {
+        if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
         try {
-            Tipo_Actividad micasa = new Tipo_Actividad( lblcodigo.getText().toString(), null, null);
+            Tipo_Actividad micasa = new Tipo_Actividad(lblcodigo.getText().toString(), null, null);
 
             ObjectSet res = base.get(micasa);
             Tipo_Actividad micasita = (Tipo_Actividad) res.next();
@@ -303,8 +323,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             base.close();
         }
     }
-    
-    
+
     public void crearCasa(ObjectContainer base) {
         // Verificar si todos los campos están llenos
         if (jTextField1.getText().trim().isEmpty() || jTextField2.getText().trim().isEmpty()) {
@@ -409,9 +428,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         lblcodigo.setText(actividad.getCod_tipoactividad());
         jTextField1.setText(actividad.getNombre());
         jTextField2.setText(actividad.getDescripcion());
-       
 
-     
     }
 
     private void limpiarTabla() {
@@ -419,12 +436,64 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         model.setRowCount(0);
     }
 
+    public void mostrarReporte(Agente_inmobiliario agente, ObjectContainer base) {
+        boolean flag = true;
+        ArrayList<Tipo_Actividad> listaTipoActividad = new ArrayList<>();
+        ObjectSet<Tipo_Actividad> result = base.queryByExample(Tipo_Actividad.class);
+        if (result.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "NO podemos mostrar datos estadisticas y reportes debido a que no existen registros");
+            flag = false;
+        } else {
+
+        }
+
+        if (flag) {
+            while (result.hasNext()) {
+                Tipo_Actividad tipo = result.next();
+                listaTipoActividad.add(tipo);
+            }
+
+            try {
+                JRBeanArrayDataSource emptyDataSource = new JRBeanArrayDataSource(listaTipoActividad.toArray());
+                JasperReport jr = (JasperReport) JRLoader.loadObject(getClass().getResource("/base/TipoActividad.jasper"));
+                JRBeanArrayDataSource ds = new JRBeanArrayDataSource(listaTipoActividad.toArray());
+                InputStream inputStreamImagen = new FileInputStream(new File("src/imagenes/logokame.PNG"));
+
+                Map<String, Object> params = new HashMap<String, Object>();
+
+                params.put("ds", emptyDataSource);
+                params.put("rutaImagen", inputStreamImagen);
+                params.put("codigoAgente", agente.getCodigo_agente());
+                params.put("nombreAgente", agente.getNombre());
+                params.put("apellidoAgente", agente.getApellido());
+                params.put("emailAgente", agente.getEmail());
+
+                JasperPrint jp = JasperFillManager.fillReport(jr, params, ds);
+                // JasperExportManager.exportReportToPdfStream(jp, out);
+                JasperViewer pv = new JasperViewer(jp, false);
+                pv.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+
+                pv.setVisible(true);
+
+            } catch (JRException ex) {
+                System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA");
+                Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (FileNotFoundException ex) {
+                System.out.println("NO SE ENCONTRO LA PLANTILLA RUTA NO ENCONTRADA DE LA IMAGEN");
+                Logger.getLogger(ReporteCliente.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (Exception e) {
+                System.out.println("ERROR");
+                e.printStackTrace();
+            }
+        }
+    }
+
 
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         cargarTabla(base);
-
+        mostrarReporte(Administrador_Login.agente, base);
         base.close();      // TODO add your handling code here:
     }//GEN-LAST:event_btnreporteActionPerformed
 

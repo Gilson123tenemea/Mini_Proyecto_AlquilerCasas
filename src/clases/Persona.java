@@ -1,6 +1,10 @@
 
 package clases;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 /**
@@ -12,6 +16,8 @@ public class Persona {
     private String cedula, nombre, apellido, email, telefono;
     private String genero;
     private Date fecha_nac;
+    
+    private Integer edad; // auxiliar
 
     public Persona() {
     }
@@ -90,9 +96,15 @@ public class Persona {
     public String toString() {
         return "Persona{" + "cedula=" + cedula + ", nombre=" + nombre + ", apellido=" + apellido + ", email=" + email + ", telefono=" + telefono + ", genero=" + genero + ", fecha_nac=" + fecha_nac + '}';
     }
-
+    public Integer getEdad() {
+        return edad;
+    }
     
+    public void setEdad() {
+        Date fechaActual = new Date();
+        LocalDateTime fechaNacimiento = LocalDateTime.ofInstant(getFecha_nac().toInstant(), ZoneId.systemDefault());
+        this.edad = Period.between(fechaNacimiento.toLocalDate(), LocalDate.now()).getYears();
+    }
 
-    
    
 }
