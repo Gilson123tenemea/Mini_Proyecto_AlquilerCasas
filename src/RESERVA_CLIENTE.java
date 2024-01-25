@@ -412,7 +412,7 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
         if (!result.isEmpty()) {
 
             for (Actividades acti : result) {
-                precio = acti.getCosto_adicional();
+////              precio = acti.getCosto_adicional();
                 tipo = acti.getTipo_actividad();
 
             }

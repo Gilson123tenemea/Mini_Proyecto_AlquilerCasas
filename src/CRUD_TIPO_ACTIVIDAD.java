@@ -254,7 +254,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
 
         try {
             // Verificar si el tipo de actividad está asociado a actividades
-            Actividades actividadAsociada = new Actividades(null, null, codigoEliminar, null, null, null);
+            Actividades actividadAsociada = new Actividades(null, codigoEliminar, null, null, null);
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {

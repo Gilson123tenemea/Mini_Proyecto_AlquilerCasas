@@ -22,7 +22,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     }
 
     private void crearActividades(ObjectContainer base) {
-        if (cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null) {
+        if (cboxTipoActi.getSelectedItem() == null  ) {
             JOptionPane.showMessageDialog(null, "Por favor llene todos los campos antes de ingresar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
@@ -44,14 +44,14 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             lblIdActividades.setText(nuevoCodigo);
 
             // Verificar si ya existe una actividad con el mismo código
-            result = base.queryByExample(new Actividades(nuevoCodigo, null, null, null, null, null));
+            result = base.queryByExample(new Actividades(nuevoCodigo, null, null, null, null));
 
             if (!result.isEmpty()) {
                 JOptionPane.showMessageDialog(this, "Ya existe una actividad con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
-            Actividades acti = new Actividades(nuevoCodigo, cbxNombreCasa.getSelectedItem().toString(), cboxTipoActi.getSelectedItem().toString(), spnCostos.getValue().toString(), Date.getDate(), cboxHora.getSelectedItem().toString());
+            Actividades acti = new Actividades(nuevoCodigo, cbxNombreCasa.getSelectedItem().toString(), cboxTipoActi.getSelectedItem().toString(),  Date.getDate(), cboxHora.getSelectedItem().toString());
             base.store(acti); // Guardar antes de cerrar la conexión
             JOptionPane.showMessageDialog(this, "Actividad creada exitosamente");
             limpiar();
@@ -75,7 +75,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
                 acti.getId_actividades(),
                 acti.getCod_casa(),
                 acti.getTipo_actividad(),
-                acti.getCosto_adicional(),
+                
                 acti.getFecha() != null ? sdf.format(acti.getFecha()) : null,
                 acti.getHora()
 
@@ -113,19 +113,19 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
 
     public void Modificar(ObjectContainer base) {
 
-        if (cboxTipoActi.getSelectedItem() == null || spnCostos.getValue() == null) {
+        if (cboxTipoActi.getSelectedItem() == null ) {
 
             JOptionPane.showMessageDialog(null, "Por favor llene los datos que desee modificar", "ERROR", JOptionPane.ERROR_MESSAGE);
             return;
         }
         try {
-            Actividades acti = new Actividades(lblIdActividades.getText(), null, null, null, null, null);
+            Actividades acti = new Actividades(lblIdActividades.getText(), null, null, null, null);
             ObjectSet res = base.get(acti);
             Actividades actividad = (Actividades) res.next();
 
             actividad.setCod_casa(cbxNombreCasa.getSelectedItem().toString());
             actividad.setTipo_actividad(cboxTipoActi.getSelectedItem().toString());
-            actividad.setCosto_adicional(spnCostos.getValue().toString());
+            
             actividad.setFecha(Date.getDate());
             actividad.setHora(cboxHora.getSelectedItem().toString());
 
@@ -174,7 +174,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         Date = new com.toedter.calendar.JDateChooser();
@@ -188,7 +187,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         cbxNombreCasa = new javax.swing.JComboBox<>();
         jLabel10 = new javax.swing.JLabel();
         cboxTipoActi = new javax.swing.JComboBox<>();
-        spnCostos = new javax.swing.JSpinner();
         cboxHora = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         lblIdActividades = new javax.swing.JLabel();
@@ -269,25 +267,22 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         jLabel6.setText("Tipo de Actividad:");
         jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 164, -1, -1));
 
-        jLabel7.setText("Costo Adicional:");
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(44, 210, -1, -1));
-
         jLabel8.setText("Fecha:");
-        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 250, -1, -1));
+        jPanel6.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 240, -1, -1));
 
         jLabel9.setText("Hora:");
         jPanel6.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 290, -1, -1));
-        jPanel6.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 250, 190, -1));
+        jPanel6.add(Date, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 230, 190, -1));
 
         TableActi.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Id Actividades", "Codigo Casa", "Tipo de Actividad", "Costo Adicional", "Fecha", "Hora"
+                "Id Actividades", "Codigo Casa", "Tipo de Actividad", "Fecha", "Hora"
             }
         ));
         jScrollPane1.setViewportView(TableActi);
@@ -358,9 +353,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             }
         });
         jPanel6.add(cboxTipoActi, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 160, 140, -1));
-
-        spnCostos.setModel(new javax.swing.SpinnerNumberModel(10.0d, 5.0d, 100.0d, 5.0d));
-        jPanel6.add(spnCostos, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 200, 100, -1));
 
         cboxHora.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM 12:00", "AM 01:00", "AM 02:00", "AM 03:00", "AM 04:00", "AM 05:00", "AM 06:00", "AM 07:00", "AM 08:00", "AM 09:00", "AM 10:00", "AM 11:00", "PM 12:00", "PM 01:00", "PM 02:00", "PM 03:00", "PM 04:00", "PM 05:00", "PM 06:00", "PM 07:00", "PM 08:00", "PM 09:00", "PM 10:00", "PM 11:00" }));
         cboxHora.addActionListener(new java.awt.event.ActionListener() {
@@ -489,7 +481,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         String codigoBusqueda = JOptionPane.showInputDialog(this, "Ingrese el código de la actividad a buscar:", "Buscar Actividad", JOptionPane.QUESTION_MESSAGE);
 
         if (codigoBusqueda != null && !codigoBusqueda.isEmpty()) {
-            ObjectSet<Actividades> result = base.queryByExample(new Actividades(codigoBusqueda, null, null, null, null, null));
+            ObjectSet<Actividades> result = base.queryByExample(new Actividades(codigoBusqueda, null, null, null, null));
 
             if (!result.isEmpty()) {
                 Actividades actividadEncontrada = result.next();
@@ -507,7 +499,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
         lblIdActividades.setText(actividad.getId_actividades());
         cbxNombreCasa.setSelectedItem(actividad.getCod_casa());
         cboxTipoActi.setSelectedItem(actividad.getTipo_actividad());
-        spnCostos.setValue(Double.parseDouble(actividad.getCosto_adicional()));
+       
         Date.setDate(actividad.getFecha());
         cboxHora.setSelectedItem(actividad.getHora());
     }
@@ -524,7 +516,7 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
             actividadFiltrada.getId_actividades(),
             actividadFiltrada.getCod_casa(),
             actividadFiltrada.getTipo_actividad(),
-            actividadFiltrada.getCosto_adicional(),
+            
             actividadFiltrada.getFecha() != null ? sdf.format(actividadFiltrada.getFecha()) : null,
             actividadFiltrada.getHora()
         };
@@ -676,7 +668,6 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
@@ -687,6 +678,5 @@ public class CRUD_ACTIVIDADES extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblIdActividades;
-    private javax.swing.JSpinner spnCostos;
     // End of variables declaration//GEN-END:variables
 }
