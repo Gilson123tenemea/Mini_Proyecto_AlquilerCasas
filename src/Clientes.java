@@ -1,6 +1,7 @@
 
 import base.ReporteCliente;
 import clases.Cliente;
+import clases.Encabezado_Factura;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -501,31 +502,42 @@ public class Clientes extends javax.swing.JPanel {
         boolean encontrado = false;
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        Query query = base.query();
-        query.constrain(Cliente.class);
-        query.descend("cedula").constrain(cedulaEliminar);
+        try {
 
-        ObjectSet<Cliente> result = query.execute();
-        cargarTabla(base);
-        if (result.size() > 0) {
+            // public Encabezado_Factura(String codigo_fac, String cod_cliente, String cod_agente, String cod_casa, Date fecha, double valor_cancelar, String cod_reserva, String cod_servicio, String cod_promocion, String doc_ser_adici) {
+            Encabezado_Factura actividadAsociada = new Encabezado_Factura(null, cedulaEliminar, null, null, null, 0.0, null, null, null, null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
 
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Cliente", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (Cliente ClienteDB : result) {
-                    // Eliminar el Cliente de la base de datos db4o
-                    base.delete(ClienteDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos del Cliente");
-                    cargarTabla(base);
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos del Cliente no eliminados");
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este tipo de actividad porque está asociado a Actividades", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
 
-            // Comenta esta parte para no mostrar la tabla
-            /*
+            Query query = base.query();
+            query.constrain(Cliente.class);
+            query.descend("cedula").constrain(cedulaEliminar);
+
+            ObjectSet<Cliente> result = query.execute();
+            cargarTabla(base);
+            if (result.size() > 0) {
+
+                encontrado = true;
+
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del Cliente", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (Cliente ClienteDB : result) {
+                        // Eliminar el Cliente de la base de datos db4o
+                        base.delete(ClienteDB);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos del Cliente");
+                        cargarTabla(base);
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos del Cliente no eliminados");
+                }
+
+                // Comenta esta parte para no mostrar la tabla
+                /*
     String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "EMAIL", "TELEFONO", "EDAD", "SEXO", "DISCAPACIDAD", "FECHA DE NACIMIENTO", "CONTRASEÑA"};
     Object[][] data = new Object[result.size()][11];
 
@@ -548,13 +560,17 @@ public class Clientes extends javax.swing.JPanel {
 
     DefaultTableModel model = new DefaultTableModel(data, columnNames);
     jTable1.setModel(model);
-             */
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró la cédula");
-            cargarTabla(base);
-        }
+                 */
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró la cédula");
+                cargarTabla(base);
+            }
 
-        base.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
+        }
 
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -568,6 +584,7 @@ public class Clientes extends javax.swing.JPanel {
             modelo.removeRow(0);
         }
     }
+
     public void habiltarDatos() {
 
         txtnombreCli.setEnabled(true);
@@ -646,7 +663,7 @@ public class Clientes extends javax.swing.JPanel {
         cargarTabla(base);
 
         base.close();// TODO add your handling code here:
-        
+
         Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
         ReporteCliente vista = new ReporteCliente(parentFrame, true, Administrador_Login.agente);
         vista.setVisible(true);
