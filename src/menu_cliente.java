@@ -1,5 +1,6 @@
 
 import java.awt.CardLayout;
+import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 
 /*
@@ -38,7 +39,7 @@ public class menu_cliente extends javax.swing.JFrame {
         SwingUtilities.updateComponentTreeUI(this);
         this.repaint();
     }
-
+  String [] botones ={"Esperare"};
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -97,7 +98,7 @@ public class menu_cliente extends javax.swing.JFrame {
                 jButton5ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 510, -1, -1));
+        jPanel1.add(jButton5, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 500, -1, -1));
 
         jButton7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/factura.png"))); // NOI18N
         jButton7.setText("CONTRATO");
@@ -164,12 +165,18 @@ public class menu_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        pnldinamico.add(fac, "crud");
-        vista.show(pnldinamico, "crud");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
 
+        int i = JOptionPane.showConfirmDialog(null, "¿Realizo la reserva de casa?");
+        if (i == 0) {
+            pnldinamico.add(fac, "crud");
+            vista.show(pnldinamico, "crud");
+            SwingUtilities.updateComponentTreeUI(this);
+            this.repaint();
+        } else if (1 == 1) {
+            JOptionPane.showMessageDialog(null, "Relize primero la reserva");
+        } else {
+            JOptionPane.showMessageDialog(null, "Gracias por su interes");
+        }
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
@@ -181,26 +188,42 @@ public class menu_cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        // TODO add your handling code here:
-
-        pnldinamico.add(contra, "crud");
-        vista.show(pnldinamico, "crud");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
+        int i = JOptionPane.showOptionDialog(null, "El Agente involiario tiene que establecer el contrato y factura", "Reservacion de Casas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, botones, botones);
+        if (i == 0) {
+            pnldinamico.add(contra, "crud");
+            vista.show(pnldinamico, "crud");
+            SwingUtilities.updateComponentTreeUI(this);
+            this.repaint();
+        } 
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        pnldinamico.add(adici, "crud");
-        vista.show(pnldinamico, "crud");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
+        int i = JOptionPane.showConfirmDialog(null, "¿Realizo la reserva de casa?");
+        if (i == 0) {
+            pnldinamico.add(adici, "crud");
+            vista.show(pnldinamico, "crud");
+            SwingUtilities.updateComponentTreeUI(this);
+            this.repaint();
+        } else if (1 == 1){
+            JOptionPane.showMessageDialog(null, "Relize primero la reserva");
+        }else {
+           JOptionPane.showMessageDialog(null, "Gracias por su interes");
+        }
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
-         pnldinamico.add(comenta, "crud");
-        vista.show(pnldinamico, "crud");
-        SwingUtilities.updateComponentTreeUI(this);
+
         this.repaint();
+        int i = JOptionPane.showConfirmDialog(null, "¿Realizo la reserva de casa?");
+        if (i == 0) {
+            pnldinamico.add(comenta, "crud");
+            vista.show(pnldinamico, "crud");
+            SwingUtilities.updateComponentTreeUI(this);
+        } else if (1 == 1) {
+            JOptionPane.showMessageDialog(null, "Relize primero la reserva");
+        } else {
+            JOptionPane.showMessageDialog(null, "Gracias por su interes");
+        }
     }//GEN-LAST:event_jButton9ActionPerformed
 
     /**
