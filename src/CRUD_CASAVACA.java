@@ -3,8 +3,10 @@ import base.ReporteCasa;
 import base.ReporteCliente;
 import clases.CasaVacacional;
 import clases.Cliente;
+import clases.Encabezado_Factura;
 import clases.Promocion;
 import clases.Propietario;
+import clases.Reservar;
 import clases.Servicio;
 import clases.Ubicacion;
 import com.db4o.Db4o;
@@ -13,6 +15,7 @@ import com.db4o.ObjectSet;
 import com.db4o.query.Query;
 import java.awt.Frame;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.SwingUtilities;
@@ -871,33 +874,55 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        Query query = base.query();
-        query.constrain(CasaVacacional.class);
-        query.descend("cod_casa").constrain(codigoEliminar);
+        try {
+            // public Encabezado_Factura(String codigo_fac, String cod_cliente, String cod_agente, String cod_casa, Date fecha, double valor_cancelar, String cod_reserva, String cod_servicio, String cod_promocion, String doc_ser_adici) {
+            Encabezado_Factura actividadAsociada = new Encabezado_Factura(null, null, null, codigoEliminar, null, 0.0, null, null, null, null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
 
-        ObjectSet<CasaVacacional> result = query.execute();
-
-        if (result.size() > 0) {
-            encontrado = true;
-
-            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-            if (resul == JOptionPane.YES_OPTION) {
-                for (CasaVacacional vacacionalDB : result) {
-                    // Eliminar la Casa Vacacional de la base de datos db4o
-                    base.delete(vacacionalDB);
-                    JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
-
-                }
-            } else if (resul == JOptionPane.NO_OPTION) {
-                JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene facturas Asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else {
-            JOptionPane.showMessageDialog(null, "No se encontró el código");
-            cargarTabla(base);
-        }
 
-        base.close();
+            // public Reservar(String codigo_rese, String coidigo_cli, String codigo_casa, Date fecha_ini, Date fecha_fin) {
+            Reservar actividadAsociada1 = new Reservar(null, null, codigoEliminar, null, null);
+            ObjectSet resultActividad1 = base.get(actividadAsociada1);
+
+            if (resultActividad1.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene Reservas Asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+
+            Query query = base.query();
+            query.constrain(CasaVacacional.class);
+            query.descend("cod_casa").constrain(codigoEliminar);
+
+            ObjectSet<CasaVacacional> result = query.execute();
+
+            if (result.size() > 0) {
+                encontrado = true;
+
+                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+                if (resul == JOptionPane.YES_OPTION) {
+                    for (CasaVacacional vacacionalDB : result) {
+                        // Eliminar la Casa Vacacional de la base de datos db4o
+                        base.delete(vacacionalDB);
+                        JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
+
+                    }
+                } else if (resul == JOptionPane.NO_OPTION) {
+                    JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No se encontró el código");
+                cargarTabla(base);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
+        }
 
 
     }//GEN-LAST:event_btneliminarActionPerformed

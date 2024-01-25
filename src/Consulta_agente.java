@@ -1,5 +1,6 @@
 
 import clases.Agente_inmobiliario;
+import clases.Encabezado_Factura;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
@@ -274,52 +275,68 @@ public class Consulta_agente extends javax.swing.JPanel {
          */
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        Query query = base.query();
-        query.constrain(Agente_inmobiliario.class);
-        query.descend("cedula").constrain(txtconsulta.getText().trim());
+        String id_agente = txtconsulta.getText();
 
-        ObjectSet<Agente_inmobiliario> result = query.execute();
+        try {
+            // public Encabezado_Factura(String codigo_fac, String cod_cliente, String cod_agente, String cod_casa, Date fecha, double valor_cancelar, String cod_reserva, String cod_servicio, String cod_promocion, String doc_ser_adici) {
+            Encabezado_Factura actividadAsociada = new Encabezado_Factura(null, null, id_agente, null, null, 0.0, null, null, null, null);
+            ObjectSet resultActividad = base.get(actividadAsociada);
 
-        String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "TELEFONO", "CORREO", "SEXO", "FECHA DE NACIMIENTO"};
-
-        Object[][] data = new Object[result.size()][8];
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        int i = 0;
-        for (Agente_inmobiliario agente : result) {
-            data[i][0] = agente.getCodigo_agente();
-            data[i][1] = agente.getCedula();
-            data[i][2] = agente.getNombre();
-            data[i][3] = agente.getApellido();
-            data[i][4] = agente.getTelefono();
-            data[i][5] = agente.getEmail();
-            data[i][6] = agente.getGenero();
-            data[i][7] = agente.getFecha_nac() != null ? sdf.format(agente.getFecha_nac()) : null;
-
-            i++;
-        }
-
-        DefaultTableModel model = new DefaultTableModel(data, columnNames);
-        jTable1.setModel(model);
-
-        int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del agente", "Confirmacio", JOptionPane.YES_NO_OPTION);
-
-        if (resul == JOptionPane.YES_OPTION) {
-            for (Agente_inmobiliario agenteDB : result) {
-
-                // Eliminar el agente de la base de datos db4o
-                base.delete(agenteDB);
-                JOptionPane.showMessageDialog(null, "Se estan borrando los datos del agente");
-
+            if (resultActividad.size() > 0) {
+                JOptionPane.showMessageDialog(this, "No se puede eliminar un Agente porque tiene una Factura Asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } else if (resul == JOptionPane.NO_OPTION) {
-            JOptionPane.showMessageDialog(null, "Datos del agente no eliminados");
+
+            Query query = base.query();
+            query.constrain(Agente_inmobiliario.class);
+            query.descend("cedula").constrain(txtconsulta.getText().trim());
+
+            ObjectSet<Agente_inmobiliario> result = query.execute();
+
+            String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "TELEFONO", "CORREO", "SEXO", "FECHA DE NACIMIENTO"};
+
+            Object[][] data = new Object[result.size()][8];
+            SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+            int i = 0;
+            for (Agente_inmobiliario agente : result) {
+                data[i][0] = agente.getCodigo_agente();
+                data[i][1] = agente.getCedula();
+                data[i][2] = agente.getNombre();
+                data[i][3] = agente.getApellido();
+                data[i][4] = agente.getTelefono();
+                data[i][5] = agente.getEmail();
+                data[i][6] = agente.getGenero();
+                data[i][7] = agente.getFecha_nac() != null ? sdf.format(agente.getFecha_nac()) : null;
+
+                i++;
+            }
+
+            DefaultTableModel model = new DefaultTableModel(data, columnNames);
+            jTable1.setModel(model);
+
+            int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos del agente", "Confirmacio", JOptionPane.YES_NO_OPTION);
+
+            if (resul == JOptionPane.YES_OPTION) {
+                for (Agente_inmobiliario agenteDB : result) {
+
+                    // Eliminar el agente de la base de datos db4o
+                    base.delete(agenteDB);
+                    JOptionPane.showMessageDialog(null, "Se estan borrando los datos del agente");
+
+                }
+            } else if (resul == JOptionPane.NO_OPTION) {
+                JOptionPane.showMessageDialog(null, "Datos del agente no eliminados");
+            }
+
+            txtconsulta.setText(" ");
+            vaciarTabla();
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            base.close();
         }
-
-        txtconsulta.setText(" ");
-        vaciarTabla();
-
-        base.close();
 
 
     }//GEN-LAST:event_jButton1ActionPerformed
