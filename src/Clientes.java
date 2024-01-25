@@ -509,7 +509,7 @@ public class Clientes extends javax.swing.JPanel {
             ObjectSet resultActividad = base.get(actividadAsociada);
 
             if (resultActividad.size() > 0) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar este tipo de actividad porque está asociado a Actividades", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "No se puede eliminar este Cliente porque tiene facturas Asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
