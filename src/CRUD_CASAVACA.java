@@ -12,6 +12,7 @@ import clases.Ubicacion;
 import com.db4o.Db4o;
 import com.db4o.ObjectContainer;
 import com.db4o.ObjectSet;
+import com.db4o.ext.Db4oException;
 import com.db4o.query.Query;
 import java.awt.Frame;
 import java.text.SimpleDateFormat;
@@ -869,62 +870,64 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
     }//GEN-LAST:event_btnmodificarActionPerformed
 
     private void btneliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btneliminarActionPerformed
-        String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
-        boolean encontrado = false;
+      String codigoEliminar = JOptionPane.showInputDialog("Ingrese el código de la casa a eliminar");
 
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        try {
-            // public Encabezado_Factura(String codigo_fac, String cod_cliente, String cod_agente, String cod_casa, Date fecha, double valor_cancelar, String cod_reserva, String cod_servicio, String cod_promocion, String doc_ser_adici) {
-            Encabezado_Factura actividadAsociada = new Encabezado_Factura(null, null, null, codigoEliminar, null, 0.0, null, null, null, null);
-            ObjectSet resultActividad = base.get(actividadAsociada);
+try {
+    // Verificar si hay facturas asociadas
+    Encabezado_Factura facturaAsociada = new Encabezado_Factura(null, null, null, codigoEliminar, null, 0.0, null, null, null, null);
+    ObjectSet resultFactura = base.get(facturaAsociada);
 
-            if (resultActividad.size() > 0) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene facturas Asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
+    // Verificar si hay reservas asociadas
+    Reservar reservaAsociada = new Reservar(null, null, codigoEliminar, null, null);
+    ObjectSet resultReserva = base.get(reservaAsociada);
+
+    if (resultFactura.size() > 0 && resultReserva.size() > 0) {
+        JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene facturas y reservas asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (resultFactura.size() > 0) {
+        JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene facturas asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    if (resultReserva.size() > 0) {
+        JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene reservas asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Buscar la casa por el código
+    Query query = base.query();
+    query.constrain(CasaVacacional.class);
+    query.descend("cod_casa").constrain(codigoEliminar);
+
+    ObjectSet<CasaVacacional> resultCasa = query.execute();
+
+    if (resultCasa.size() > 0) {
+        // Confirmar la eliminación
+        int resul = JOptionPane.showConfirmDialog(null, "¿Deseas eliminar los datos de la Casa Vacacional?", "Confirmacion", JOptionPane.YES_NO_OPTION);
+
+        if (resul == JOptionPane.YES_OPTION) {
+            // Eliminar la Casa Vacacional de la base de datos db4o
+            for (CasaVacacional vacacionalDB : resultCasa) {
+                base.delete(vacacionalDB);
+                JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
             }
-
-            // public Reservar(String codigo_rese, String coidigo_cli, String codigo_casa, Date fecha_ini, Date fecha_fin) {
-            Reservar actividadAsociada1 = new Reservar(null, null, codigoEliminar, null, null);
-            ObjectSet resultActividad1 = base.get(actividadAsociada1);
-
-            if (resultActividad1.size() > 0) {
-                JOptionPane.showMessageDialog(this, "No se puede eliminar esta Casa porque tiene Reservas Asociadas", "ERROR", JOptionPane.ERROR_MESSAGE);
-                return;
-            }
-
-            Query query = base.query();
-            query.constrain(CasaVacacional.class);
-            query.descend("cod_casa").constrain(codigoEliminar);
-
-            ObjectSet<CasaVacacional> result = query.execute();
-
-            if (result.size() > 0) {
-                encontrado = true;
-
-                int resul = JOptionPane.showConfirmDialog(null, "Deseas eliminar los datos de la Casa Vacacional", "Confirmacion", JOptionPane.YES_NO_OPTION);
-
-                if (resul == JOptionPane.YES_OPTION) {
-                    for (CasaVacacional vacacionalDB : result) {
-                        // Eliminar la Casa Vacacional de la base de datos db4o
-                        base.delete(vacacionalDB);
-                        JOptionPane.showMessageDialog(null, "Se están borrando los datos de la Casa Vacacional");
-
-                    }
-                } else if (resul == JOptionPane.NO_OPTION) {
-                    JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
-                }
-            } else {
-                JOptionPane.showMessageDialog(null, "No se encontró el código");
-                cargarTabla(base);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            base.close();
+        } else {
+            JOptionPane.showMessageDialog(null, "Datos de la Casa Vacacional no eliminados");
         }
-
-
+    } else {
+        JOptionPane.showMessageDialog(null, "No se encontró el código");
+        cargarTabla(base);
+    }
+} catch (Db4oException e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Error al acceder a la base de datos", "ERROR", JOptionPane.ERROR_MESSAGE);
+} finally {
+    base.close();
+}
     }//GEN-LAST:event_btneliminarActionPerformed
 
     private void btnreporteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreporteActionPerformed

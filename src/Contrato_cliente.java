@@ -63,7 +63,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
 
             }
 
-            txtAgente.setText(nombrec + " " + apellidoc);
+            txtcliente.setText(nombrec + " " + apellidoc);
 
         }
     }
@@ -172,6 +172,11 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 74, 858, -1));
 
         txtAgente.setEditable(false);
+        txtAgente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAgenteActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtAgente, new org.netbeans.lib.awtextra.AbsoluteConstraints(29, 103, 171, -1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -228,7 +233,7 @@ public class Contrato_cliente extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(337, 387, 200, -1));
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 200, -1));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -243,8 +248,8 @@ public class Contrato_cliente extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(25, 25, 25)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(70, Short.MAX_VALUE))
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 437, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(60, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -271,6 +276,10 @@ public class Contrato_cliente extends javax.swing.JPanel {
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         JOptionPane.showMessageDialog(null, "Espera 1 minuto y su fatura se generada");
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void txtAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgenteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAgenteActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
