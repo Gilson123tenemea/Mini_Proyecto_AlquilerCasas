@@ -149,18 +149,15 @@ public class Factura extends javax.swing.JPanel {
         txttotal.setEditable(false);
         txttotal.setBackground(new java.awt.Color(255, 255, 255));
         txttotal.setFont(new java.awt.Font("Arial", 1, 48)); // NOI18N
-        txttotal.setForeground(new java.awt.Color(0, 0, 0));
-        txttotal.setText("123.50");
+        txttotal.setText("000.00");
         jPanel2.add(txttotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(51, 351, 212, 77));
 
         txtcasa.setEditable(false);
         txtcasa.setBackground(new java.awt.Color(255, 255, 255));
-        txtcasa.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtcasa, new org.netbeans.lib.awtextra.AbsoluteConstraints(243, 201, 182, -1));
 
         txtdescuento.setEditable(false);
         txtdescuento.setBackground(new java.awt.Color(255, 255, 255));
-        txtdescuento.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtdescuento, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 400, 80, -1));
 
         jLabel11.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
@@ -170,7 +167,6 @@ public class Factura extends javax.swing.JPanel {
 
         txtprecio.setEditable(false);
         txtprecio.setBackground(new java.awt.Color(255, 255, 255));
-        txtprecio.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtprecio, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 360, 80, -1));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
@@ -192,12 +188,10 @@ public class Factura extends javax.swing.JPanel {
 
         txtfechaini.setEditable(false);
         txtfechaini.setBackground(new java.awt.Color(255, 255, 255));
-        txtfechaini.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtfechaini, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 210, 180, -1));
 
         txtfechafin.setEditable(false);
         txtfechafin.setBackground(new java.awt.Color(255, 255, 255));
-        txtfechafin.setForeground(new java.awt.Color(0, 0, 0));
         jPanel2.add(txtfechafin, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 240, 180, -1));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N

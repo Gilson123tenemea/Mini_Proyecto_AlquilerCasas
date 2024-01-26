@@ -160,7 +160,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
         btncontrato = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
 
         jPanel1.setBackground(new java.awt.Color(0, 153, 153));
 
@@ -226,15 +225,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
         });
         jPanel2.add(btncontrato, new org.netbeans.lib.awtextra.AbsoluteConstraints(362, 30, 156, -1));
 
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
-        jButton2.setText("SOLICITAR FACTURA");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 360, 200, -1));
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -273,10 +263,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
         base.close();
     }//GEN-LAST:event_btncontratoActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JOptionPane.showMessageDialog(null, "Espera 1 minuto y su fatura se generada");
-    }//GEN-LAST:event_jButton2ActionPerformed
-
     private void txtAgenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAgenteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtAgenteActionPerformed
@@ -284,7 +270,6 @@ public class Contrato_cliente extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btncontrato;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

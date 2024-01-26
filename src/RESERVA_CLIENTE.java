@@ -338,56 +338,63 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
 
 
     private void btnreservaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnreservaActionPerformed
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+       ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        try {
-            // Validar que se hayan seleccionado fechas y una casa
-            if (reservai.getDate() == null || reservafin.getDate() == null || cbxcasa.getSelectedItem() == null) {
-                JOptionPane.showMessageDialog(null, "Por favor, selecciona fechas y una casa antes de realizar la reserva.");
-                return;
-            }
+try {
+    // Validar que se hayan seleccionado fechas y una casa
+    if (reservai.getDate() == null || reservafin.getDate() == null || cbxcasa.getSelectedItem() == null) {
+        JOptionPane.showMessageDialog(null, "Por favor, selecciona fechas y una casa antes de realizar la reserva.");
+        return;
+    }
 
-            // Verificar si la casa seleccionada ya está reservada en las fechas deseadas
-            Query queryReservas = base.query();
-            queryReservas.constrain(Reservar.class);
-            queryReservas.descend("codigo_casa").constrain(cbxcasa.getSelectedItem().toString());
-            queryReservas.descend("fecha_ini").constrain(reservai.getDate()).greater();
-            queryReservas.descend("fecha_fin").constrain(reservafin.getDate()).smaller();
-            ObjectSet<Reservar> reservasEnFechas = queryReservas.execute();
+    // Verificar si la casa seleccionada ya está reservada en las fechas deseadas
+    Query queryReservas = base.query();
+    queryReservas.constrain(Reservar.class);
+    queryReservas.descend("codigo_casa").constrain(cbxcasa.getSelectedItem().toString());
+    ObjectSet<Reservar> reservasEnCasa = queryReservas.execute();
 
-            if (!reservasEnFechas.isEmpty()) {
-                JOptionPane.showMessageDialog(null, "La casa seleccionada ya está reservada en las fechas elegidas.");
-                return;
-            }
-
-            Query query = base.query();
-            query.constrain(Reservar.class);
-            query.descend("codigo_rese").orderDescending();
-            ObjectSet<Reservar> result = query.execute();
-
-            int ultimoCodigo = 1;
-            if (!result.isEmpty()) {
-                Reservar ultimaReserva = result.next();
-                ultimoCodigo = Integer.parseInt(ultimaReserva.getCodigo_rese().substring(4)) + 1;
-            }
-
-            String nuevoCodigo = String.format("RES-%03d", ultimoCodigo);
-            txtcad_reserva.setText(nuevoCodigo);
-
-            Reservar nuevaReserva = new Reservar(nuevoCodigo, INICIO.codigo, cbxcasa.getSelectedItem().toString(),
-                    reservai.getDate(), reservafin.getDate());
-
-            base.store(nuevaReserva);
-            calculardias();
-            JOptionPane.showMessageDialog(null, "Se envió la solicitud de reserva");
-
-        } finally {
-            base.close();
+    for (Reservar reservaExistente : reservasEnCasa) {
+        if (reservai.getDate().compareTo(reservaExistente.getFecha_ini()) >= 0 && reservafin.getDate().compareTo(reservaExistente.getFecha_fin()) <= 0) {
+            // Las fechas seleccionadas están dentro del rango de una reserva existente
+            JOptionPane.showMessageDialog(null, "La casa ya ha sido reservada en estas fechas.");
+            return;
         }
+    }
 
+    // Resto del código para generar y almacenar la reserva
+    Query query = base.query();
+    query.constrain(Reservar.class);
+    query.descend("codigo_rese").orderDescending();
+    ObjectSet<Reservar> result = query.execute();
 
+    int ultimoCodigo = 1;
+    if (!result.isEmpty()) {
+        Reservar ultimaReserva = result.next();
+        ultimoCodigo = Integer.parseInt(ultimaReserva.getCodigo_rese().substring(4)) + 1;
+    }
+
+    String nuevoCodigo = String.format("RES-%03d", ultimoCodigo);
+    txtcad_reserva.setText(nuevoCodigo);
+
+    Reservar nuevaReserva = new Reservar(nuevoCodigo, INICIO.codigo, cbxcasa.getSelectedItem().toString(),
+            reservai.getDate(), reservafin.getDate());
+
+    base.store(nuevaReserva);
+    calculardias();
+    limpiar();
+    JOptionPane.showMessageDialog(null, "Se envió la solicitud de reserva");
+
+} finally {
+    base.close();
+    btnreserva.setEnabled(false);
+}
     }//GEN-LAST:event_btnreservaActionPerformed
 
+    public void limpiar (){
+        reservai.setDate(null);
+        reservafin.setDate(null);
+    }
+    
     public String obtenerTipoActividadDeCasa(ObjectContainer base, String codigoCasa) {
         Query query = base.query();
         query.constrain(Actividades.class);
@@ -468,6 +475,7 @@ public class RESERVA_CLIENTE extends javax.swing.JPanel {
     private void cbxcasaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbxcasaMouseClicked
        
        cargar();
+       btnreserva.setEnabled(true);
     }//GEN-LAST:event_cbxcasaMouseClicked
 
     private void reservaiPropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_reservaiPropertyChange

@@ -162,7 +162,7 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
     private void cboxservicioMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cboxservicioMouseClicked
 
         cargarServicios();
-        // TODO add your handling code here:
+        jButton2.setEnabled(true);
     }//GEN-LAST:event_cboxservicioMouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -197,18 +197,19 @@ public class Intefaz_SAdional extends javax.swing.JPanel {
             Servicio_Adicional nuevaUbicacion = new Servicio_Adicional(nuevoCodigo, cboxservicio.getSelectedItem().toString(), txtcedula.getText().trim());
             base.store(nuevaUbicacion);
 
-            JOptionPane.showMessageDialog(this, "Ubicación creada exitosamente");
+            JOptionPane.showMessageDialog(this, "Servicio Adicional añadido exitosamente");
 
         } finally {
             base.close();
+            jButton2.setEnabled(false);
         }
     }
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
         crearServicioA(base);
-        base.close();        // TODO add your handling code here:
-        // TODO add your handling code here:
+        base.close(); 
+        
     }//GEN-LAST:event_jButton2ActionPerformed
     private void mostrarServicios(ObjectContainer bases) {
         try {
