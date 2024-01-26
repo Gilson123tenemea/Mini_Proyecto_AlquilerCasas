@@ -96,7 +96,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btnguardarActionPerformed(evt);
             }
         });
-        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 150, 50));
+        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 150, 30));
 
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
@@ -105,7 +105,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btnmodificarActionPerformed(evt);
             }
         });
-        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 150, 50));
+        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 150, 30));
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
@@ -114,7 +114,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btneliminarActionPerformed(evt);
             }
         });
-        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 150, 50));
+        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 150, 30));
 
         btnreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         btnreporte.setText("REPORTE");
@@ -123,7 +123,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btnreporteActionPerformed(evt);
             }
         });
-        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 150, 50));
+        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 150, 30));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -146,7 +146,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTable2);
 
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 890, 180));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 890, 200));
 
         jButton12.setBackground(new java.awt.Color(255, 255, 255));
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N

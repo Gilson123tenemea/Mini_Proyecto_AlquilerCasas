@@ -618,7 +618,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 120, 40));
+        jPanel1.add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 120, 30));
 
         BtnModi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         BtnModi.setText("MODIFICAR");
@@ -627,7 +627,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnModiActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnModi, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, -1));
+        jPanel1.add(BtnModi, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, 30));
 
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         BtnEliminar.setText("ELIMINAR");
@@ -636,7 +636,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 130, 40));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 130, 30));
 
         BtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         BtnReporte.setText("REPORTE");
@@ -645,7 +645,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, 120, 40));
+        jPanel1.add(BtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, 120, 30));
 
         BtnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         BtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N

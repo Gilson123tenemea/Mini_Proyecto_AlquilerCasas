@@ -139,7 +139,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 330, -1, -1));
+        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, 30));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         jButton2.setText("MODIFICAR");
@@ -148,7 +148,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 330, -1, -1));
+        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 330, -1, 30));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         jButton3.setText("ELIMINAR");
@@ -157,7 +157,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, -1, -1));
+        jPanel6.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 330, -1, 30));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         jButton4.setText("REPORTE");
@@ -166,7 +166,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, -1, -1));
+        jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 330, -1, 30));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton6.addActionListener(new java.awt.event.ActionListener() {
@@ -174,7 +174,7 @@ public class CRUD_Servicio extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, -1, -1));
+        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 50, 40, -1));
         jPanel6.add(txtcodigo, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 50, 250, 24));
 
         jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N

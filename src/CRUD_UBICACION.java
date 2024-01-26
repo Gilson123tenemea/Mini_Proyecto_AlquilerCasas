@@ -116,7 +116,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btnguardarActionPerformed(evt);
             }
         });
-        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 120, 50));
+        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 290, 120, 30));
 
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
@@ -125,7 +125,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btnmodificarActionPerformed(evt);
             }
         });
-        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 130, 50));
+        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 290, 130, 30));
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
@@ -134,7 +134,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btneliminarActionPerformed(evt);
             }
         });
-        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, 120, 50));
+        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 290, 120, 30));
 
         btnreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         btnreporte.setText("REPORTE");
@@ -143,7 +143,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 btnreporteActionPerformed(evt);
             }
         });
-        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, 130, 50));
+        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 290, 130, 30));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -166,7 +166,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTable2);
 
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 900, 160));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 900, 190));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton1.setText("BUSCAR");
@@ -175,7 +175,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 120, 50));
+        add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 290, 120, 30));
 
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
         add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 0, -1, -1));

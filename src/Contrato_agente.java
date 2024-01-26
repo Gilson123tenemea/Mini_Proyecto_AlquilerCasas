@@ -210,6 +210,7 @@ public class Contrato_agente extends javax.swing.JPanel {
         jLabel10.setText("Este contrato finalizará hasta que termine su reserva.");
 
         jButton1.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         jButton1.setText("GUARDAR");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

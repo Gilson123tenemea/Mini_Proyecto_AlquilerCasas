@@ -420,7 +420,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 btnguardarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 150, 40));
+        jPanel1.add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 360, 150, 30));
 
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
@@ -429,7 +429,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 btnmodificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 150, -1));
+        jPanel1.add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 360, 150, 30));
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
@@ -438,7 +438,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 btneliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 150, 40));
+        jPanel1.add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 360, 150, 30));
 
         btnreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         btnreporte.setText("REPORTE");
@@ -447,7 +447,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
                 btnreporteActionPerformed(evt);
             }
         });
-        jPanel1.add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, 150, 40));
+        jPanel1.add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 360, 150, 30));
 
         jButton12.setBackground(new java.awt.Color(255, 255, 255));
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
