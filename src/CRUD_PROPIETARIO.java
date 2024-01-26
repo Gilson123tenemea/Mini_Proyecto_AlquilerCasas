@@ -132,7 +132,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
 
             result = Base.queryByExample(new Propietario(null, null, txtcedulaPro.getText().trim(), null, null, null, null, null, null));
             if (!result.isEmpty()) {
-                JOptionPane.showMessageDialog(this, "Ya existe un Propietario con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(this, "Ya existe un Propietario con la cedula ingresada.", "Error", JOptionPane.ERROR_MESSAGE);
                 return;
             }
 
