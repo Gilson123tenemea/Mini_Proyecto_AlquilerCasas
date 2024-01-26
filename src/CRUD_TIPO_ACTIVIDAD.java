@@ -55,11 +55,6 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel11 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jPanel6 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel12 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -73,78 +68,11 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
         jButton12 = new javax.swing.JButton();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel11.setBackground(new java.awt.Color(0, 102, 204));
-
-        jLabel1.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
-        jLabel1.setText("Tipo Actividad");
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel11Layout.createSequentialGroup()
-                .addContainerGap(369, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addGap(342, 342, 342))
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel11Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-
-        add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 810, 30));
-
-        jPanel6.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-
-        add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 20, 610));
-
-        jPanel7.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-
-        add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(790, 0, -1, -1));
-
-        jPanel12.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel12Layout = new javax.swing.GroupLayout(jPanel12);
-        jPanel12.setLayout(jPanel12Layout);
-        jPanel12Layout.setHorizontalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 810, Short.MAX_VALUE)
-        );
-        jPanel12Layout.setVerticalGroup(
-            jPanel12Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        add(jPanel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 590, 810, 20));
 
         jLabel2.setFont(new java.awt.Font("Dialog", 1, 14)); // NOI18N
         jLabel2.setText("Codigo Actividad:");
@@ -168,7 +96,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btnguardarActionPerformed(evt);
             }
         });
-        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 300, 150, 50));
+        add(btnguardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 300, 150, 50));
 
         btnmodificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnmodificar.setText("MODIFICAR");
@@ -177,7 +105,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btnmodificarActionPerformed(evt);
             }
         });
-        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 300, 150, 50));
+        add(btnmodificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 300, 150, 50));
 
         btneliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         btneliminar.setText("ELIMINAR");
@@ -186,7 +114,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btneliminarActionPerformed(evt);
             }
         });
-        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 300, 150, 50));
+        add(btneliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 300, 150, 50));
 
         btnreporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         btnreporte.setText("REPORTE");
@@ -195,7 +123,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
                 btnreporteActionPerformed(evt);
             }
         });
-        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 300, 150, 50));
+        add(btnreporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 150, 50));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -218,7 +146,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
         });
         jScrollPane3.setViewportView(jTable2);
 
-        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 370, 610, 150));
+        add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 890, 180));
 
         jButton12.setBackground(new java.awt.Color(255, 255, 255));
         jButton12.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
@@ -229,6 +157,13 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
             }
         });
         add(jButton12, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 110, -1, -1));
+
+        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
+        add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 0, -1, -1));
+
+        jLabel1.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel1.setText("TIPO DE ACTIVIDAD");
+        add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, -1, -1));
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
@@ -514,10 +449,7 @@ public class CRUD_TIPO_ACTIVIDAD extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel11;
-    private javax.swing.JPanel jPanel12;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTable jTable2;
     private javax.swing.JTextField jTextField1;

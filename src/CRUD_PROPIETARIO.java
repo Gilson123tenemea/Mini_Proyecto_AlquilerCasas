@@ -254,10 +254,6 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jPanel8 = new javax.swing.JPanel();
         jPanel9 = new javax.swing.JPanel();
         jPanel1 = new javax.swing.JPanel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel4 = new javax.swing.JPanel();
-        jPanel10 = new javax.swing.JPanel();
-        jPanel11 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -285,6 +281,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jLabel15 = new javax.swing.JLabel();
         txtOcupacion = new javax.swing.JTextField();
         txtcodigoPro = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         jPanel2.setBackground(new java.awt.Color(0, 102, 204));
 
@@ -526,87 +523,33 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel5.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 20, 610));
-
-        jPanel4.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 610, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 20, 610));
-
-        jPanel10.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
-        jPanel10.setLayout(jPanel10Layout);
-        jPanel10Layout.setHorizontalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
-        );
-        jPanel10Layout.setVerticalGroup(
-            jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 630, 950, 20));
-
-        jPanel11.setBackground(new java.awt.Color(0, 102, 204));
-
-        javax.swing.GroupLayout jPanel11Layout = new javax.swing.GroupLayout(jPanel11);
-        jPanel11.setLayout(jPanel11Layout);
-        jPanel11Layout.setHorizontalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
-        );
-        jPanel11Layout.setVerticalGroup(
-            jPanel11Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 20, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 950, 20));
-
         jLabel7.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
         jLabel7.setText("jLabel7");
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 260, 150));
 
+        jLabel8.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel8.setText("Cedula:");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
 
+        jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel9.setText("Nombre:");
         jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
 
+        jLabel10.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel10.setText("Apellido:");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
+        jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setText("Email:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 140, -1, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
 
+        jLabel12.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel12.setText("Telefono:");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, -1, -1));
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, -1, -1));
 
+        jLabel14.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel14.setText("Genero:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 230, -1, -1));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, -1, -1));
 
         rbmasculinoPro.setText("Masculino");
         rbmasculinoPro.addActionListener(new java.awt.event.ActionListener() {
@@ -659,12 +602,14 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         });
         jPanel1.add(txtcedulaPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 180, -1));
 
+        jLabel16.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel16.setText("Fecha de Nacimiento:");
-        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 190, -1, -1));
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 190, -1, -1));
 
-        jLabel17.setText("Codigo _ Propietario");
-        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 50, -1, -1));
-        jPanel1.add(Datefechapro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 190, 150, -1));
+        jLabel17.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel17.setText("Codigo _ Propietario:");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, -1, -1));
+        jPanel1.add(Datefechapro, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, 210, -1));
 
         BtnGuardar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         BtnGuardar.setText("GUARDAR");
@@ -673,7 +618,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnGuardarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 310, 120, 40));
+        jPanel1.add(BtnGuardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 290, 120, 40));
 
         BtnModi.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         BtnModi.setText("MODIFICAR");
@@ -682,7 +627,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnModiActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnModi, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 310, -1, -1));
+        jPanel1.add(BtnModi, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 290, -1, -1));
 
         BtnEliminar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         BtnEliminar.setText("ELIMINAR");
@@ -691,7 +636,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnEliminarActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 310, 130, 40));
+        jPanel1.add(BtnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 290, 130, 40));
 
         BtnReporte.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         BtnReporte.setText("REPORTE");
@@ -700,7 +645,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
                 BtnReporteActionPerformed(evt);
             }
         });
-        jPanel1.add(BtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 310, 120, 40));
+        jPanel1.add(BtnReporte, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 290, 120, 40));
 
         BtnBuscar.setBackground(new java.awt.Color(255, 255, 255));
         BtnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
@@ -725,12 +670,17 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         ));
         jScrollPane3.setViewportView(jTablePropietario);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 390, 870, 230));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 350, 900, 180));
 
+        jLabel15.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel15.setText("Ocupacion:");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 240, -1, -1));
-        jPanel1.add(txtOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, 150, -1));
-        jPanel1.add(txtcodigoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 50, 70, 30));
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 240, -1, -1));
+        jPanel1.add(txtOcupacion, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 230, 210, -1));
+        jPanel1.add(txtcodigoPro, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 70, 30));
+
+        jLabel13.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
+        jLabel13.setText("REGISTRAR PROPIETARIO");
+        jPanel1.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 10, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -740,7 +690,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 650, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 570, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -1051,6 +1001,7 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
@@ -1064,12 +1015,8 @@ public class CRUD_PROPIETARIO extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel10;
-    private javax.swing.JPanel jPanel11;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
-    private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel8;

@@ -116,8 +116,8 @@ public class Clientes extends javax.swing.JPanel {
         jPanel1.add(genero, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, -1, -1));
 
         jLabel9.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
-        jLabel9.setText("Discapacidad");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, -1, -1));
+        jLabel9.setText("Discapacidad:");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 180, -1, -1));
 
         rbtSi.setText("Si");
         rbtSi.addActionListener(new java.awt.event.ActionListener() {
@@ -125,7 +125,7 @@ public class Clientes extends javax.swing.JPanel {
                 rbtSiActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 290, -1, -1));
+        jPanel1.add(rbtSi, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 180, -1, -1));
 
         rbtNo.setText("No");
         rbtNo.addActionListener(new java.awt.event.ActionListener() {
@@ -133,7 +133,7 @@ public class Clientes extends javax.swing.JPanel {
                 rbtNoActionPerformed(evt);
             }
         });
-        jPanel1.add(rbtNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 290, -1, -1));
+        jPanel1.add(rbtNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(800, 180, -1, -1));
 
         jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Telefono:");
@@ -157,15 +157,15 @@ public class Clientes extends javax.swing.JPanel {
 
         jLabel14.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         jLabel14.setText("Contraseña:");
-        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 210, 90, 20));
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 280, 90, 20));
 
         jLabel11.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel11.setText("Fecha de Nacimiento:");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 180, -1, -1));
-        jPanel1.add(Datefechaclie, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 180, 160, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 230, -1, -1));
+        jPanel1.add(Datefechaclie, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 230, 160, -1));
 
         txtcontraseña.setText("jPasswordField1");
-        jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 210, 160, -1));
+        jPanel1.add(txtcontraseña, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 280, 160, -1));
 
         btnBuscar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/buscar (2).png"))); // NOI18N
         btnBuscar.setText("BUSCAR");
@@ -174,7 +174,7 @@ public class Clientes extends javax.swing.JPanel {
                 btnBuscarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, -1, -1));
+        jPanel1.add(btnBuscar, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, -1, -1));
 
         btnModificar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         btnModificar.setText("MODIFICAR");
@@ -183,7 +183,7 @@ public class Clientes extends javax.swing.JPanel {
                 btnModificarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 390, -1, 30));
+        jPanel1.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, -1, 30));
 
         jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Apellido:");
@@ -195,7 +195,7 @@ public class Clientes extends javax.swing.JPanel {
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
         jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 0, 250, 170));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 0, 250, 170));
 
         jLabel12.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
         jLabel12.setText("REGISTRAR CLIENTE");
@@ -208,7 +208,7 @@ public class Clientes extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 390, -1, -1));
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 320, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -231,7 +231,7 @@ public class Clientes extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 440, 810, 210));
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 910, 170));
         jPanel1.add(lblDiscapacidad, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 370, 90, 10));
         jPanel1.add(lblGenero, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 280, 110, 10));
 
@@ -253,7 +253,7 @@ public class Clientes extends javax.swing.JPanel {
                 btnCargartActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCargart, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 390, -1, -1));
+        jPanel1.add(btnCargart, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 320, -1, -1));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
         jButton4.setText("LIMPIAR CAMPOS");
@@ -262,19 +262,17 @@ public class Clientes extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 390, -1, -1));
+        jPanel1.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 320, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 870, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 660, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

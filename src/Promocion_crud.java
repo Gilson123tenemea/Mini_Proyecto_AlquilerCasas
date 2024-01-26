@@ -49,29 +49,34 @@ public class Promocion_crud extends javax.swing.JPanel {
         txadescripcion = new javax.swing.JTextArea();
         spndescu = new javax.swing.JSpinner();
         codpromocion = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
 
-        jPanel1.setBackground(new java.awt.Color(102, 153, 255));
+        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/LOGOS DE KAME HOUSE.PNG"))); // NOI18N
-        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(639, 6, -1, -1));
+        jPanel6.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 10, -1, 160));
 
+        jLabel2.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel2.setText("Código Promoción:");
-        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(41, 24, -1, -1));
+        jPanel6.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, -1, -1));
 
+        jLabel4.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel4.setText("Descuento:");
-        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, -1, 34));
+        jPanel6.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 170, -1, 34));
 
+        jLabel5.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel5.setText("Fecha de Inicio:");
-        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 220, -1, -1));
+        jPanel6.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 230, -1, -1));
 
+        jLabel6.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
         jLabel6.setText("Fecha de Fin:");
-        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 270, -1, 19));
-        jPanel6.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 216, 250, -1));
-        jPanel6.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 274, 250, -1));
+        jPanel6.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 280, -1, 19));
+        jPanel6.add(jDateChooser1, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 230, 250, -1));
+        jPanel6.add(jDateChooser2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 280, 250, -1));
 
         jTable2.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -86,7 +91,7 @@ public class Promocion_crud extends javax.swing.JPanel {
         ));
         jScrollPane1.setViewportView(jTable2);
 
-        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(32, 456, 830, 253));
+        jPanel6.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 380, 890, 150));
 
         jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/crear.png"))); // NOI18N
         jButton1.setText("GUARDAR");
@@ -95,7 +100,7 @@ public class Promocion_crud extends javax.swing.JPanel {
                 jButton1ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 350, -1, -1));
+        jPanel6.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, -1, -1));
 
         jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/mod.png"))); // NOI18N
         jButton2.setText("MODIFICAR");
@@ -104,7 +109,7 @@ public class Promocion_crud extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 350, 130, 40));
+        jPanel6.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 320, 130, 40));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/eliminar_1.png"))); // NOI18N
         jButton3.setText("ELIMINAR");
@@ -113,7 +118,7 @@ public class Promocion_crud extends javax.swing.JPanel {
                 jButton3ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 350, 120, 40));
+        jPanel6.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 320, 120, 40));
 
         jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/diapositiva.png"))); // NOI18N
         jButton4.setText("REPORTE");
@@ -122,7 +127,7 @@ public class Promocion_crud extends javax.swing.JPanel {
                 jButton4ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 350, -1, -1));
+        jPanel6.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 320, -1, -1));
 
         jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton6.setText("BUSCAR");
@@ -131,22 +136,27 @@ public class Promocion_crud extends javax.swing.JPanel {
                 jButton6ActionPerformed(evt);
             }
         });
-        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 350, 130, -1));
+        jPanel6.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 320, 130, -1));
 
-        jLabel7.setText("Descripcion del descuento");
-        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 160, -1));
+        jLabel7.setFont(new java.awt.Font("Dialog", 1, 12)); // NOI18N
+        jLabel7.setText("Descripcion del descuento:");
+        jPanel6.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 160, 10));
 
         txadescripcion.setColumns(20);
         txadescripcion.setRows(5);
         jScrollPane2.setViewportView(txadescripcion);
 
-        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(202, 63, 250, 53));
+        jPanel6.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 90, 250, 53));
 
         spndescu.setModel(new javax.swing.SpinnerNumberModel(0, 0, null, 1));
-        jPanel6.add(spndescu, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 150, 60, 30));
-        jPanel6.add(codpromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 110, 20));
+        jPanel6.add(spndescu, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 170, 60, 30));
+        jPanel6.add(codpromocion, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 50, 110, 20));
 
-        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 900, -1));
+        jLabel3.setFont(new java.awt.Font("Dialog", 1, 18)); // NOI18N
+        jLabel3.setText("PROMOCIÓN");
+        jPanel6.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, -1, -1));
+
+        jPanel1.add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 940, 640));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -156,99 +166,28 @@ public class Promocion_crud extends javax.swing.JPanel {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 709, Short.MAX_VALUE)
+            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
 
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        crearCasa(base);
+        buscarPromocion(base);
+
         base.close();
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButton6ActionPerformed
 
-    public void limpiar() {
-        codpromocion.setText("");
-        txadescripcion.setText("");
-        spndescu.setValue(0);
-        jDateChooser1.setDate(null); // Establecer la fecha a null o a un valor específico
-        jDateChooser2.setDate(null); // Establecer la fecha a null o a un valor específico
-
-        //  txtcodigoPropi.setText(" ");
-    }
-
-    public void cargarTabla(ObjectContainer base) {
-
-        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
-        model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
-
-        ObjectSet<Promocion> result = base.queryByExample(new clases.Promocion());
-        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
-
-        while (result.hasNext()) {
-            Promocion promo1 = result.next();
-
-            Object[] row = {
-                promo1.getCod_promo(),
-                promo1.getDescripcion(),
-                promo1.getDescuento(),
-                promo1.getFecha_inicio() != null ? sdf.format(promo1.getFecha_inicio()) : null,
-                promo1.getFecha_fin() != null ? sdf.format(promo1.getFecha_fin()) : null,};
-            model.addRow(row);
-        }
-
-    }
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        cargarTabla(base);
+        base.close();      // TODO add your handling code here:
 
-        ActualizarDatos(base);
-        base.close();
-    }//GEN-LAST:event_jButton2ActionPerformed
-
-    public void crearCasa(ObjectContainer base) {
-        // Verificar si todos los campos están llenos
-        if (txadescripcion.getText().trim().isEmpty()
-                || jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
-            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
-
-        try {
-            Query query = base.query();
-            query.constrain(Promocion.class);
-            query.descend("cod_promo").orderDescending();
-            ObjectSet<Promocion> result = query.execute();
-
-            int ultimoCodigo = 1;
-            if (!result.isEmpty()) {
-                Promocion ultimoPersonal = result.next();
-                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_promo().substring(4)) + 1;
-            }
-
-            // Formatear el código con ceros a la izquierda y agregar "ACT-"
-            String nuevoCodigo = String.format("PRT-%03d", ultimoCodigo);
-            codpromocion.setText(nuevoCodigo);
-
-            // Obtener la edad como entero
-            Integer edad = (Integer) spndescu.getValue();
-
-            // Crear objeto Promocion y almacenar en la base de datos
-            Promocion promocion = new Promocion(nuevoCodigo, edad, jDateChooser1.getDate(), jDateChooser2.getDate(), txadescripcion.getText().trim());
-            base.store(promocion);
-
-            JOptionPane.showMessageDialog(this, "Promoción creada exitosamente");
-            limpiar();
-            cargarTabla(base);
-        } catch (Exception e) {
-            e.printStackTrace();
-            JOptionPane.showMessageDialog(this, "Error al crear la promoción", "Error", JOptionPane.ERROR_MESSAGE);
-        } finally {
-            base.close();
-        }
-    }
-
+        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
+        ReportePromocion vista = new ReportePromocion(parentFrame, true, Administrador_Login.agente);
+        vista.setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
 
@@ -303,27 +242,95 @@ public class Promocion_crud extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jButton3ActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        ObjectContainer base = Db4o.openFile(INICIO.direccion);
-        cargarTabla(base);
-        base.close();      // TODO add your handling code here:
-        
-        Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
-        ReportePromocion vista = new ReportePromocion(parentFrame, true, Administrador_Login.agente);
-        vista.setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
-
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
 
-        buscarPromocion(base);
-
+        ActualizarDatos(base);
         base.close();
-        
-        
+    }//GEN-LAST:event_jButton2ActionPerformed
 
-    }//GEN-LAST:event_jButton6ActionPerformed
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
+
+        crearCasa(base);
+        base.close();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    public void limpiar() {
+        codpromocion.setText("");
+        txadescripcion.setText("");
+        spndescu.setValue(0);
+        jDateChooser1.setDate(null); // Establecer la fecha a null o a un valor específico
+        jDateChooser2.setDate(null); // Establecer la fecha a null o a un valor específico
+
+        //  txtcodigoPropi.setText(" ");
+    }
+
+    public void cargarTabla(ObjectContainer base) {
+
+        DefaultTableModel model = (DefaultTableModel) jTable2.getModel();
+        model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
+
+        ObjectSet<Promocion> result = base.queryByExample(new clases.Promocion());
+        SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+        while (result.hasNext()) {
+            Promocion promo1 = result.next();
+
+            Object[] row = {
+                promo1.getCod_promo(),
+                promo1.getDescripcion(),
+                promo1.getDescuento(),
+                promo1.getFecha_inicio() != null ? sdf.format(promo1.getFecha_inicio()) : null,
+                promo1.getFecha_fin() != null ? sdf.format(promo1.getFecha_fin()) : null,};
+            model.addRow(row);
+        }
+
+    }
+
+    public void crearCasa(ObjectContainer base) {
+        // Verificar si todos los campos están llenos
+        if (txadescripcion.getText().trim().isEmpty()
+                || jDateChooser1.getDate() == null || jDateChooser2.getDate() == null) {
+            JOptionPane.showMessageDialog(null, "Por favor llene todos los campos", "ERROR", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            Query query = base.query();
+            query.constrain(Promocion.class);
+            query.descend("cod_promo").orderDescending();
+            ObjectSet<Promocion> result = query.execute();
+
+            int ultimoCodigo = 1;
+            if (!result.isEmpty()) {
+                Promocion ultimoPersonal = result.next();
+                ultimoCodigo = Integer.parseInt(ultimoPersonal.getCod_promo().substring(4)) + 1;
+            }
+
+            // Formatear el código con ceros a la izquierda y agregar "ACT-"
+            String nuevoCodigo = String.format("PRT-%03d", ultimoCodigo);
+            codpromocion.setText(nuevoCodigo);
+
+            // Obtener la edad como entero
+            Integer edad = (Integer) spndescu.getValue();
+
+            // Crear objeto Promocion y almacenar en la base de datos
+            Promocion promocion = new Promocion(nuevoCodigo, edad, jDateChooser1.getDate(), jDateChooser2.getDate(), txadescripcion.getText().trim());
+            base.store(promocion);
+
+            JOptionPane.showMessageDialog(this, "Promoción creada exitosamente");
+            limpiar();
+            cargarTabla(base);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "Error al crear la promoción", "Error", JOptionPane.ERROR_MESSAGE);
+        } finally {
+            base.close();
+        }
+    }
+
 
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos
@@ -378,6 +385,7 @@ public class Promocion_crud extends javax.swing.JPanel {
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
