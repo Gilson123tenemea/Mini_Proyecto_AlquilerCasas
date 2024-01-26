@@ -116,16 +116,27 @@
     <Component class="javax.swing.JComboBox" name="ciudadcombo">
       <Properties>
         <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-          <StringArray count="9">
+          <StringArray count="20">
             <StringItem index="0" value="Seleccione una opcion"/>
             <StringItem index="1" value="Guayaquil"/>
             <StringItem index="2" value="Quito"/>
             <StringItem index="3" value="Cuenca"/>
-            <StringItem index="4" value="Santo Domingo"/>
-            <StringItem index="5" value="Dur&#xe1;n"/>
-            <StringItem index="6" value="Machal"/>
-            <StringItem index="7" value="Manta"/>
-            <StringItem index="8" value="Portoviejo"/>
+            <StringItem index="4" value="O&#xf1;a"/>
+            <StringItem index="5" value="Santo Domingo"/>
+            <StringItem index="6" value="Dur&#xe1;n"/>
+            <StringItem index="7" value="Machala"/>
+            <StringItem index="8" value="Manta"/>
+            <StringItem index="9" value="Portoviejo"/>
+            <StringItem index="10" value="Caluma"/>
+            <StringItem index="11" value="Guaranda"/>
+            <StringItem index="12" value="Azogues"/>
+            <StringItem index="13" value="Biblian"/>
+            <StringItem index="14" value="Tulcan"/>
+            <StringItem index="15" value="San Gabriel"/>
+            <StringItem index="16" value="Alausi"/>
+            <StringItem index="17" value="Guamote"/>
+            <StringItem index="18" value="Latacunga"/>
+            <StringItem index="19" value="Salcedo"/>
           </StringArray>
         </Property>
       </Properties>

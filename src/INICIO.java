@@ -18,8 +18,8 @@ import javax.swing.JOptionPane;
 public class INICIO extends javax.swing.JFrame {
 
     String password = " ";
-    
-    public static String nombre=" ",apellido= " ",usuario = " ",codigo = " ";
+
+    public static String nombre = " ", apellido = " ", usuario = " ", codigo = " ";
 
     /**
      * Creates new form INICIO
@@ -32,14 +32,13 @@ public class INICIO extends javax.swing.JFrame {
         txtusuario.setText("Ingrese su usuario");
         txtcontra.setText("Ingrese su contraseña");
     }
-    
-    public static String direccion = "src/base/base_datos_orientada.yap";
+
+    public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\MINIPROYECTFINAL.yap";
 
     // public static String direccion = "C:\\Users\\Lenovo.User\\Documents\\base_orientada\\base_datos_orientada.yap";
     //public static String direccionBD = "C:\\Users\\PC01\\Documents\\GitHub\\AlquilerInterfaz.yap";
     //public static String direccionBD = "C:\\Users\\ADMIN_01\\Documents\\MINI PROYECTO BDOO\\AlquilerInterfaz.yap";
-     //public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\basepaa.yap";
-
+    // public static String direccion = "C:\\Users\\HP\\Documents\\GitHub\\b.yap";
     //public static String direccion = "C:\\Users\\eliza\\OneDrive\\Documentos\\GitHub\\MiniProyecto.yap";
     //public static String direccion = "C:\\Users\\Lenovo\\Desktop\\MiniProyecto\\MiniProyecto.yap";
 //    private void cerrarBaseVentana() {
@@ -314,16 +313,16 @@ public class INICIO extends javax.swing.JFrame {
             for (Cliente cliente1 : result) {
                 usuario = cliente1.getCedula();
                 password = cliente1.getContraseña();
-                nombre=cliente1.getNombre();
-                apellido=cliente1.getApellido();
-                codigo=cliente1.getCodigo_cli();
+                nombre = cliente1.getNombre();
+                apellido = cliente1.getApellido();
+                codigo = cliente1.getCodigo_cli();
 
             }
 
             txtusuario.setText(usuario.trim());
             txtcontra.setText(password.trim());
             this.dispose();
-            menu_cliente cli = new menu_cliente();
+            Terminos_Condiciones_Cliente cli = new Terminos_Condiciones_Cliente();
             cli.setVisible(true);
 
         } else {

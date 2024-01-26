@@ -103,7 +103,7 @@ public class CRUD_UBICACION extends javax.swing.JPanel {
         provinciacombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opcion", "Azuay", "Bolivar", "Cañar", "Carchi", "Chimborazo", "Cotopaxi", "El Oro", "Esmeraldas" }));
         add(provinciacombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, 180, -1));
 
-        ciudadcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opcion", "Guayaquil", "Quito", "Cuenca", "Santo Domingo", "Durán", "Machal", "Manta", "Portoviejo" }));
+        ciudadcombo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Seleccione una opcion", "Guayaquil", "Quito", "Cuenca", "Oña", "Santo Domingo", "Durán", "Machala", "Manta", "Portoviejo", "Caluma", "Guaranda", "Azogues", "Biblian", "Tulcan", "San Gabriel", "Alausi", "Guamote", "Latacunga", "Salcedo" }));
         add(ciudadcombo, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 150, 180, -1));
         add(txtbarrio, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 190, 180, -1));
         add(txtcalleprincipal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 230, 180, -1));

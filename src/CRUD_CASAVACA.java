@@ -485,7 +485,7 @@ public class CRUD_CASAVACA extends javax.swing.JPanel {
         jPanel1.add(spnrhabitaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 250, 100, -1));
         jPanel1.add(spnrbano, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 280, 100, -1));
 
-        cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "De Bloque", "De Ladrillo", "De Piedra", "De Madera", " " }));
+        cbxtipo.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "De Bloque", "De Ladrillo", "De Piedra", "De Madera" }));
         cbxtipo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbxtipoActionPerformed(evt);

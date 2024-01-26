@@ -50,6 +50,7 @@ public class Credenciales_agente extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         lblnombre2 = new javax.swing.JLabel();
+        btnguardar1 = new javax.swing.JButton();
         txtconsulta = new javax.swing.JTextField();
         btnbuscar = new javax.swing.JButton();
         lblnombre3 = new javax.swing.JLabel();
@@ -134,6 +135,14 @@ public class Credenciales_agente extends javax.swing.JPanel {
         lblnombre2.setFont(new java.awt.Font("Arial Narrow", 1, 18)); // NOI18N
         lblnombre2.setText("NOMBRE :");
 
+        btnguardar1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/limpiar.png"))); // NOI18N
+        btnguardar1.setText("LIMPIAR CAMPOS");
+        btnguardar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnguardar1ActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -145,20 +154,16 @@ public class Credenciales_agente extends javax.swing.JPanel {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 676, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(20, 20, 20)
-                                        .addComponent(lblnombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 249, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(160, 160, 160)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(9, 9, 9)
-                                        .addComponent(lblnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(25, 25, 25)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblnombre2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGap(169, 169, 169)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtapellido, javax.swing.GroupLayout.PREFERRED_SIZE, 211, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(lblnombre, javax.swing.GroupLayout.PREFERRED_SIZE, 128, javax.swing.GroupLayout.PREFERRED_SIZE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                             .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, 215, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -172,8 +177,10 @@ public class Credenciales_agente extends javax.swing.JPanel {
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblcod, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(283, 283, 283)
-                        .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(195, 195, 195)
+                        .addComponent(btnguardar, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnguardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 187, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(142, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -200,8 +207,10 @@ public class Credenciales_agente extends javax.swing.JPanel {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(txtusuario, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29)
-                .addComponent(btnguardar)
+                .addGap(28, 28, 28)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnguardar)
+                    .addComponent(btnguardar1, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(126, 126, 126))
@@ -238,23 +247,23 @@ public class Credenciales_agente extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     public void habiltarDatos() {
-
+        
         txtapellido.setEnabled(true);
         txtnombre.setEnabled(true);
         txtusuario.setEnabled(true);
         txtpass.setEnabled(true);
-
+        
     }
     private void btnbuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnbuscarActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-
+        
         String nombre = " ", apellido = " ", cod = " ";
-
+        
         Query query = base.query();
         query.constrain(Agente_inmobiliario.class);
         query.descend("cedula").constrain(txtconsulta.getText().trim());
         ObjectSet<Agente_inmobiliario> result = query.execute();
-
+        
         if (!result.isEmpty()) {
             habiltarDatos();
             for (Agente_inmobiliario agente : result) {
@@ -272,7 +281,7 @@ public class Credenciales_agente extends javax.swing.JPanel {
         } else {
             JOptionPane.showMessageDialog(null, "No se encontró ningún agente inmobiliario con la cedula ingresada", "Error", JOptionPane.ERROR_MESSAGE);
         }
-
+        
         base.close();
 
     }//GEN-LAST:event_btnbuscarActionPerformed
@@ -288,17 +297,17 @@ public class Credenciales_agente extends javax.swing.JPanel {
     }//GEN-LAST:event_txtnombreKeyTyped
 
     private void txtapellidoKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyReleased
-
+        
 
     }//GEN-LAST:event_txtapellidoKeyReleased
 
     private void txtapellidoKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtapellidoKeyTyped
-
+        
         char letra = evt.getKeyChar();
         if (Character.isDigit(letra)) {
             evt.consume();
         }
-
+        
         if (txtapellido.getText().trim().length() > 19) {
             evt.consume();
         }
@@ -309,39 +318,53 @@ public class Credenciales_agente extends javax.swing.JPanel {
     }//GEN-LAST:event_txtusuarioActionPerformed
 
     private void btnguardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardarActionPerformed
-
+        
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-
+        
         try {
             // Primero buscamos al agente por su cedula
             Query query = base.query();
             query.constrain(Agente_inmobiliario.class);
             query.descend("cedula").constrain(txtconsulta.getText().trim());
-
+            
             ObjectSet<Agente_inmobiliario> result = query.execute();
-
+            
             if (result.isEmpty()) {
                 // No se encontró al agente con esa cedula
                 JOptionPane.showMessageDialog(null, "No se encontró al agente con esa cedula");
             } else {
                 // Encontramos al agente, ahora verificamos si tiene un usuario y una contraseña
                 Agente_inmobiliario agente = result.get(0);
-
+                
                 if (agente.getUsuario() == null || agente.getPassword() == null) {
                     // El agente no tiene asignado un usuario ni una contraseña
                     if (txtusuario.getText().trim().isEmpty() || txtpass.getText().trim().isEmpty()) {
-                        JOptionPane.showMessageDialog(null, "Ingrese un usuario o cntraseña");
+                        JOptionPane.showMessageDialog(null, "Ingrese un usuario o contraseña");
                     } else {
+                        // Save the data to the database
                         SubirDatos(base);
 
+                        // Refresh the result set
+                        result = query.execute();
+
+                        // Update the table model immediately after saving
+                        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                        model.setRowCount(0); // Clear existing rows
+
+                        for (Agente_inmobiliario agente1 : result) {
+                            Object[] rowData = {agente1.getCodigo_agente(), agente1.getCedula(),
+                                agente1.getNombre(), agente1.getApellido(),
+                                agente1.getUsuario(), agente1.getPassword()};
+                            model.addRow(rowData);
+                        }
                     }
                 } else {
                     // El agente tiene asignado un usuario y una contraseña
                     JOptionPane.showMessageDialog(null, "El agente ya tiene asignado un usuario y una contraseña");
                     String[] columnNames = {"CODIGO", "CEDULA", "NOMBRE", "APELLIDO", "USUARIO", "CONTRASEÑA"};
-
+                    
                     Object[][] data = new Object[result.size()][6];
-
+                    
                     int i = 0;
                     for (Agente_inmobiliario agente1 : result) {
                         data[i][0] = agente1.getCodigo_agente();
@@ -350,21 +373,22 @@ public class Credenciales_agente extends javax.swing.JPanel {
                         data[i][3] = agente1.getApellido();
                         data[i][4] = agente1.getUsuario();
                         data[i][5] = agente1.getPassword();
-
+                        
                         i++;
                     }
-
-                    DefaultTableModel model = new DefaultTableModel(data, columnNames);
-                    jTable1.setModel(model);
+                    
+                    DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+                    model.setDataVector(data, columnNames);
                 }
             }
-
+            
         } catch (IllegalStateException e) {
             // Código que se ejecutará si se produce la excepción
             JOptionPane.showMessageDialog(null, "Error al buscar al agente");
+        } finally {
+            base.close();
         }
-
-        base.close();
+        
 
     }//GEN-LAST:event_btnguardarActionPerformed
 
@@ -376,12 +400,20 @@ public class Credenciales_agente extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtapellidoActionPerformed
 
+    private void btnguardar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnguardar1ActionPerformed
+        txtconsulta.setText("");        
+        txtnombre.setText("");
+        txtapellido.setText("");
+        txtusuario.setText("");
+        txtpass.setText("");// TODO add your handling code here:
+    }//GEN-LAST:event_btnguardar1ActionPerformed
+    
     public void SubirDatos(ObjectContainer base) {
-
+        
         habiltarDatos();
-
+        
         Agente_inmobiliario miagente = new Agente_inmobiliario(null, null, null, txtconsulta.getText().trim(), null, null, null, null, null, null);
-
+        
         ObjectSet res = base.get(miagente);
         Agente_inmobiliario miagent = (Agente_inmobiliario) res.next();
         miagent.setNombre(txtnombre.getText().trim());
@@ -389,23 +421,23 @@ public class Credenciales_agente extends javax.swing.JPanel {
         miagent.setCodigo_agente(lblcod.getText().trim());
         miagent.setUsuario(txtusuario.getText().trim());
         miagent.setPassword(txtpass.getText().trim());
-
+        
         base.set(miagent);
-
+        
         JOptionPane.showMessageDialog(this, "Se establecio de forma correcta las credenciales");
-
+        
         txtconsulta.setText(" ");
         lblcod.setText(" ");
         txtnombre.setText(" ");
-
+        
         txtapellido.setText("");
-
+        
         inhabiltarDatos();
-
+        
     }
-
+    
     public void inhabiltarDatos() {
-
+        
         txtapellido.setEnabled(false);
         txtnombre.setEnabled(false);
         txtusuario.setEnabled(false);
@@ -416,6 +448,7 @@ public class Credenciales_agente extends javax.swing.JPanel {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnbuscar;
     private javax.swing.JButton btnguardar;
+    private javax.swing.JButton btnguardar1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
