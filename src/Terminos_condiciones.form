@@ -41,7 +41,7 @@
           </AuxValues>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="10" y="0" width="900" height="590"/>
+              <AbsoluteConstraints x="10" y="0" width="900" height="630"/>
             </Constraint>
           </Constraints>
 
@@ -56,16 +56,6 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="java.awt.Checkbox" name="checaceptacion">
-          <Properties>
-            <Property name="label" type="java.lang.String" value="checkbox1"/>
-          </Properties>
-          <Constraints>
-            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="30" y="600" width="290" height="-1"/>
-            </Constraint>
-          </Constraints>
-        </Component>
       </SubComponents>
     </Container>
   </SubComponents>

@@ -179,16 +179,8 @@ public class menu_cliente extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-
-        pnldinamico.add(terminos, "crud");
-        vista.show(pnldinamico, "crud");
-        SwingUtilities.updateComponentTreeUI(this);
-        this.repaint();
-    }//GEN-LAST:event_jButton5ActionPerformed
-
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        int i = JOptionPane.showOptionDialog(null, "El Agente involiario tiene que establecer el contrato y factura", "Reservacion de Casas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, botones, botones);
+        int i = JOptionPane.showOptionDialog(null, "El Agente Inmobiliario tiene que establecer el contrato y factura", "Reservacion de Casas", JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, botones, botones);
         if (i == 0) {
             pnldinamico.add(contra, "crud");
             vista.show(pnldinamico, "crud");
@@ -225,6 +217,14 @@ public class menu_cliente extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Gracias por su interes");
         }
     }//GEN-LAST:event_jButton9ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+
+        pnldinamico.add(terminos, "crud");
+        vista.show(pnldinamico, "crud");
+        SwingUtilities.updateComponentTreeUI(this);
+        this.repaint();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
