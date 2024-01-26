@@ -15,6 +15,7 @@ public class Terminos_Condiciones_Cliente extends javax.swing.JFrame {
      */
     public Terminos_Condiciones_Cliente() {
         initComponents();
+        setLocationRelativeTo(null);
         jButton1.setEnabled(false);
     }
 
@@ -34,6 +35,7 @@ public class Terminos_Condiciones_Cliente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText("\nAl acceder y utilizar el software proporcionado por [Nomb, en adelante \"El Desarrollador\", usted (en adelante \"El Usuario\") acepta cumplir con los siguientes términos y condiciones.\n\nLicencia de Uso:\nEl Desarrollador otorga al Usuario una licencia no exclusiva, intransferible y limitada para utilizar el software de acuerdo con estos términos y condiciones. Esta licencia no confiere derechos de propiedad intelectual al Usuario.\n\nRestricciones de Uso:\nEl Usuario se compromete a no copiar, modificar, distribuir, vender, o sublicenciar el software, ni a realizar ingeniería inversa o descompilar el código fuente. El uso del software está destinado únicamente para fines legales y éticos.\n\nActualizaciones y Mejoras:\nEl Desarrollador se reserva el derecho de realizar actualizaciones y mejoras en el software. El Usuario acepta recibir estas actualizaciones automáticamente como parte del uso continuado del software.\n\nPrivacidad y Seguridad:\nEl Desarrollador se compromete a proteger la privacidad del Usuario y a implementar medidas de seguridad razonables. El Usuario acepta proporcionar información precisa y actualizada.\n\nSoporte Técnico:\nEl Desarrollador puede proporcionar soporte técnico según se describe en la documentación del software. El Usuario comprende que el soporte puede estar sujeto a tarifas adicionales.\n\nLimitación de Responsabilidad:\nEl Desarrollador no será responsable de daños directos, indirectos, incidentales o consecuentes que surjan del uso o la imposibilidad de usar el software, incluso si se ha informado al Desarrollador de la posibilidad de dichos daños.\n\nDerechos de Propiedad Intelectual:\nEl software, sus elementos gráficos y todos los derechos de propiedad intelectual asociados son propiedad exclusiva del Desarrollador. El Usuario acepta no eliminar ni modificar avisos de derechos de autor, marcas comerciales u otros avisos de propiedad.\n\nTerminación del Acuerdo:\nEste acuerdo puede ser terminado por cualquiera de las partes con o sin motivo. Al terminar, el Usuario debe dejar de usar el software y destruir todas las copias del mismo en su posesión.\n\nLeyes Aplicables:\nEste acuerdo se rige por las leyes del [Nombre del País/Estado] y cualquier disputa será resuelta en los tribunales competentes de [Ciudad].\n\nModificaciones a los Términos:\nEl Desarrollador se reserva el derecho de modificar estos términos y condiciones en cualquier momento. Las modificaciones serán efectivas al ser publicadas en el sitio web del Desarrollador. El uso continuado del software después de dichas modificaciones constituirá la aceptación de los nuevos términos.\n\nAl utilizar el software, el Usuario reconoce haber leído, entendido y aceptado estos términos y condiciones.\n\n");
@@ -46,6 +48,7 @@ public class Terminos_Condiciones_Cliente extends javax.swing.JFrame {
             }
         });
 
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/cliente.png"))); // NOI18N
         jButton1.setText("ACEPTAR TERMINOS Y CONDICIONES");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,7 +78,7 @@ public class Terminos_Condiciones_Cliente extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jCheckBox1)
                     .addComponent(jButton1))
-                .addGap(0, 11, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();
@@ -86,9 +89,9 @@ public class Terminos_Condiciones_Cliente extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1MouseClicked
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-     menu_cliente menu = new menu_cliente();
-     menu.setVisible(true);
-     this.dispose();
+        menu_cliente menu = new menu_cliente();
+        menu.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
     /**

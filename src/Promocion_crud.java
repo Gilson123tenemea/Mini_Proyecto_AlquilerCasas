@@ -20,8 +20,7 @@ public class Promocion_crud extends javax.swing.JPanel {
     public Promocion_crud() {
         initComponents();
         spndescu.setModel(new SpinnerNumberModel(0, 0, 100, 1));
-        
-        
+
     }
 
     @SuppressWarnings("unchecked")
@@ -297,6 +296,12 @@ public class Promocion_crud extends javax.swing.JPanel {
             return;
         }
 
+        // Validar que la fecha de inicio sea anterior a la fecha de fin
+        if (jDateChooser1.getDate() == null || jDateChooser2.getDate() == null || jDateChooser1.getDate().after(jDateChooser2.getDate())) {
+            JOptionPane.showMessageDialog(null, "La fecha de inicio debe ser anterior a la fecha de fin", "Error", JOptionPane.ERROR_MESSAGE);
+            return;  // Salir del método si las fechas son incorrectas
+        }
+
         try {
             Query query = base.query();
             query.constrain(Promocion.class);
@@ -330,7 +335,6 @@ public class Promocion_crud extends javax.swing.JPanel {
             base.close();
         }
     }
-
 
     public void ActualizarDatos(ObjectContainer base) {
         // Verificar si todos los campos están llenos

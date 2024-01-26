@@ -45,7 +45,7 @@
                   <Component id="jCheckBox1" alignment="3" min="-2" max="-2" attributes="0"/>
                   <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
-              <EmptySpace min="0" pref="11" max="32767" attributes="0"/>
+              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -60,6 +60,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="jTextArea1">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="text" type="java.lang.String" value="&#xa;Al acceder y utilizar el software proporcionado por [Nomb, en adelante &quot;El Desarrollador&quot;, usted (en adelante &quot;El Usuario&quot;) acepta cumplir con los siguientes t&#xe9;rminos y condiciones.&#xa;&#xa;Licencia de Uso:&#xa;El Desarrollador otorga al Usuario una licencia no exclusiva, intransferible y limitada para utilizar el software de acuerdo con estos t&#xe9;rminos y condiciones. Esta licencia no confiere derechos de propiedad intelectual al Usuario.&#xa;&#xa;Restricciones de Uso:&#xa;El Usuario se compromete a no copiar, modificar, distribuir, vender, o sublicenciar el software, ni a realizar ingenier&#xed;a inversa o descompilar el c&#xf3;digo fuente. El uso del software est&#xe1; destinado &#xfa;nicamente para fines legales y &#xe9;ticos.&#xa;&#xa;Actualizaciones y Mejoras:&#xa;El Desarrollador se reserva el derecho de realizar actualizaciones y mejoras en el software. El Usuario acepta recibir estas actualizaciones autom&#xe1;ticamente como parte del uso continuado del software.&#xa;&#xa;Privacidad y Seguridad:&#xa;El Desarrollador se compromete a proteger la privacidad del Usuario y a implementar medidas de seguridad razonables. El Usuario acepta proporcionar informaci&#xf3;n precisa y actualizada.&#xa;&#xa;Soporte T&#xe9;cnico:&#xa;El Desarrollador puede proporcionar soporte t&#xe9;cnico seg&#xfa;n se describe en la documentaci&#xf3;n del software. El Usuario comprende que el soporte puede estar sujeto a tarifas adicionales.&#xa;&#xa;Limitaci&#xf3;n de Responsabilidad:&#xa;El Desarrollador no ser&#xe1; responsable de da&#xf1;os directos, indirectos, incidentales o consecuentes que surjan del uso o la imposibilidad de usar el software, incluso si se ha informado al Desarrollador de la posibilidad de dichos da&#xf1;os.&#xa;&#xa;Derechos de Propiedad Intelectual:&#xa;El software, sus elementos gr&#xe1;ficos y todos los derechos de propiedad intelectual asociados son propiedad exclusiva del Desarrollador. El Usuario acepta no eliminar ni modificar avisos de derechos de autor, marcas comerciales u otros avisos de propiedad.&#xa;&#xa;Terminaci&#xf3;n del Acuerdo:&#xa;Este acuerdo puede ser terminado por cualquiera de las partes con o sin motivo. Al terminar, el Usuario debe dejar de usar el software y destruir todas las copias del mismo en su posesi&#xf3;n.&#xa;&#xa;Leyes Aplicables:&#xa;Este acuerdo se rige por las leyes del [Nombre del Pa&#xed;s/Estado] y cualquier disputa ser&#xe1; resuelta en los tribunales competentes de [Ciudad].&#xa;&#xa;Modificaciones a los T&#xe9;rminos:&#xa;El Desarrollador se reserva el derecho de modificar estos t&#xe9;rminos y condiciones en cualquier momento. Las modificaciones ser&#xe1;n efectivas al ser publicadas en el sitio web del Desarrollador. El uso continuado del software despu&#xe9;s de dichas modificaciones constituir&#xe1; la aceptaci&#xf3;n de los nuevos t&#xe9;rminos.&#xa;&#xa;Al utilizar el software, el Usuario reconoce haber le&#xed;do, entendido y aceptado estos t&#xe9;rminos y condiciones.&#xa;&#xa;"/>
@@ -77,6 +78,9 @@
     </Component>
     <Component class="javax.swing.JButton" name="jButton1">
       <Properties>
+        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+          <Image iconType="3" name="/imagenes/cliente.png"/>
+        </Property>
         <Property name="text" type="java.lang.String" value="ACEPTAR TERMINOS Y CONDICIONES"/>
       </Properties>
       <Events>

@@ -10,6 +10,7 @@ import java.awt.Frame;
 import javax.swing.JOptionPane;
 import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
+import java.text.SimpleDateFormat;
 
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -29,7 +30,7 @@ public class RESERVAR_AGENTE extends javax.swing.JPanel {
     public RESERVAR_AGENTE() {
         initComponents();
     }
-    
+
     public void cargarTablaReservas(ObjectContainer base) {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0); // Limpiar la tabla antes de cargar los datos
@@ -38,51 +39,58 @@ public class RESERVAR_AGENTE extends javax.swing.JPanel {
         query.constrain(Reservar.class);
         ObjectSet<Reservar> result = query.execute();
 
+        // Formato de fecha que deseas, por ejemplo, "dd/MM/yyyy"
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+
         while (result.hasNext()) {
             Reservar reserva = result.next();
+
+            // Formatear las fechas utilizando SimpleDateFormat
+            String fechaInicioFormatted = dateFormat.format(reserva.getFecha_ini());
+            String fechaFinFormatted = dateFormat.format(reserva.getFecha_fin());
 
             Object[] row = {
                 reserva.getCodigo_rese(),
                 reserva.getCoidigo_cli(),
                 reserva.getCodigo_casa(),
-                reserva.getFecha_ini(),
-                reserva.getFecha_fin()          
+                fechaInicioFormatted,
+                fechaFinFormatted
             };
             model.addRow(row);
         }
         base.close();
     }
-    
+
     public void buscarReserva(ObjectContainer base) {
-    try {
-        String codigoReserva = JOptionPane.showInputDialog(this, "Ingrese el código de reserva:");
+        try {
+            String codigoReserva = JOptionPane.showInputDialog(this, "Ingrese el código de reserva:");
 
-        if (codigoReserva != null && !codigoReserva.isEmpty()) {
-            Query query = base.query();
-            query.constrain(Reservar.class);
-            query.descend("codigo_rese").constrain(codigoReserva);
+            if (codigoReserva != null && !codigoReserva.isEmpty()) {
+                Query query = base.query();
+                query.constrain(Reservar.class);
+                query.descend("codigo_rese").constrain(codigoReserva);
 
-            ObjectSet<Reservar> result = query.execute();
-            if (!result.isEmpty()) {
-                Reservar reserva = result.next();
+                ObjectSet<Reservar> result = query.execute();
+                if (!result.isEmpty()) {
+                    Reservar reserva = result.next();
 
-                // Llenar los campos correspondientes con los datos de la reserva encontrada
-                jLabel10.setText(reserva.getCodigo_rese());
-                jTextField3.setText(reserva.getCoidigo_cli());
-                jTextField2.setText(reserva.getCodigo_casa());
-                date_ini.setDate(reserva.getFecha_ini());
-                date_fin.setDate(reserva.getFecha_fin());
+                    // Llenar los campos correspondientes con los datos de la reserva encontrada
+                    jLabel10.setText(reserva.getCodigo_rese());
+                    jTextField3.setText(reserva.getCoidigo_cli());
+                    jTextField2.setText(reserva.getCodigo_casa());
+                    date_ini.setDate(reserva.getFecha_ini());
+                    date_fin.setDate(reserva.getFecha_fin());
 
-                // Actualizar la tabla de reservas
-                cargarTablaReservas(base);
-            } else {
-                JOptionPane.showMessageDialog(this, "No se encontró ninguna reserva con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                    // Actualizar la tabla de reservas
+                    cargarTablaReservas(base);
+                } else {
+                    JOptionPane.showMessageDialog(this, "No se encontró ninguna reserva con el código ingresado.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
             }
+        } catch (Exception e) {
+            e.printStackTrace(); // Manejar la excepción de manera adecuada
         }
-    } catch (Exception e) {
-        e.printStackTrace(); // Manejar la excepción de manera adecuada
     }
-}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -154,7 +162,7 @@ public class RESERVAR_AGENTE extends javax.swing.JPanel {
                 jButton2ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 470, -1, -1));
+        jPanel1.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 470, -1, -1));
 
         jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/imagenes/busqueda.png"))); // NOI18N
         jButton3.setText("BUSCAR");
@@ -264,15 +272,15 @@ public class RESERVAR_AGENTE extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-         ObjectContainer base = Db4o.openFile(INICIO.direccion);
+        ObjectContainer base = Db4o.openFile(INICIO.direccion);
         cargarTablaReservas(base);
-        base.close(); 
-        
+        base.close();
+
         Frame parentFrame = (Frame) SwingUtilities.getWindowAncestor(this);
         ReporteReservaciones vista = new ReporteReservaciones(parentFrame, true, Administrador_Login.agente);
         vista.setVisible(true);
-        
-        
+
+
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
@@ -281,17 +289,17 @@ public class RESERVAR_AGENTE extends javax.swing.JPanel {
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         ObjectContainer base = Db4o.openFile(INICIO.direccion);
-       buscarReserva(base);        
-       base.close();    
+        buscarReserva(base);
+        base.close();
     }//GEN-LAST:event_jButton3ActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
